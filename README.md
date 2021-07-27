@@ -1,24 +1,17 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The scaffold Rails app for the internship project. 
 
-Things you may want to cover:
+- ruby 3.0.1
+- rails 6.1.4 
+- database PostgreSQL 
+- RSpec for tests
 
-* Ruby version
+### To launch app: 
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Ask owner about master key to decrypt credentials for database access 
+- pull app from the github on your local machine
+- create roles for postgres 
+- amend credentials with your data with `EDITOR="code --wait" rails credentials:edit --environment development`. Do the same for the test environment
+- run `rails s` in root folder
+- you should be able to see a standard rails greeting after going to localhost:3000 in your browser
