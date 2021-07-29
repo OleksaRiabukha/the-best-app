@@ -46,6 +46,8 @@ jobs:
     docker:
       - image: circleci/ruby:3.0.1-node
       - image: circleci/postgres:12.7
+        environment:
+          POSTGRES_PASSWORD: password
     parallelism: 2
     steps:
       - set_variables

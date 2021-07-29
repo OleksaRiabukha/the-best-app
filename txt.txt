@@ -84,3 +84,11 @@ workflows:
       - test:
           requires:
             - setup
+
+
+ - run: bundle exec rails assets:precompile
+      - run: bundle exec rails webpacker:compile
+      - save_cache:
+          key: webpack-{{ .Revision }}
+          paths:
+            - /home/circleci/project/public/packs-test/
