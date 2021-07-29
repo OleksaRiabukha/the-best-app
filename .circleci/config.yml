@@ -14,6 +14,8 @@ jobs:
           type: string
     docker:
       - image: circleci/ruby:3.0.1-node
+        environment:
+          POSTGRES_HOST: parameters.POSTGRES_HOST
     steps:
       - checkout
 
