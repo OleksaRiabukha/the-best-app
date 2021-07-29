@@ -12,7 +12,6 @@ commands:
             echo 'export RAILS_ENV=${test}' >> $BASH_ENV
             echo 'export NODE_ENV=${test}' >> $BASH_ENV
             source $BASH_ENV
-
 jobs:
   setup:
     docker:
@@ -41,7 +40,7 @@ jobs:
           key: yarn-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-
+      - run: bundle exec rails webpacker:install
       - run: bundle exec rails webpacker:compile
       - save_cache:
           key: webpack-{{ .Revision }}
@@ -51,8 +50,6 @@ jobs:
     docker:
       - image: circleci/ruby:3.0.1-node
       - image: circleci/postgres:12.7
-        environment:
-          POSTGRES_PASSWORD: password
     parallelism: 2
     steps:
       - set_variables
