@@ -39,6 +39,7 @@ jobs:
           DATABASE_URL: postgresql://postgres:secret@localhost:5432
       - image: circleci/postgres:12.7
         environment:
+          POSTGRES_HOST: localhost
           POSTGRES_USER: postgres
           POSTGRES_DB: the_best_app_test
           POSTGRES_PASSWORD: password
