@@ -50,11 +50,7 @@ jobs:
   test:
     docker:
       - image: circleci/ruby:3.0.1-node
-        environment: 
-          POSTGRES_HOST: $POSTGRES_HOST
       - image: circleci/postgres:12.7
-        environment:
-          POSTGRES_PASSWORD: $POSTGRES_PASSWORD
     parallelism: 2
     steps:
       - set_variables
