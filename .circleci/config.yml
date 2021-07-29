@@ -39,9 +39,10 @@ jobs:
           paths:
             - ~/.cache/yarn
 
-      - run: bundle exec rails webpacker:compile
-        environment:
-          DATABASE_URL: postgresql://postgres:secret@localhost:5432
+      - run: 
+          command: bundle exec rails webpacker:compile
+          environment:
+            DATABASE_URL: postgresql://postgres:secret@localhost:5432
 
       - save_cache:
           key: webpack-{{ .Revision }}
