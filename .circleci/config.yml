@@ -15,7 +15,7 @@ commands:
 jobs:
   setup:
     docker:
-      - image: circleci/ruby:3.0.1-node
+      - image: circleci/ruby:3.0.1-node-browsers
     steps:
       - set_variables
       - checkout
