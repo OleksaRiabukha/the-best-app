@@ -37,7 +37,7 @@ jobs:
       - image: circleci/ruby:3.0.1-node
         environment:
           DATABASE_URL: postgresql://postgres:secret@localhost:5432
-      - image: circleci/postgres:11
+      - image: circleci/postgres:12.7
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: the_best_app_test
