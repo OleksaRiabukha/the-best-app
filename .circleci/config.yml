@@ -10,7 +10,7 @@ jobs:
             echo 'export POSTGRES_HOST=${localhost}' >> $BASH_ENV
             echo 'export POSTGRES_USER=${postgres}' >> $BASH_ENV
             echo 'export POSTGRES_DB=${the_best_app_test}' >> $BASH_ENV
-            echo 'export POSTGRES_DB=${password}' >> $BASH_ENV
+            echo 'export POSTGRES_PASSWORD=${password}' >> $BASH_ENV
             source $BASH_ENV
 
       - checkout
