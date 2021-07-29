@@ -4,6 +4,8 @@ jobs:
     parameters:
     docker:
       - image: circleci/ruby:3.0.1-node
+        environment:
+          DATABASE_URL: postgresql://postgres:secret@localhost:5432
     steps:
       - run:
           command: |
