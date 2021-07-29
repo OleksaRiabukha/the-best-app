@@ -2,21 +2,17 @@ version: 2.1
 jobs:
   setup:
     parameters:
-        DATABASE_URL:
-          type: string
-        POSTGRES_HOST: 
-          type: string
-        POSTGRES_USER: 
-          type: string
-        POSTGRES_DB:
-          type: string
-        POSTGRES_PASSWORD:
-          type: string
     docker:
       - image: circleci/ruby:3.0.1-node
-        environment:
-          POSTGRES_HOST: parameters.POSTGRES_HOST
     steps:
+      - run:
+          command: |
+            echo 'export POSTGRES_HOST=${localhost}' >> $BASH_ENV
+            echo 'export POSTGRES_USER=${postgres}' >> $BASH_ENV
+            echo 'export POSTGRES_DB=${the_best_app_test}' >> $BASH_ENV
+            echo 'export POSTGRES_DB=${password}' >> $BASH_ENV
+            source $BASH_ENV
+
       - checkout
 
       - run: gem update --system
@@ -86,12 +82,7 @@ workflows:
   version: 2.1
   setup_and_test:
     jobs:
-      - setup:
-          DATABASE_URL: postgresql://postgres:secret@localhost:5432
-          POSTGRES_HOST: localhost
-          POSTGRES_USER: postgres
-          POSTGRES_DB: the_best_app_test
-          POSTGRES_PASSWORD: password
+      - setup
       - test:
           requires:
             - setup
