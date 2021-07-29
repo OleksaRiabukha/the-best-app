@@ -1,9 +1,7 @@
 version: 2.1
-jobs:
-  setup:
-    parameters:
-    docker:
-      - image: circleci/ruby:3.0.1-node
+
+commands:
+  set_variables:
     steps:
       - run:
           command: |
@@ -15,6 +13,12 @@ jobs:
             echo 'export NODE_ENV=${test}' >> $BASH_ENV
             source $BASH_ENV
 
+jobs:
+  setup:
+    docker:
+      - image: circleci/ruby:3.0.1-node
+    steps:
+      - set_variables
       - checkout
       - run: echo $BASH_ENV
       - run: gem update --system
@@ -46,13 +50,12 @@ jobs:
   test:
     docker:
       - image: circleci/ruby:3.0.1-node
-        environment:
-          DATABASE_URL: postgresql://postgres:secret@localhost:5432
       - image: circleci/postgres:12.7
         environment:
           POSTGRES_PASSWORD: password
     parallelism: 2
     steps:
+      - set_variables
       - checkout
       - restore_cache:
           keys:
