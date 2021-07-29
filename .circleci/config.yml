@@ -7,6 +7,9 @@ jobs:
           NODE_ENV: test
           RAILS_ENV: test
           POSTGRES_HOST: localhost
+          POSTGRES_USER: postgres
+          POSTGRES_DB: the_best_app_test
+          POSTGRES_PASSWORD: ""
     steps:
       - checkout
 
