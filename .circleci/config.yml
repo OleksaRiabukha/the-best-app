@@ -3,15 +3,15 @@ jobs:
   setup:
     parameters:
         DATABASE_URL:
-          type: env_var_name
+          type: string
         POSTGRES_HOST: 
-          type: env_var_name
+          type: string
         POSTGRES_USER: 
-          type: env_var_name
+          type: string
         POSTGRES_DB:
-          type: env_var_name
+          type: string
         POSTGRES_PASSWORD:
-          type: env_var_name
+          type: string
     docker:
       - image: circleci/ruby:3.0.1-node
     steps:
