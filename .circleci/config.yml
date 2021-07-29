@@ -41,12 +41,7 @@ jobs:
           key: yarn-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-      - run: bundle exec rails assets:precompile
-      - run: bundle exec rails webpacker:compile
-      - save_cache:
-          key: webpack-{{ .Revision }}
-          paths:
-            - /home/circleci/project/public/packs-test/
+     
   test:
     docker:
       - image: circleci/ruby:3.0.1-node
