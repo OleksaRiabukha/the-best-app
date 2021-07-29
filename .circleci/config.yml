@@ -5,12 +5,12 @@ commands:
     steps:
       - run:
           command: |
-            echo 'export POSTGRES_HOST=$(localhost)' >> $BASH_ENV
-            echo 'export POSTGRES_USER=$(postgres)' >> $BASH_ENV
-            echo 'export POSTGRES_DB=$(the_best_app_test)' >> $BASH_ENV
-            echo 'export POSTGRES_PASSWORD=$(password)' >> $BASH_ENV
-            echo 'export RAILS_ENV=$(test)' >> $BASH_ENV
-            echo 'export NODE_ENV=$(test)' >> $BASH_ENV
+            echo 'export POSTGRES_HOST=localhost' >> $BASH_ENV
+            echo 'export POSTGRES_USER=postgres' >> $BASH_ENV
+            echo 'export POSTGRES_DB=$the_best_app_test' >> $BASH_ENV
+            echo 'export POSTGRES_PASSWORD=password' >> $BASH_ENV
+            echo 'export RAILS_ENV=test' >> $BASH_ENV
+            echo 'export NODE_ENV=test' >> $BASH_ENV
             source $BASH_ENV
 jobs:
   setup:
