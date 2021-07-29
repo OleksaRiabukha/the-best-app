@@ -16,6 +16,8 @@ jobs:
   setup:
     docker:
       - image: circleci/ruby:3.0.1-node-browsers
+        environment:
+          NODE_ENV: test
     steps:
       - set_variables
       - checkout
