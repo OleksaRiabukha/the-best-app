@@ -65,6 +65,11 @@ jobs:
       - run: sudo apt install postgresql-client
       - run: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run: bundle exec rake db:create
+        environment:
+          POSTGRES_HOST: localhost
+          POSTGRES_USER: postgres
+          POSTGRES_DB: the_best_app_test
+          POSTGRES_PASSWORD: password
       - run: bundle exec rake db:schema:load
       - run:
           name: Specs
