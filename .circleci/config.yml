@@ -4,6 +4,9 @@ jobs:
     parameters:
     docker:
       - image: circleci/ruby:3.0.1-node
+        environment:
+          NODE_ENV: test
+          RAILS_ENV: test
     steps:
       - run:
           command: |
