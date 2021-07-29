@@ -20,7 +20,7 @@ jobs:
             source $BASH_ENV
 
       - checkout
-
+      - run: echo ${DATABASE_URL}
       - run: gem update --system
       - run: gem install bundler
 
