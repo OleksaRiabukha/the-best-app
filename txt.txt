@@ -1,19 +1,15 @@
 version: 2.1
 jobs:
   setup:
-    parameters:
-        DATABASE_URL:
-          type: env_var_name
-        POSTGRES_HOST: 
-          type: env_var_name
-        POSTGRES_USER: 
-          type: env_var_name
-        POSTGRES_DB:
-          type: env_var_name
-        POSTGRES_PASSWORD:
-          type: env_var_name
     docker:
       - image: circleci/ruby:3.0.1-node
+        environment:
+          NODE_ENV: test
+          RAILS_ENV: test
+          POSTGRES_HOST: localhost
+          POSTGRES_USER: postgres
+          POSTGRES_DB: the_best_app_test
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
 
@@ -84,12 +80,7 @@ workflows:
   version: 2.1
   setup_and_test:
     jobs:
-      - setup:
-          DATABASE_URL: postgresql://postgres:secret@localhost:5432
-          POSTGRES_HOST: localhost
-          POSTGRES_USER: postgres
-          POSTGRES_DB: the_best_app_test
-          POSTGRES_PASSWORD: password
+      - setup
       - test:
           requires:
             - setup
