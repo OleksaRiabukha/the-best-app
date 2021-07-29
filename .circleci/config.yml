@@ -45,6 +45,8 @@ jobs:
   test:
     docker:
       - image: circleci/ruby:3.0.1-node
+          environment:
+            DATABASE_URL: postgresql://postgres:secret@localhost:5432
       - image: circleci/postgres:12.7
     parallelism: 2
     steps:
@@ -66,7 +68,6 @@ jobs:
           name: Specs
           command: |
             TESTFILES=$(circleci tests glob "spec/**/*_spec.rb" | circleci tests split --split-by=timings)
-            echo $TESTFILES
             bundle exec rspec ${TESTFILES} --profile 10 --format RspecJunitFormatter --out ~/spec-timings/rspec.xml --format progress
       - store_test_results:
           path: ~/spec-timings
