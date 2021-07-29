@@ -9,7 +9,7 @@ jobs:
           POSTGRES_HOST: localhost
           POSTGRES_USER: postgres
           POSTGRES_DB: the_best_app_test
-          POSTGRES_PASSWORD: ""
+          POSTGRES_PASSWORD: password
     steps:
       - checkout
 
@@ -49,7 +49,7 @@ jobs:
           POSTGRES_HOST: localhost
           POSTGRES_USER: postgres
           POSTGRES_DB: the_best_app_test
-          POSTGRES_PASSWORD: ""
+          POSTGRES_PASSWORD: password
     parallelism: 2
     steps:
       - checkout
