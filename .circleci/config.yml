@@ -49,6 +49,7 @@ jobs:
           POSTGRES_DB: the_best_app_test
           POSTGRES_PASSWORD: password
       - image: circleci/postgres:12.7
+        environment:
           POSTGRES_PASSWORD: password
     parallelism: 2
     steps:
