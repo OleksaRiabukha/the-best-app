@@ -21,7 +21,6 @@ jobs:
     steps:
       - set_variables
       - checkout
-      - run: echo $BASH_ENV
       - run: gem update --system
       - run: gem install bundler
 
@@ -42,7 +41,7 @@ jobs:
           key: yarn-{{ checksum "yarn.lock" }}
           paths:
             - ~/.cache/yarn
-      - run: bundle exec rails webpacker:install
+      - run: bundle exec rails assets:precompile
       - run: bundle exec rails webpacker:compile
       - save_cache:
           key: webpack-{{ .Revision }}
