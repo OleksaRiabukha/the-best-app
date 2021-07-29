@@ -45,8 +45,8 @@ jobs:
   test:
     docker:
       - image: circleci/ruby:3.0.1-node
-          environment:
-            DATABASE_URL: postgresql://postgres:secret@localhost:5432
+        environment:
+          DATABASE_URL: postgresql://postgres:secret@localhost:5432
       - image: circleci/postgres:12.7
     parallelism: 2
     steps:
