@@ -3,6 +3,10 @@ jobs:
   setup:
     docker:
       - image: circleci/ruby:3.0.1-node
+        environment:
+          NODE_ENV: test
+          RAILS_ENV: test
+          POSTGRES_HOST: localhost
     steps:
       - checkout
 
@@ -37,10 +41,6 @@ jobs:
       - image: circleci/ruby:3.0.1-node
         environment:
           DATABASE_URL: postgresql://postgres:secret@localhost:5432
-          POSTGRES_HOST: localhost
-          POSTGRES_USER: postgres
-          POSTGRES_DB: the_best_app_test
-          POSTGRES_PASSWORD: ""
       - image: circleci/postgres:12.7
         environment:
           POSTGRES_HOST: localhost
