@@ -22,7 +22,8 @@
 #  index_users_on_role                  (role)
 #
 class User < ApplicationRecord
-  enum role: { simple: 'simple', admin: 'admin' }
+  enum role: { simple: "simple", admin: "admin"}
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 end
