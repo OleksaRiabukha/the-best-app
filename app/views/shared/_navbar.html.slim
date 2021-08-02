@@ -12,3 +12,6 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
           = link_to 'Sign In', new_user_session_path, class: 'nav-link'
         li.nav-item
           = link_to 'Register', new_user_registration_path, class: 'nav-link'
+      - if user_signed_in? && current_user.role == 'admin'
+        li.nav-item 
+          = link_to 'Admin Panel', admin_dashboard_path, class: 'nav-link'
