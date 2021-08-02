@@ -22,8 +22,13 @@
 #  index_users_on_role                  (role)
 #
 class User < ApplicationRecord
+  after_save :make_admin
   enum role: { simple: "simple", admin: "admin"}
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  def make_admin
+    self.update_column("role", "admin") if self.id == 1
+  end
 end
