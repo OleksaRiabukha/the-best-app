@@ -11,7 +11,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  role                   :enum             default("simple")
+#  role                   :integer          default("simple")
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -22,8 +22,14 @@
 #  index_users_on_role                  (role)
 #
 class User < ApplicationRecord
-  enum role: { simple: "simple", admin: "admin"}
+  after_save :make_admin
+
+  enum role: { simple: 0, admin: 1 }
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  def make_admin
+    self.update_column("role", "admin") if self.id == 1
+  end
 end
