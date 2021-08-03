@@ -1,5 +1,5 @@
 module AdminHelper
   def is_admin?
-    user_signed_in? && current_user.role == 'admin'
+    current_user.admin?
   end
 end

@@ -31,7 +31,7 @@ class User < ApplicationRecord
 
 
   def admin? 
-    self.role == 'admin'
+    role == 'admin'
   end
 
   private 
