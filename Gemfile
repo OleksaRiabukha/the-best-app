@@ -12,7 +12,8 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.7'
 gem 'devise'
 gem 'bootsnap', '>= 1.4.4', require: false
-gem "slim-rails"
+gem 'slim-rails'
+gem 'pundit'
 
 
 group :development, :test do
@@ -20,7 +21,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 5.0.0'
   gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
   gem 'annotate'
-  gem "rspec_junit_formatter"
+  gem 'rspec_junit_formatter'
 end
 
 group :development do
