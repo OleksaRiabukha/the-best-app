@@ -30,6 +30,6 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   def make_admin
-    self.update_column("role", "admin") if self.id == 1
+    update_column("role", "admin") if self.id == 1
   end
 end
