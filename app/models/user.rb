@@ -23,6 +23,7 @@
 #
 class User < ApplicationRecord
   after_save :make_admin
+  
   enum role: { simple: "simple", admin: "admin"}
 
   devise :database_authenticatable, :registerable,
