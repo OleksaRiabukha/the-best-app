@@ -11,7 +11,7 @@
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  role                   :enum             default("simple")
+#  role                   :integer          default("simple")
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #
@@ -23,8 +23,8 @@
 #
 class User < ApplicationRecord
   after_save :make_admin
-  
-  enum role: { simple: "simple", admin: "admin"}
+
+  enum role: { simple: 0, admin: 1 }
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
