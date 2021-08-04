@@ -24,12 +24,14 @@
 class User < ApplicationRecord
   after_save :make_admin
 
-  enum role: { simple: 0, admin: 1 }
+  ADMIN = :admin
+  SIMPLE = :simple
+  
+  enum role: { SIMPLE => 0, ADMIN => 1 }
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-
-
+       
   def admin? 
     role == 'admin'
   end
