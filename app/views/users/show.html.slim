@@ -1,0 +1,9 @@
+h2 Hello, #{current_user.first_name}!
+
+= link_to edit_user_path(current_user) do
+  button.btn.btn-primary
+    = "Edit your profile info"
+= link_to user_path(current_user), method: :delete, data: { confirm: "Are you sure?" } do
+  button.btn.btn-danger
+    = "Delete your account"
+
