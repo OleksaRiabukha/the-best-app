@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
-  root 'home#index'
   devise_for :users
+
   resources :users
 
   resources :restaurants
@@ -9,4 +9,6 @@ Rails.application.routes.draw do
     get '/dashboard', to: "dashboard#index"
     resources :restaurants
   end
+
+  root 'home#index'
 end
