@@ -1,9 +1,7 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :users
-
-  resources :restaurants
+  resources :users, :restaurants
 
   namespace :admin do
     get '/dashboard', to: "dashboard#index"
