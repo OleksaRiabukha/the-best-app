@@ -6,7 +6,7 @@
 #  description  :text
 #  hidden       :boolean          default(TRUE), not null
 #  name         :string           default(""), not null
-#  phone_number :text
+#  phone_number :string
 #  website_url  :string
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null

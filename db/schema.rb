@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_06_133304) do
+ActiveRecord::Schema.define(version: 2021_08_06_134551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "restaurants", force: :cascade do |t|
     t.string "name", default: "", null: false
-    t.text "phone_number"
+    t.string "phone_number"
     t.string "website_url"
     t.text "description"
     t.boolean "hidden", default: true, null: false
