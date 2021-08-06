@@ -16,6 +16,9 @@
 #  index_restaurants_on_name  (name) UNIQUE
 #
 class Restaurant < ApplicationRecord
+  scope :active, -> { where(hidden: false) }
+  scope :hidden, -> { where(hidden: true) }
+
   validates :name, presence: true
   validates :name, uniqueness: true
 end
