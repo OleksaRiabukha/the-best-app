@@ -1,5 +1,6 @@
 class Admin::RestaurantsController < ApplicationController
   before_action :find_restaurant, only: %i[show update edit destroy]
+  before_action :authorize_access
 
   def show; end
 
@@ -21,7 +22,7 @@ class Admin::RestaurantsController < ApplicationController
 
   def update
     if @restaurant.update(restaurant_params)
-      flash[:notic] = "Successfully updated restaurant details!"
+      flash[:notice] = "Successfully updated restaurant details!"
       redirect_to admin_restaurant_path(@restaurant)
     else
       render :edit
@@ -43,5 +44,9 @@ class Admin::RestaurantsController < ApplicationController
 
   def restaurant_params
     params.require(:restaurant).permit(:name, :phone_number, :description, :website_url, :hidden)
+  end
+
+  def authorize_access
+    policy_scope([:admin, :restaurants])
   end
 end
