@@ -1,0 +1,35 @@
+
+= form_with(model: [:admin, restaurant]) do |f|
+  - if restaurant.errors.any?
+    h2
+      | Found some errors, fix them before saving: 
+    ul
+      - restaurant.errors.each do |error|
+        li
+          = error.full_message
+  p
+  .field
+    = f.label :name
+  = f.text_field :name
+  p
+  .field
+    = f.label :phone_number
+  = f.text_field :phone_number
+  p
+  .field
+    = f.label :website_url
+  = f.text_field :website_url
+  p
+  .field 
+    = f.label :description
+  = f.text_area :description, size: "70x5"
+  p
+  .field
+    = f.label :hidden, "Hide your restaurant from users?"
+    = f.check_box :hidden
+  p
+  .actions
+    = f.submit "#{button_text}"
+    = link_to return_to do
+        button.btn.btn-secondary
+          = "Cancel"

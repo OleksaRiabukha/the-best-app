@@ -1,0 +1,17 @@
+.card.md-3
+  img.card-img-to[src="#"]
+  .card-body
+    h5.card-title
+    = @restaurant.name
+    p.card-text
+    = @restaurant.description
+    p.card-text
+    | Phone Number: #{@restaurant.phone_number}
+    br
+    | Link to website: #{@restaurant.website_url}
+= link_to edit_admin_restaurant_path(@restaurant) do
+  button.btn.btn-primary 
+    = "Edit"
+= link_to admin_restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } do
+  button.btn.btn-danger 
+    = "Delete"
