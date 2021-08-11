@@ -26,7 +26,7 @@ RSpec.describe "Restaurants", type: :request do
       end
 
       it 'redirects user to sign in page' do
-        expect(response).to redirect_to("/users/sign_in")
+        expect(response).to redirect_to("/")
       end
 
       it 'throws a warning' do
