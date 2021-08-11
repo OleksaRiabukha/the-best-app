@@ -1,6 +1,5 @@
-class Admin::RestaurantsController < ApplicationController
+class Admin::RestaurantsController < Admin::AdminController
   before_action :find_restaurant, only: %i[show update edit destroy]
-  before_action :authorize_access
 
   def show; end
 
@@ -44,9 +43,5 @@ class Admin::RestaurantsController < ApplicationController
 
   def restaurant_params
     params.require(:restaurant).permit(:name, :phone_number, :description, :website_url, :hidden)
-  end
-
-  def authorize_access
-    policy_scope([:admin, :restaurants])
   end
 end
