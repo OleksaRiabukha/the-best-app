@@ -21,4 +21,8 @@ class Restaurant < ApplicationRecord
 
   validates :name, presence: true
   validates :name, uniqueness: true
+
+  def active?
+    hidden == false
+  end
 end
