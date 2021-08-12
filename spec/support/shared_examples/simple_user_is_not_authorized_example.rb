@@ -1,4 +1,4 @@
-RSpec.shared_examples 'authorization of simple user' do
+RSpec.shared_examples 'simple user is not authorized' do
   login_user
 
   before do
