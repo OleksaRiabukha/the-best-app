@@ -1,12 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "Restaurant", type: :request do
-  context "when logged in admin tries to" do
+RSpec.describe 'Restaurant', type: :request do
+  context 'when logged in admin tries to' do
     login_admin
     
-    describe "GET /admin/restaurants/:id" do
-      context "access restaurant page" do
-        let(:restaurant) { FactoryBot.create(:restaurant) }
+    describe 'GET /admin/restaurants/:id' do
+      context 'access restaurant page' do
+        let(:restaurant) { create(:restaurant) }
         
         before do
           get admin_restaurant_path(restaurant)
@@ -34,9 +34,9 @@ RSpec.describe "Restaurant", type: :request do
       end
     end
     
-    describe "POST /admin/restaurants/new" do
-      context "create new restaurant with valid attributes" do
-        let(:params) { { restaurant: FactoryBot.attributes_for(:restaurant) } }
+    describe 'POST /admin/restaurants/new' do
+      context 'create new restaurant with valid attributes' do
+        let(:params) { { restaurant: attributes_for(:restaurant) } }
           
         before do
           post admin_restaurants_path, params: params
@@ -46,36 +46,36 @@ RSpec.describe "Restaurant", type: :request do
           expect(response).to have_http_status(:found)
         end
 
-        it "adds new restaurant to database" do
+        it 'adds new restaurant to database' do
           expect(Restaurant.count).to eq(1)
         end
 
-        it "redirects user to newly created restaurant page" do
+        it 'redirects user to newly created restaurant page' do
           expect(response).to redirect_to(admin_restaurant_path(Restaurant.first))
         end
       end
 
-      context "create new restaurant with invalid attributes" do      
-        let(:params) { { restaurant: { name: "" } } }
+      context 'create new restaurant with invalid attributes' do      
+        let(:params) { { restaurant: { name: '' } } }
         
         before do
           post admin_restaurants_path, params: params
         end
   
-        it "does not add restaurant object to database" do
+        it 'does not add restaurant object to database' do
           expect(Restaurant.count).to eq(0)
         end
   
         it 'renders new template' do
-          expect(response.body).to include("Add new restaurant")
+          expect(response.body).to include('Add new restaurant')
         end
       end
     end
 
-    describe "PATCH /admin/restaurants/:id" do
-      context "update restaurant details" do
-        let(:name) { "new name" }
-        let(:restaurant_id) { (FactoryBot.create(:restaurant)).id }
+    describe 'PATCH /admin/restaurants/:id' do
+      context 'update restaurant details' do
+        let(:name) { 'new name' }
+        let(:restaurant_id) { (create(:restaurant)).id }
         let(:params) { { restaurant: { id: restaurant_id, name: name } } }
 
         before do
@@ -92,9 +92,9 @@ RSpec.describe "Restaurant", type: :request do
       end
     end
 
-    describe "DELETE /admin/restaurants/:id" do
-      context "delete restaurant" do
-        let(:restaurant_id) { (FactoryBot.create(:restaurant)).id }
+    describe 'DELETE /admin/restaurants/:id' do
+      context 'delete restaurant' do
+        let(:restaurant_id) { (create(:restaurant)).id }
 
         before do
           delete "/admin/restaurants/#{restaurant_id}" 
@@ -106,6 +106,24 @@ RSpec.describe "Restaurant", type: :request do
 
         it 'redirects admin to dashboard' do
           expect(response).to redirect_to(admin_dashboard_path)
+        end
+      end
+    end
+  end
+
+  context 'when simple logged in user tries to' do
+    login_user
+
+    describe 'GET /admin/restaurants/:id' do
+      context 'access admin restaurant page' do
+        let(:restaurant) { create(:restaurant) }
+        
+        before do
+          get admin_restaurant_path(restaurant)
+        end
+
+        it 'redirects to home page' do
+          expect(response).to redirect_to('/')
         end
       end
     end
