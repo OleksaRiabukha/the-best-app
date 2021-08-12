@@ -1,5 +1,4 @@
 .card.md-3
-  img.card-img-to[src="#"]
   .card-body
     h5.card-title
     = @restaurant.name
@@ -9,9 +8,5 @@
     | Phone Number: #{@restaurant.phone_number}
     br
     | Link to website: #{@restaurant.website_url}
-= link_to edit_admin_restaurant_path(@restaurant) do
-  button.btn.btn-primary 
-    = "Edit"
-= link_to admin_restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" } do
-  button.btn.btn-danger 
-    = "Delete"
+= link_to fa_icon('edit'), edit_admin_restaurant_path(@restaurant), class: "btn btn-primary"
+= link_to fa_icon('trash'), admin_restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"

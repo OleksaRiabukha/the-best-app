@@ -1,9 +1,9 @@
 class Admin::AdminController < ApplicationController
-  before_action :authorize_access
+  before_action :require_admin
   
   private 
 
-  def authorize_access
+  def require_admin
     policy_scope([:admin, :restaurants])
   end
 end
