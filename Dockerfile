@@ -11,7 +11,6 @@ RUN gem install bundler
 RUN bundle install
 
 COPY . /usr/src/app/
-COPY .node_modules/bootstrap-icons /usr/src/app/
 
 COPY ./entrypoint.sh /usr/bin/
 RUN chmod +x /usr/bin/entrypoint.sh
