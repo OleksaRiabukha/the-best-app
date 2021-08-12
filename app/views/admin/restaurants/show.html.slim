@@ -8,5 +8,5 @@
     | Phone Number: #{@restaurant.phone_number}
     br
     | Link to website: #{@restaurant.website_url}
-= link_to "Edit", edit_admin_restaurant_path(@restaurant), class: "btn btn-primary"
-= link_to "Delete", admin_restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
+= link_to icon("pencil"), edit_admin_restaurant_path(@restaurant), class: "btn btn-primary"
+= link_to icon("trash"), admin_restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"

@@ -1,4 +1,4 @@
 h2 Hello, #{current_user.first_name}!
 
-= link_to "Edit your profile info", edit_user_path(current_user), class: "btn btn-primary"
-= link_to "Delete your account", user_path(current_user), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
+= link_to icon("pencil"), edit_user_path(current_user), class: "btn btn-primary"
+= link_to icon("trash"), user_path(current_user), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
