@@ -16,8 +16,8 @@
 #  index_restaurants_on_name  (name) UNIQUE
 #
 class Restaurant < ApplicationRecord
-  default_scope { order("created_at DESC") }
-  
+  default_scope { order(created_at: :desc) }
+
   scope :active, -> { where(hidden: false) }
   scope :hidden, -> { where(hidden: true) }
 

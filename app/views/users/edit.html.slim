@@ -6,5 +6,5 @@ h2 Edit your profile details
   = f.input :email
   = f.input :password
   = f.input :password_confirmation
-  = f.button :submit, "Update Details", class: "btn btn-primary"
+  = f.submit "Save", class: "btn btn-primary"
    = link_to "Cancel", user_path(current_user), class: "btn btn-secondary"
