@@ -6,7 +6,7 @@ RSpec.describe 'Restaurant', type: :request do
     
     describe 'GET /admin/restaurants/:id' do
       context 'access restaurant page' do
-        let(:restaurant) { FactoryBot.create(:restaurant) }
+        let(:restaurant) { create(:restaurant) }
         
         before do
           get admin_restaurant_path(restaurant)
@@ -36,7 +36,7 @@ RSpec.describe 'Restaurant', type: :request do
     
     describe 'POST /admin/restaurants/new' do
       context 'create new restaurant with valid attributes' do
-        let(:params) { { restaurant: FactoryBot.attributes_for(:restaurant) } }
+        let(:params) { { restaurant: attributes_for(:restaurant) } }
           
         before do
           post admin_restaurants_path, params: params
@@ -75,7 +75,7 @@ RSpec.describe 'Restaurant', type: :request do
     describe 'PATCH /admin/restaurants/:id' do
       context 'update restaurant details' do
         let(:name) { 'new name' }
-        let(:restaurant_id) { (FactoryBot.create(:restaurant)).id }
+        let(:restaurant_id) { (create(:restaurant)).id }
         let(:params) { { restaurant: { id: restaurant_id, name: name } } }
 
         before do
@@ -94,7 +94,7 @@ RSpec.describe 'Restaurant', type: :request do
 
     describe 'DELETE /admin/restaurants/:id' do
       context 'delete restaurant' do
-        let(:restaurant_id) { (FactoryBot.create(:restaurant)).id }
+        let(:restaurant_id) { (create(:restaurant)).id }
 
         before do
           delete "/admin/restaurants/#{restaurant_id}" 
@@ -116,7 +116,7 @@ RSpec.describe 'Restaurant', type: :request do
 
     describe 'GET /admin/restaurants/:id' do
       context 'access admin restaurant page' do
-        let(:restaurant) { FactoryBot.create(:restaurant) }
+        let(:restaurant) { create(:restaurant) }
         
         before do
           get admin_restaurant_path(restaurant)
