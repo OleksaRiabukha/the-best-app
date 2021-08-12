@@ -1,6 +1,5 @@
-class Admin::DashboardController < ApplicationController
+class Admin::DashboardController < Admin::AdminController
   def index
-    policy_scope([:admin, :dashboard])
     @restaurants = Restaurant.all
   end
 end
