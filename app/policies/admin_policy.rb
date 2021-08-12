@@ -6,5 +6,13 @@ class AdminPolicy < ApplicationPolicy
       @user = user
       @scope = scope
     end
+
+    def resolve
+      if user.admin?
+        scope
+      else
+        raise Pundit::NotAuthorizedError
+      end
+    end
   end
 end

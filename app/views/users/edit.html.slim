@@ -1,38 +1,10 @@
-= form_for(current_user) do |f|
-  - if current_user.errors.any?
-      h2
-        =
-        |  Fix errors to update details:
-      ul
-        - current_user.errors.full_messages.each do |msg|
-          li
-            = msg
-  p
-  .field
-    = f.label :first_name
-  = f.text_field :first_name
-  p
-  .field
-    = f.label :last_name
-  = f.text_field :last_name
-  p
-  .field
-    = f.label :phone_number
-  = f.text_field :phone_number
-  p
-  .field
-    = f.label :email
-  = f.email_field :email
-  p
-  .field
-    = f.label :password, "New password"
-  = f.password_field :password
-  p
-  .field
-    = f.label :password_confirmation
-  = f.password_field :password_confirmation
-  .actions
-    = f.submit "Update Details"
-    = link_to user_path(current_user) do
-        button.btn.btn-secondary
-          = "Cancel"
+h2 Edit your profile details
+= simple_form_for current_user do |f|
+  = f.input :first_name
+  = f.input :last_name
+  = f.input :phone_number
+  = f.input :email
+  = f.input :password
+  = f.input :password_confirmation
+  = f.submit "Save", class: "btn btn-primary"
+  = link_to "Cancel", user_path(current_user), class: "btn btn-secondary"

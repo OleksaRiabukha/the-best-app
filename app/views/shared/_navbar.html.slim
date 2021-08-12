@@ -15,5 +15,11 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
         li.nav-item
           = link_to 'Register', new_user_registration_path, class: 'nav-link'
       - if user_signed_in? && is_admin?
-        li.nav-item 
-          = link_to 'Admin Panel', admin_dashboard_path, class: 'nav-link'
+          li.dropdown
+            button#dropdownMenuButton1.btn.btn-secondary.dropdown-toggle[type="button" data-bs-toggle="dropdown" aria-expanded="false"]
+              |  Admin Panel
+            ul.dropdown-menu[aria-labelledby="dropdownMenuButton1"]
+              li
+                = link_to "Dashboard", admin_dashboard_path, class: 'dropdown-item'
+              li
+                = link_to "Add New Restaurant", new_admin_restaurant_path, class: 'dropdown-item'

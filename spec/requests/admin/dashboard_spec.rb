@@ -1,9 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe "Dashboard", type: :request do
-  describe "GET /admin/dashboard" do
+RSpec.describe 'Dashboard', type: :request do
+  describe 'GET /admin/dashboard' do
     context 'when authorized user tries to access dashboard' do
       login_admin
+
       it 'returns 200 code' do
         get admin_dashboard_path
         expect(response).to have_http_status(:ok)
@@ -12,6 +13,7 @@ RSpec.describe "Dashboard", type: :request do
 
     context 'when unauthorized user tries to access dashboard' do
       login_user
+
       before do
         get admin_dashboard_path
       end
@@ -24,7 +26,7 @@ RSpec.describe "Dashboard", type: :request do
         expect(response).to redirect_to('/')
       end
 
-      it "returns 302 code" do
+      it 'returns 302 code' do
         expect(response).to have_http_status(:found) 
       end
     end
