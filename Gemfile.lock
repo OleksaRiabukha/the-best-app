@@ -91,6 +91,8 @@ GEM
     faker (2.18.0)
       i18n (>= 1.6, < 2)
     ffi (1.15.3)
+    font-awesome-rails (4.7.0.7)
+      railties (>= 3.2, < 7)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.10)
@@ -246,6 +248,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.1, >= 2.1.1)
   factory_bot_rails
   faker
+  font-awesome-rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
   pg (~> 1.1)
