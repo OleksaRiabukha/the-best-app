@@ -11,6 +11,7 @@ class Admin::RestaurantsController < Admin::AdminController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
+    
     if @restaurant.save
       flash[:notice] = "Successfully added new restaurant!"
       redirect_to admin_restaurant_path(@restaurant)
