@@ -14,6 +14,7 @@ gem 'devise'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'slim-rails'
 gem 'pundit'
+gem 'simple_form'
 
 group :test do
   gem 'factory_bot_rails'
