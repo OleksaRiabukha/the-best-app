@@ -29,7 +29,5 @@
     = f.check_box :hidden
   p
   .actions
-    = f.submit "#{button_text}"
-    = link_to return_to do
-        button.btn.btn-secondary
-          = "Cancel"
+    = f.submit "Save", class: "btn btn-primary"
+    = link_to "Cancel", return_to, class: "btn btn-danger"
