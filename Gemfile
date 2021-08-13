@@ -19,7 +19,6 @@ gem 'font-awesome-rails'
 
 group :test do
   gem 'factory_bot_rails'
-  gem 'faker'
   gem 'shoulda-matchers', '~> 5.0'
 end
 
@@ -29,6 +28,7 @@ group :development, :test do
   gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
   gem 'annotate'
   gem 'rspec_junit_formatter'
+  gem 'faker'
 end
 
 group :development do

@@ -31,17 +31,17 @@ class User < ApplicationRecord
   }
 
   after_save :make_admin
-  
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-       
-  def admin? 
+
+  def admin?
     role == 'admin'
   end
 
-  private 
+  private
 
   def make_admin
-    update_column("role", "admin") if id == 1
+    update_column('role', 'admin') if id == 1
   end
 end
