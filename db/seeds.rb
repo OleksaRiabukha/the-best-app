@@ -26,9 +26,17 @@ User.create!([
   }
   ])
 
-10.times do
+5.times do
   Restaurant.create!(name: Faker::Restaurant.name,
                      phone_number: Faker::PhoneNumber.phone_number,
                      website_url: Faker::Internet.url,
                      description: Faker::Restaurant.description)
+end
+
+5.times do
+  Restaurant.create!(name: Faker::Restaurant.name,
+                     phone_number: Faker::PhoneNumber.phone_number,
+                     website_url: Faker::Internet.url,
+                     description: Faker::Restaurant.description,
+                     hidden: false)
 end

@@ -1,8 +1,5 @@
 .card.mb-3
 - @restaurants.each do |restaurant|
-  img.card-img-top
-    = link_to restaurant_path(restaurant)
-      = image_tag("placeholder.jpg", width: "100%", height: '500px')
     .card-body
       h5.card-title
         = restaurant.name
@@ -11,6 +8,4 @@
           | Category
       p.card-text
         = restaurant.description
-      = link_to restaurant_path(restaurant) do
-        button.btn.btn-info
-          = "Try it!"
+      = link_to 'Try it now!', restaurant_path(restaurant), class: "btn btn-info"

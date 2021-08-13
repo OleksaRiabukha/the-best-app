@@ -1,6 +1,4 @@
 .card.md-3
-  img.card-img-to
-    = image_tag('placeholder.jpg', width: "100%", height: "500px")
   .card-body
     h5.card-title
     = @restaurant.name
@@ -10,9 +8,5 @@
     = @restaurant.phone_number
     br
     = @restaurant.website_url
-= link_to " " do
-  button.btn.btn-primary 
-    = "Menu"
-= link_to restaurants_path do
-  button.btn.btn-danger 
-    = "Go back"
+= link_to "Menu", "#", class: "btn btn-primary"
+= link_to "Go Back", restaurants_path, class: "btn btn-danger"

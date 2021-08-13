@@ -27,7 +27,7 @@ RSpec.describe 'Dashboard', type: :request do
       end
 
       it 'returns 302 code' do
-        expect(response).to have_http_status(:found) 
+        expect(response).to have_http_status(:found)
       end
     end
   end

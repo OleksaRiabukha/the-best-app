@@ -2,7 +2,7 @@ class RestaurantsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @restaurants = Restaurant.active
+    @restaurants = policy_scope(Restaurant)
   end
 
   def show
