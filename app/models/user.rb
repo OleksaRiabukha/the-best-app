@@ -7,7 +7,7 @@
 #  encrypted_password     :string           default(""), not null
 #  first_name             :string
 #  last_name              :string
-#  phone_number           :string
+#  phone_number           :text
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -25,23 +25,18 @@ class User < ApplicationRecord
   ADMIN = :admin
   SIMPLE = :simple
 
-  enum role: { 
-    SIMPLE => 0, 
-    ADMIN => 1 
-  }
+  ROLES = [SIMPLE, ADMIN].freeze
+
+  enum role: ROLES
 
   after_save :make_admin
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  def admin?
-    role == 'admin'
-  end
-
   private
 
   def make_admin
-    update_column('role', 'admin') if id == 1
+    update_column(:role, ADMIN) if User.any? && self == User.first
   end
 end

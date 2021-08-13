@@ -1,6 +1,7 @@
 module ControllerMacros
   def login_user
     before do
+      create(:admin)
       sign_in create(:admin, :simple_user)
     end
   end

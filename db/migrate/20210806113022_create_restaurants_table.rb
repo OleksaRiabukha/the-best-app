@@ -5,7 +5,7 @@ class CreateRestaurantsTable < ActiveRecord::Migration[6.1]
       t.string :phone_number
       t.string :website_url
       t.text :description
-      t.boolean :hidden, null: false, default: true
+      t.boolean :active, null: false, default: true
 
       t.timestamps
     end

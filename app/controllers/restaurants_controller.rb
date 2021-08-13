@@ -1,11 +1,9 @@
 class RestaurantsController < ApplicationController
-  before_action :authenticate_user!
-
   def index
-    @restaurants = policy_scope(Restaurant)
+    @restaurants = Restaurant.active
   end
 
   def show
-    @restaurant = authorize Restaurant.find(params[:id])
+    @restaurant = Restaurant.active.find(params[:id])
   end
 end

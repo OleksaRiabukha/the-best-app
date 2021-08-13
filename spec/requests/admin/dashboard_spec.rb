@@ -23,7 +23,7 @@ RSpec.describe 'Dashboard', type: :request do
       end
 
       it 'redirects to home page' do
-        expect(response).to redirect_to('/')
+        expect(request).to redirect_to(root_path)
       end
 
       it 'returns 302 code' do

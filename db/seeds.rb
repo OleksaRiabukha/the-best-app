@@ -14,15 +14,15 @@ User.create!([
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     phone_number: Faker::PhoneNumber.phone_number,
-    email: 'mail@mail.com',
-    password: 'password'
+    email: Faker::Internet.email,
+    password: Faker::Internet.password
   },
   {
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
     phone_number: Faker::PhoneNumber.phone_number,
-    email: 'mail1@mail.com',
-    password: 'password'
+    email: Faker::Internet.email,
+    password: Faker::Internet.password
   }
   ])
 
@@ -38,5 +38,5 @@ end
                      phone_number: Faker::PhoneNumber.phone_number,
                      website_url: Faker::Internet.url,
                      description: Faker::Restaurant.description,
-                     hidden: false)
+                     active: false)
 end
