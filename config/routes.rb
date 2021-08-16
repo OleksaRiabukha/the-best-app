@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   namespace :admin do
     get '/dashboard', to: 'dashboard#index'
 
-    resources :restaurants, :categories
+    resources :categories
+
+    resources :restaurants
   end
 
   root 'home#index'

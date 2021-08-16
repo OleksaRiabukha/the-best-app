@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_13_084649) do
+ActiveRecord::Schema.define(version: 2021_08_16_111041) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,9 +28,11 @@ ActiveRecord::Schema.define(version: 2021_08_13_084649) do
     t.string "phone_number"
     t.string "website_url"
     t.text "description"
-    t.boolean "active", default: true, null: false
+    t.boolean "active", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "category_id", null: false
+    t.index ["category_id"], name: "index_restaurants_on_category_id"
     t.index ["name"], name: "index_restaurants_on_name", unique: true
   end
 
@@ -50,4 +52,6 @@ ActiveRecord::Schema.define(version: 2021_08_13_084649) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role"], name: "index_users_on_role"
   end
+
+  add_foreign_key "restaurants", "categories"
 end

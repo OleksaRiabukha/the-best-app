@@ -10,7 +10,9 @@ class Admin::RestaurantsController < Admin::AdminController
   def edit; end
 
   def create
-    @restaurant = Restaurant.new(restaurant_params)
+    @categories = Category.all
+    category = Category.find_by(params[:category_id])
+    @restaurant = category.restaurants.build(restaurant_params)
 
     if @restaurant.save
       flash[:notice] = "Successfully added new restaurant!"
@@ -43,6 +45,6 @@ class Admin::RestaurantsController < Admin::AdminController
   end
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :phone_number, :description, :website_url, :active)
+    params.require(:restaurant).permit(:name, :phone_number, :description, :website_url, :active, :category_id)
   end
 end
