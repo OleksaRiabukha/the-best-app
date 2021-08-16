@@ -44,6 +44,6 @@ end
                      phone_number: Faker::PhoneNumber.phone_number,
                      website_url: Faker::Internet.url,
                      description: Faker::Restaurant.description,
-                     active: false,
+                     active: true,
                      category_id: rand(1..5))
 end

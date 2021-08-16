@@ -24,7 +24,12 @@
 require 'rails_helper'
 
 RSpec.describe Restaurant, type: :model do
+  describe 'associations', type: :model do
+    it { should belong_to(:category).class_name('Category') }
+  end
+
   describe 'validations' do
+    subject { create(:restaurant) }
     it { should validate_presence_of(:name) }
     it { should validate_uniqueness_of(:name) }
   end
