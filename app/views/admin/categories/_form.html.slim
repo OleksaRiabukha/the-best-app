@@ -1,0 +1,7 @@
+.form-row
+  .form-group.col-md-6
+    = simple_form_for [:admin, category] do |f|
+      = f.input :name
+      = f.input :description
+      = f.submit 'Save', class: 'btn btn-primary'
+      = link_to 'Cancel', return_to, class: 'btn btn-danger'
