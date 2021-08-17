@@ -34,6 +34,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_paper_trail
+
   private
 
   def make_admin
