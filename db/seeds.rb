@@ -9,34 +9,6 @@
 User.destroy_all
 Restaurant.destroy_all
 
-User.create!([
-  {
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    phone_number: Faker::PhoneNumber.phone_number,
-    email: Faker::Internet.email,
-    password: Faker::Internet.password
-  },
-  {
-    first_name: Faker::Name.first_name,
-    last_name: Faker::Name.last_name,
-    phone_number: Faker::PhoneNumber.phone_number,
-    email: Faker::Internet.email,
-    password: Faker::Internet.password
-  }
-  ])
-
-5.times do
-  Restaurant.create!(name: Faker::Restaurant.name,
-                     phone_number: Faker::PhoneNumber.phone_number,
-                     website_url: Faker::Internet.url,
-                     description: Faker::Restaurant.description)
-end
-
-5.times do
-  Restaurant.create!(name: Faker::Restaurant.name,
-                     phone_number: Faker::PhoneNumber.phone_number,
-                     website_url: Faker::Internet.url,
-                     description: Faker::Restaurant.description,
-                     active: false)
-end
+FactoryBot.create_list(:user, 2)
+FactoryBot.create_list(:restaurant, 5, active: true)
+FactoryBot.create_list(:restaurant, 5, active: false)
