@@ -25,7 +25,7 @@ require 'rails_helper'
 
 RSpec.describe Restaurant, type: :model do
   describe 'associations', type: :model do
-    it { should belong_to(:category).class_name('Category') }
+    it { is_expected.to belong_to(:category) }
   end
 
   describe 'validations' do

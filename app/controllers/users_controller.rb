@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   def update
     if current_user.update(user_params)
       bypass_sign_in(current_user)
-      flash[:notice] = "Successfully updated!"
+      flash[:notice] = 'Successfully updated!'
       redirect_to user_path(current_user)
     else
       render 'edit'
@@ -16,10 +16,9 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    if current_user.destroy
-      flash[:notice] = "Successfully deleted!"
-      redirect_to root_path
-    end
+    current_user.destroy
+    flash[:notice] = 'Successfully deleted!'
+    redirect_to root_path
   end
 
   private

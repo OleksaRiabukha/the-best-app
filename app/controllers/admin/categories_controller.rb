@@ -1,9 +1,17 @@
 class Admin::CategoriesController < Admin::AdminController
   before_action :set_category, only: %i[show edit update destroy]
 
+  def index
+    @categories = Category.all
+  end
+
+  def show; end
+
   def new
     @category = Category.new
   end
+
+  def edit; end
 
   def create
     @category = Category.new(category_params)
@@ -16,14 +24,6 @@ class Admin::CategoriesController < Admin::AdminController
     end
   end
 
-  def index
-    @categories = Category.all
-  end
-
-  def show; end
-
-  def edit; end
-
   def update
     if @category.update(category_params)
       flash[:notice] = 'Successfully updated'
@@ -34,10 +34,9 @@ class Admin::CategoriesController < Admin::AdminController
   end
 
   def destroy
-    if @category.destroy
-      flash[:notice] = 'Successfully deleted!'
-      redirect_to admin_categories_path
-    end
+    @category.destroy
+    flash[:notice] = 'Successfully deleted!'
+    redirect_to admin_categories_path
   end
 
   private

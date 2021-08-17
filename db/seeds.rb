@@ -6,13 +6,8 @@
 # #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 # #   Character.create(name: 'Luke', movie: movies.first)
 
-# User.destroy_all
-# Restaurant.destroy_all
-
-5.times do
-  Category.create!(name: Faker::Restaurant.type,
-                   description: Faker::Restaurant.description)
-end
+User.destroy_all
+Restaurant.destroy_all
 
 FactoryBot.create_list(:user, 2)
 FactoryBot.create_list(:restaurant, 5, active: true)

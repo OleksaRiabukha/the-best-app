@@ -4,6 +4,6 @@ class Admin::AdminController < ApplicationController
   private
 
   def require_admin
-    policy_scope([:admin, :restaurants])
+    policy_scope(%i[admin restaurants])
   end
 end
