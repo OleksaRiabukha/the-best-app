@@ -29,8 +29,7 @@ RSpec.describe Restaurant, type: :model do
   end
 
   describe 'validations' do
-    subject { create(:restaurant) }
-    it { should validate_presence_of(:name) }
-    it { should validate_uniqueness_of(:name) }
+    it { is_expected.to validate_presence_of(:name) }
+    it { is_expected.to validate_uniqueness_of(:name) }
   end
 end
