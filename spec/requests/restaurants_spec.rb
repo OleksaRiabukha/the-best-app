@@ -4,7 +4,7 @@ RSpec.describe 'Restaurants', type: :request do
 
     describe 'GET /restaurants' do
       context 'access restaurants list ' do
-        let!(:restaurants) { create_list(:restaurant, 5, active: true) }
+        let!(:restaurants) { create_list(:restaurant, 2, active: true) }
 
         before do
           get restaurants_path

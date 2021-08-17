@@ -6,7 +6,7 @@ RSpec.describe 'Categories', type: :request do
 
     describe 'GET /admin/categories' do
       context 'access categories list' do
-        let!(:categories) { create_list(:category, 3) }
+        let!(:categories) { create_list(:category, 2) }
 
         before do
           get admin_categories_path
@@ -51,7 +51,7 @@ RSpec.describe 'Categories', type: :request do
       end
 
       context 'create a category with invalid attributes' do
-        let(:params) { { category: { name: ''} } }
+        let(:params) { { category: { name: '' } } }
 
         before do
           post admin_categories_path, params: params

@@ -10,5 +10,5 @@ User.destroy_all
 Restaurant.destroy_all
 
 FactoryBot.create_list(:user, 2)
-FactoryBot.create_list(:restaurant, 5, active: true)
-FactoryBot.create_list(:restaurant, 5, active: false)
+FactoryBot.create_list(:restaurant, 2, active: true)
+FactoryBot.create_list(:restaurant, 2, active: false)

@@ -37,13 +37,14 @@ RSpec.describe 'Restaurant', type: :request do
     describe 'POST /admin/restaurants' do
       context 'create new restaurant with valid attributes' do
         let(:category) { create(:category) }
-        let(:params) { { restaurant: attributes_for(:restaurant, category: category) } }
+        let(:params) { { restaurant: attributes_for(:restaurant, category_id: category.id) } }
 
         before do
           post admin_restaurants_path, params: params
         end
 
         it 'returns a 302 success code' do
+          p response.body
           expect(response).to have_http_status(:found)
         end
 
