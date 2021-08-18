@@ -2,10 +2,10 @@ RSpec.describe 'Restaurants', type: :request do
   context 'when logged in user tries to' do
     login_user
 
+    let!(:restaurant) { create(:restaurant, active: true) }
+
     describe 'GET /restaurants' do
       context 'access restaurants list ' do
-        let!(:restaurants) { create_list(:restaurant, 2, active: true) }
-
         before do
           get restaurants_path
         end
@@ -16,15 +16,13 @@ RSpec.describe 'Restaurants', type: :request do
 
         it 'returns a list with active restaurants' do
           expect(response.body).to include(Restaurant.first.name)
-          expect(response.body).to include(Restaurant.last.name)
+          expect(response.body).to include(Restaurant.first.description)
         end
       end
     end
 
     describe 'GET /restaurants/:id' do
       context 'access active restaurant page' do
-        let(:restaurant) { create(:restaurant, active: true) }
-
         before do
           get "/restaurants/#{restaurant.id}"
         end

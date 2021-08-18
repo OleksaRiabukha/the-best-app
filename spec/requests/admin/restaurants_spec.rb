@@ -122,7 +122,7 @@ RSpec.describe 'Restaurant', type: :request do
         let(:restaurant) { create(:restaurant) }
 
         before do
-          get "/admin/restaurants/#{restaurant.id}"
+          get admin_restaurant_path(restaurant)
         end
 
         it 'redirects to home page' do
