@@ -10,7 +10,9 @@ Rails.application.routes.draw do
 
     resources :categories
 
-    resources :restaurants
+    resources :restaurants do
+      resources :menu_items, except: %i[index]
+    end
   end
 
   root 'home#index'

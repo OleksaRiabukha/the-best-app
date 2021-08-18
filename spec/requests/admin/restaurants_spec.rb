@@ -1,12 +1,13 @@
 require 'rails_helper'
 
-RSpec.describe 'Restaurant', type: :request do
+RSpec.describe 'Admin::Restaurants', type: :request do
   context 'when logged in admin tries to' do
     login_admin
 
     describe 'GET /admin/restaurants/:id' do
       context 'access restaurant page' do
         let(:restaurant) { create(:restaurant) }
+        let(:menu_item) { create(:menu_item, restaurant: restaurant) }
 
         before do
           get admin_restaurant_path(restaurant)

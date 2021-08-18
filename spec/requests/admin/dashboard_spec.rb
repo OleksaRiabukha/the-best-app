@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Dashboard', type: :request do
+RSpec.describe 'Admin::Dashboard', type: :request do
   describe 'GET /admin/dashboard' do
     context 'when authorized user tries to access dashboard' do
       login_admin
