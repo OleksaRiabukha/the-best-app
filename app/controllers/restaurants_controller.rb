@@ -1,9 +1,15 @@
 class RestaurantsController < ApplicationController
   def index
-    @restaurants = Restaurant.active
+    @restaurants = collection
   end
 
   def show
-    @restaurant = Restaurant.active.find(params[:id])
+    @restaurant = collection.find(params[:id])
+  end
+
+  private
+
+  def collection
+    Restaurant.active
   end
 end
