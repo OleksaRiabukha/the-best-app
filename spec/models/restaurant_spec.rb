@@ -3,7 +3,7 @@
 # Table name: restaurants
 #
 #  id           :bigint           not null, primary key
-#  active       :boolean          default(TRUE), not null
+#  active       :boolean          default(FALSE), not null
 #  description  :text
 #  name         :string           default(""), not null
 #  phone_number :string
@@ -21,5 +21,9 @@ RSpec.describe Restaurant, type: :model do
   describe 'validations' do
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:name) }
+  end
+
+  describe 'associations' do
+    it { is_expected.to have_many(:menu_items) }
   end
 end

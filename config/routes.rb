@@ -4,9 +4,11 @@ Rails.application.routes.draw do
   resources :users, :restaurants
 
   namespace :admin do
-    get '/dashboard', to: "dashboard#index"
-    
-    resources :restaurants
+    get '/dashboard', to: 'dashboard#index'
+
+    resources :restaurants do
+      resources :menu_items, except: %i[index]
+    end
   end
 
   root 'home#index'

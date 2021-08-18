@@ -3,7 +3,7 @@
 # Table name: restaurants
 #
 #  id           :bigint           not null, primary key
-#  active       :boolean          default(TRUE), not null
+#  active       :boolean          default(FALSE), not null
 #  description  :text
 #  name         :string           default(""), not null
 #  phone_number :string
@@ -17,6 +17,8 @@
 #
 class Restaurant < ApplicationRecord
   default_scope { order(created_at: :desc) }
+
+  has_many :menu_items, dependent: :destroy
 
   scope :active, -> { where(active: true) }
   scope :hidden, -> { where(active: false) }
