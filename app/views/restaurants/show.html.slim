@@ -1,0 +1,12 @@
+.card.md-3
+  .card-body
+    h5.card-title
+    = @restaurant.name
+    p.card-text
+    = @restaurant.description
+    p.card-text
+    = @restaurant.phone_number
+    br
+    = @restaurant.website_url
+= link_to "Menu", "#", class: "btn btn-primary"
+= link_to "Go Back", restaurants_path, class: "btn btn-danger"

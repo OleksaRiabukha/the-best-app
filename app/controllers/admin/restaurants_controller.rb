@@ -3,7 +3,7 @@ class Admin::RestaurantsController < Admin::AdminController
 
   def show; end
 
-  def new 
+  def new
     @restaurant = Restaurant.new
   end
 
@@ -11,9 +11,9 @@ class Admin::RestaurantsController < Admin::AdminController
 
   def create
     @restaurant = Restaurant.new(restaurant_params)
-    
+
     if @restaurant.save
-      flash[:notice] = "Successfully added new restaurant!"
+      flash[:notice] = 'Successfully added new restaurant!'
       redirect_to admin_restaurant_path(@restaurant)
     else
       render :new
@@ -22,7 +22,7 @@ class Admin::RestaurantsController < Admin::AdminController
 
   def update
     if @restaurant.update(restaurant_params)
-      flash[:notice] = "Successfully updated restaurant details!"
+      flash[:notice] = 'Successfully updated restaurant details!'
       redirect_to admin_restaurant_path(@restaurant)
     else
       render :edit
@@ -30,10 +30,9 @@ class Admin::RestaurantsController < Admin::AdminController
   end
 
   def destroy
-    if @restaurant.destroy
-      flash[:notice] = "Successfully deleted"
-      redirect_to admin_dashboard_path
-    end
+    @restaurant.destroy
+    flash[:notice] = 'Successfully deleted'
+    redirect_to admin_dashboard_path
   end
 
   private
@@ -43,6 +42,6 @@ class Admin::RestaurantsController < Admin::AdminController
   end
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :phone_number, :description, :website_url, :hidden)
+    params.require(:restaurant).permit(:name, :phone_number, :description, :website_url, :active)
   end
 end

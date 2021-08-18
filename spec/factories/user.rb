@@ -1,11 +1,9 @@
 FactoryBot.define do
-  factory :admin, class: "User" do
+  factory :user do
     email { Faker::Internet.email }
     password { Faker::Internet.password }
-    role { "admin" }
-
-    trait :simple_user do
-      role { "simple" }
-    end
+    first_name { Faker::Name.first_name }
+    last_name { Faker::Name.last_name }
+    phone_number { Faker::PhoneNumber.phone_number }
   end
 end

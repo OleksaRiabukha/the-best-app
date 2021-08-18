@@ -1,0 +1,11 @@
+.card.mb-3
+  - @restaurants.each do |restaurant|
+    .card-body
+      h5.card-title
+        = restaurant.name
+      p.card-text
+        small.text-muted
+          | Category
+      p.card-text
+        = restaurant.description
+      = link_to 'Try it now!', restaurant_path(restaurant), class: "btn btn-info"

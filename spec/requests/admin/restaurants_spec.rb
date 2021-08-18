@@ -3,11 +3,11 @@ require 'rails_helper'
 RSpec.describe 'Restaurant', type: :request do
   context 'when logged in admin tries to' do
     login_admin
-    
+
     describe 'GET /admin/restaurants/:id' do
       context 'access restaurant page' do
         let(:restaurant) { create(:restaurant) }
-        
+
         before do
           get admin_restaurant_path(restaurant)
         end
@@ -33,11 +33,11 @@ RSpec.describe 'Restaurant', type: :request do
         end
       end
     end
-    
+
     describe 'POST /admin/restaurants/new' do
       context 'create new restaurant with valid attributes' do
         let(:params) { { restaurant: attributes_for(:restaurant) } }
-          
+
         before do
           post admin_restaurants_path, params: params
         end
@@ -55,17 +55,17 @@ RSpec.describe 'Restaurant', type: :request do
         end
       end
 
-      context 'create new restaurant with invalid attributes' do      
+      context 'create new restaurant with invalid attributes' do
         let(:params) { { restaurant: { name: '' } } }
-        
+
         before do
           post admin_restaurants_path, params: params
         end
-  
+
         it 'does not add restaurant object to database' do
           expect(Restaurant.count).to eq(0)
         end
-  
+
         it 'renders new template' do
           expect(response.body).to include('Add new restaurant')
         end
@@ -117,7 +117,7 @@ RSpec.describe 'Restaurant', type: :request do
     describe 'GET /admin/restaurants/:id' do
       context 'access admin restaurant page' do
         let(:restaurant) { create(:restaurant) }
-        
+
         before do
           get admin_restaurant_path(restaurant)
         end

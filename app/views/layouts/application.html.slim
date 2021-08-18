@@ -17,3 +17,5 @@ html
       - elsif alert
         p.alert.alert-danger= alert
       = yield
+
+= any_login_here if defined?(AnyLogin)

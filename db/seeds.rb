@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+User.destroy_all
+Restaurant.destroy_all
+
+FactoryBot.create_list(:user, 2)
+FactoryBot.create_list(:restaurant, 5, active: true)
+FactoryBot.create_list(:restaurant, 5, active: false)

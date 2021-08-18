@@ -25,23 +25,18 @@ class User < ApplicationRecord
   ADMIN = :admin
   SIMPLE = :simple
 
-  enum role: { 
-    SIMPLE => 0, 
-    ADMIN => 1 
-  }
+  ROLES = [SIMPLE, ADMIN].freeze
 
-  after_save :make_admin
-  
+  enum role: ROLES
+
+  before_save :make_admin!
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-       
-  def admin? 
-    role == 'admin'
-  end
 
-  private 
+  private
 
-  def make_admin
-    update_column("role", "admin") if id == 1
+  def make_admin!
+    self.role = ADMIN unless User.any?
   end
 end

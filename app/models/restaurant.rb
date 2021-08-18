@@ -3,8 +3,8 @@
 # Table name: restaurants
 #
 #  id           :bigint           not null, primary key
+#  active       :boolean          default(TRUE), not null
 #  description  :text
-#  hidden       :boolean          default(TRUE), not null
 #  name         :string           default(""), not null
 #  phone_number :string
 #  website_url  :string
@@ -18,8 +18,8 @@
 class Restaurant < ApplicationRecord
   default_scope { order(created_at: :desc) }
 
-  scope :active, -> { where(hidden: false) }
-  scope :hidden, -> { where(hidden: true) }
+  scope :active, -> { where(active: true) }
+  scope :hidden, -> { where(active: false) }
 
   validates :name, presence: true
   validates :name, uniqueness: true
