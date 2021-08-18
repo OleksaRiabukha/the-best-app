@@ -4,25 +4,6 @@ RSpec.describe 'Categories', type: :request do
   context 'when logged in admin tries to' do
     login_admin
 
-    describe 'GET /admin/categories' do
-      context 'access categories list' do
-        let!(:categories) { create_list(:category, 2) }
-
-        before do
-          get admin_categories_path
-        end
-
-        it 'returns a 200 code' do
-          expect(response).to have_http_status(:ok)
-        end
-
-        it 'returns valid categories details' do
-          expect(response.body).to include(Category.first.name)
-          expect(response.body).to include(Category.last.name)
-        end
-      end
-    end
-
     describe 'POST /admin/categories' do
       context 'create a category with valid attributes' do
         let(:params) { { category: attributes_for(:category) } }
@@ -36,7 +17,7 @@ RSpec.describe 'Categories', type: :request do
         end
 
         it 'adds category to database' do
-          expect(Category.count).to eq(1)
+          expect(Category.count).to eq(2)
         end
 
         it 'redirects admin to newly created category page' do
@@ -58,7 +39,7 @@ RSpec.describe 'Categories', type: :request do
         end
 
         it 'does not add category to database' do
-          expect(Category.count).to eq(0)
+          expect(Category.count).to eq(1)
         end
 
         it 'renders new template' do
@@ -67,9 +48,27 @@ RSpec.describe 'Categories', type: :request do
       end
     end
 
+    let!(:category) { create(:category) }
+
+    describe 'GET /admin/categories' do
+      context 'access categories list' do
+        before do
+          get admin_categories_path
+        end
+
+        it 'returns a 200 code' do
+          expect(response).to have_http_status(:ok)
+        end
+
+        it 'returns valid categories details' do
+          expect(response.body).to include(Category.first.name)
+          expect(response.body).to include(Category.first.description)
+        end
+      end
+    end
+
     describe 'GET /admin/categories/:id' do
       context 'access existing category page' do
-        let(:category) { create(:category) }
 
         before do
           get admin_category_path(category)
@@ -88,7 +87,6 @@ RSpec.describe 'Categories', type: :request do
 
     describe 'PATCH /admin/category/:id' do
       context 'update category with valid attributes' do
-        let(:category) { create(:category) }
         let(:params) { { category: { name: 'La Fabrique', description: 'The Best Restaurant Ever' } } }
 
         before do
@@ -111,7 +109,6 @@ RSpec.describe 'Categories', type: :request do
       end
 
       context 'update category with invalid attributes' do
-        let(:category) { create(:category) }
         let(:params) { { category: { name: '' } } }
 
         before do
@@ -130,8 +127,6 @@ RSpec.describe 'Categories', type: :request do
 
     describe 'DELETE /admin/category/:id' do
       context 'tries to delete existing category' do
-        let(:category) { create(:category) }
-
         before do
           delete admin_category_path(category)
         end
