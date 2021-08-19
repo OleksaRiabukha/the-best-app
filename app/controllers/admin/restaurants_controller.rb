@@ -42,6 +42,6 @@ class Admin::RestaurantsController < Admin::AdminController
   end
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :phone_number, :description, :website_url, :active)
+    params.require(:restaurant).permit(:name, :phone_number, :description, :website_url, :active, :category_id)
   end
 end

@@ -10,19 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_06_113022) do
+ActiveRecord::Schema.define(version: 2021_08_17_095234) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name", default: "", null: false
+    t.text "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_categories_on_name", unique: true
+  end
 
   create_table "restaurants", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "phone_number"
     t.string "website_url"
     t.text "description"
-    t.boolean "active", default: true, null: false
+    t.boolean "active", default: false, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "category_id", null: false
+    t.index ["category_id"], name: "index_restaurants_on_category_id"
     t.index ["name"], name: "index_restaurants_on_name", unique: true
   end
 
@@ -43,4 +53,16 @@ ActiveRecord::Schema.define(version: 2021_08_06_113022) do
     t.index ["role"], name: "index_users_on_role"
   end
 
+  create_table "versions", force: :cascade do |t|
+    t.string "item_type"
+    t.string "{:null=>false}"
+    t.bigint "item_id", null: false
+    t.string "event", null: false
+    t.string "whodunnit"
+    t.text "object"
+    t.datetime "created_at"
+    t.index ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
+  end
+
+  add_foreign_key "restaurants", "categories"
 end

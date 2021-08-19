@@ -3,6 +3,9 @@
     h5.card-title
     = @restaurant.name
     p.card-text
+      small.text-muted
+        = @restaurant.category.name
+    p.card-text
     = @restaurant.description
     p.card-text
     = @restaurant.phone_number

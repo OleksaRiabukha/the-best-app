@@ -5,7 +5,7 @@
         = restaurant.name
       p.card-text
         small.text-muted
-          | Category
+          = restaurant.category.name
       p.card-text
         = restaurant.description
       = link_to 'Try it now!', restaurant_path(restaurant), class: "btn btn-info"
