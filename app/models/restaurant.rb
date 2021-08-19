@@ -24,6 +24,8 @@
 class Restaurant < ApplicationRecord
   default_scope { order(created_at: :desc) }
 
+  has_many :menu_items, dependent: :destroy
+
   scope :active, -> { where(active: true) }
   scope :hidden, -> { where(active: false) }
 

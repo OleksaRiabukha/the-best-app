@@ -1,0 +1,17 @@
+.card.md-3
+  .card-body
+    h.card-title
+     = @menu_item.name
+    p.card-text
+      small
+        = number_to_currency(@menu_item.price)
+        br
+        - if @menu_item.discount && @menu_item.discount > 0
+          = "Take it with #{number_to_percentage(@menu_item.discount, precision: 0)} discount now!"
+    p.card-text
+      = @menu_item.description
+    p.card-text
+      small.text-muted
+        = @menu_item.ingredients
+    = link_to fa_icon('shopping-basket'), '#', class: 'btn btn-primary', style: 'margin-right: 2px;'
+    = link_to fa_icon('arrow-left'), restaurant_path(@restaurant), class: "btn btn-secondary"

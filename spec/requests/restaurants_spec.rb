@@ -1,7 +1,6 @@
 RSpec.describe 'Restaurants', type: :request do
   context 'when logged in user tries to' do
     login_user
-
     let!(:restaurant) { create(:restaurant, active: true) }
 
     describe 'GET /restaurants' do
@@ -22,9 +21,11 @@ RSpec.describe 'Restaurants', type: :request do
     end
 
     describe 'GET /restaurants/:id' do
+      let!(:menu_item) { create(:menu_item, available: true, restaurant: restaurant) }
+
       context 'access active restaurant page' do
         before do
-          get "/restaurants/#{restaurant.id}"
+          get restaurant_path(restaurant)
         end
 
         it 'returns a 200 code' do
@@ -34,6 +35,10 @@ RSpec.describe 'Restaurants', type: :request do
         it 'returns valid restaurant details' do
           expect(response.body).to include(restaurant.name)
           expect(response.body).to include(restaurant.description)
+        end
+
+        it 'returns menu items of the restaurant' do
+          expect(response.body).to include(restaurant.menu_items.first.name)
         end
       end
     end
