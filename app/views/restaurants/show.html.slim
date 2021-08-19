@@ -1,4 +1,4 @@
-.card.md-3 style="margin-top: 10px; margin-bottom: 10px"
+.card.md-3
   .card-body
     h5.card-title
     = @restaurant.name
@@ -12,23 +12,23 @@
     br
     = @restaurant.website_url
     br
-    = link_to "Go Back", restaurants_path, class: "btn btn-danger", style: "margin-top: 5px;"
+    = link_to "Go Back", restaurants_path, class: "btn btn-danger"
 
-- if @restaurant.menu_items.available.any?
-  h3 Try now: 
+  - if @restaurant.menu_items.available.present?
+    h3 Try now: 
 
-  .card.md-3 style="margin-top: 20px;"
-    - @restaurant.menu_items.available.each do |menu_item|
-      .card-body
-        h5.card-title
-          = menu_item.name
-        p.card-text
-          small
-            = number_to_currency(menu_item.price)
-            br
-            - if menu_item.discount && menu_item.discount > 0
-              = "Take it with #{number_to_percentage(menu_item.discount, precision: 0)} discount now!"
-        p.card-text
-          = menu_item.description
-        = link_to 'Details', restaurant_menu_item_path(@restaurant, menu_item), class: 'btn btn-info btn-sm', style: 'margin-right: 2px;'
-        = link_to fa_icon('shopping-basket'), '#', class: 'btn btn-primary', style: 'margin-right: 2px;'
+    .card.md-3 style="margin-top: 20px;"
+      - @restaurant.menu_items.available.each do |menu_item|
+        .card-body
+          h5.card-title
+            = menu_item.name
+          p.card-text
+            small
+              = number_to_currency(menu_item.price)
+              br
+              - if menu_item.discount && menu_item.discount > 0
+                = "Take it with #{number_to_percentage(menu_item.discount, precision: 0)} discount now!"
+          p.card-text
+            = menu_item.description
+          = link_to 'Details', restaurant_menu_item_path(@restaurant, menu_item), class: 'btn btn-info btn-sm'
+          = link_to fa_icon('shopping-basket'), '#', class: 'btn btn-primary'

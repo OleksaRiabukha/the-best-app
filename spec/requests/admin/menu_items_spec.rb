@@ -2,14 +2,13 @@ require 'rails_helper'
 
 RSpec.describe 'Admin::MenuItems', type: :request do
   let(:restaurant) { create(:restaurant) }
+  let(:menu_item) { create(:menu_item, restaurant: restaurant) }
 
   context 'when logged in admin tries to' do
     login_admin
 
     describe 'GET /admin/restaurants/:id/menu_item/:id' do
       context 'access existing menu item page' do
-        let(:menu_item) { create(:menu_item, restaurant: restaurant) }
-
         before do
           get admin_restaurant_menu_item_path(restaurant, menu_item)
         end
@@ -84,8 +83,6 @@ RSpec.describe 'Admin::MenuItems', type: :request do
     end
 
     describe 'PATCH /admin/restaurants/:id/menu_item/:id' do
-      let(:menu_item) { create(:menu_item, restaurant: restaurant) }
-
       context 'update menu item with valid attributes' do
         let(:params) { { menu_item: { name: 'Borsch' } } }
 
@@ -126,8 +123,6 @@ RSpec.describe 'Admin::MenuItems', type: :request do
 
     describe 'DELETE /admin/restaurants/:id/menu_item/:id' do
       context 'delete menu_item' do
-        let(:menu_item) { create(:menu_item, restaurant: restaurant) }
-
         before do
           delete admin_restaurant_menu_item_path(restaurant, menu_item)
         end
@@ -151,8 +146,6 @@ RSpec.describe 'Admin::MenuItems', type: :request do
     login_user
 
     describe 'GET /admin/restaurants/:id/menu_items/:id' do
-      let(:menu_item) { create(:menu_item, restaurant: restaurant) }
-
       before do
         get admin_restaurant_menu_item_path(restaurant, menu_item)
       end
