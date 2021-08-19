@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :restaurants, only: %i[index show]
+  resources :restaurants, only: %i[index show] do
+    resources :menu_items, only: %i[show]
+  end
 
   namespace :admin do
     get '/dashboard', to: 'dashboard#index'

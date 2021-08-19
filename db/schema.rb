@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 2021_08_18_101616) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
   create_table "menu_items", force: :cascade do |t|
     t.string "name", null: false
     t.text "description", null: false

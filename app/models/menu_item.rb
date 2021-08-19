@@ -28,8 +28,5 @@ class MenuItem < ApplicationRecord
 
   belongs_to :restaurant
 
-  validates :name, presence: true
-  validates :description, presence: true
-  validates :ingredients, presence: true
-  validates :price, presence: true
+  validates :name, :description, :ingredients, :price, presence: true
 end

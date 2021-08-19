@@ -45,7 +45,6 @@ RSpec.describe 'Admin::Restaurants', type: :request do
         end
 
         it 'returns a 302 success code' do
-          p response.body
           expect(response).to have_http_status(:found)
         end
 

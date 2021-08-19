@@ -12,7 +12,7 @@
     p
     = link_to fa_icon('edit'), edit_admin_restaurant_path(@restaurant), class: "btn btn-primary", style: "margin-right: 2px"
     = link_to fa_icon('trash'), admin_restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger", style: "margin-right: 2px"
-    = link_to "Add food", new_admin_restaurant_menu_item_path(@restaurant), class: 'btn btn-success'
+    = link_to "Add Dish", new_admin_restaurant_menu_item_path(@restaurant), class: 'btn btn-success'
 
 - if @restaurant.menu_items.any?
   h3 Your Dishes: 
