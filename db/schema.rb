@@ -66,7 +66,6 @@ ActiveRecord::Schema.define(version: 2021_08_18_101616) do
     t.index ["role"], name: "index_users_on_role"
   end
 
-<<<<<<< HEAD
   create_table "versions", force: :cascade do |t|
     t.string "item_type"
     t.string "{:null=>false}"
@@ -79,7 +78,5 @@ ActiveRecord::Schema.define(version: 2021_08_18_101616) do
   end
 
   add_foreign_key "restaurants", "categories"
-=======
->>>>>>> e8a8c149f837ed6d50d74871608e6e747ea15c67
   add_foreign_key "menu_items", "restaurants"
 end
