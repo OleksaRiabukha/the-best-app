@@ -1,0 +1,30 @@
+class CartItemsController < ApplicationController
+  include CurrentCart
+  before_action :current_cart, only: %i[create]
+  before_action :find_cart_item, only: %i[show edit update destroy]
+
+  def new
+    @cart_item = CartItem.new
+  end
+
+  def create
+    menu_item = MenuItem.find(params[:menu_item_id])
+    @cart_item = @cart.add_menu_item(menu_item)
+
+    if @cart_item.save
+      respond_to :js
+    else
+      render :new
+    end
+  end
+
+  private
+
+  def find_cart_item
+    @cart_item = CartItem.find(params[:id])
+  end
+
+  def cart_item_params
+    params.require(:cart_item).permit(:menu_item_id)
+  end
+end

@@ -13,5 +13,7 @@
     p.card-text
       small.text-muted
         = @menu_item.ingredients
-    = link_to fa_icon('shopping-basket'), '#', class: 'btn btn-primary', style: 'margin-right: 2px;'
+    = link_to fa_icon('shopping-basket'), cart_items_path(menu_item_id: @menu_item), remote: true, method: :post, data: { 'data-toggle': 'modal', 'data-target': '#modal-window' }, class: 'btn btn-success'
     = link_to fa_icon('arrow-left'), restaurant_path(@restaurant), class: "btn btn-secondary"
+
+= render 'shared/cart_modal'
