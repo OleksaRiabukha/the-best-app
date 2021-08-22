@@ -2,10 +2,20 @@ module CurrentCart
 
   private
 
+  # def current_cart
+  #   @cart = current_user.cart
+  # rescue ActiveRecord::RecordNotFound
+  #   @cart = Cart.create
+  #   @cart.user = current_user
+  #   session[:cart_id] = @cart.id
+  # end
+
   def current_cart
-    @cart = Cart.find(session[:cart_id])
-  rescue ActiveRecord::RecordNotFound
-    @cart = Cart.create
-    session[:cart_id] = @cart.id
+    if current_user.cart
+      @cart = current_user.cart
+    else
+      @cart = current_user.build_cart
+      # session[:cart_id] = @cart.id
+    end
   end
 end

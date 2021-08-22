@@ -3,4 +3,7 @@ tr
     = cart_item.menu_item.name
     = cart_item.quantity
     = number_to_currency(cart_item.total_price)
+    = link_to fa_icon('plus'), cart_items_path(menu_item_id: cart_item.menu_item), remote: true, method: :post, data: { 'data-toggle': 'modal', 'data-target': '#modal-window' }, class: 'btn btn-success'
+    = link_to fa_icon('minus'), cart_item_path(cart_item), remote: true, method: :delete, data: { 'data-toggle': 'modal', 'data-target': '#modal-window' }, class: 'btn btn-danger'
   td
+

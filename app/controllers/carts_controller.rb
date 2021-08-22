@@ -9,8 +9,8 @@ class CartsController < ApplicationController
   def show; end
 
   def destroy
-    @cart.destroy if @cart.id == session[:cart_id]
-    session[:cart_id] = nil
+    @cart.destroy
+    # session[:cart_id] = nil
     flash[:notice] = 'Your cart is empty!'
     redirect_to restaurants_path
   end
@@ -18,7 +18,7 @@ class CartsController < ApplicationController
   private
 
   def find_cart
-    @cart = Cart.find(params[:id])
+    @cart = authorize Cart.find(params[:id])
   end
 
   def invalid_cart

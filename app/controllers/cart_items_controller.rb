@@ -1,6 +1,6 @@
 class CartItemsController < ApplicationController
   include CurrentCart
-  before_action :current_cart, only: %i[create]
+  before_action :current_cart, only: %i[create destroy]
   before_action :find_cart_item, only: %i[show edit update destroy]
 
   def new
@@ -12,9 +12,23 @@ class CartItemsController < ApplicationController
     @cart_item = @cart.add_menu_item(menu_item)
 
     if @cart_item.save
-      respond_to :js
+      respond_to do |format|
+        format.js { render template: '/shared/cart_modal.js.slim' }
+      end
     else
       render :new
+    end
+  end
+
+  def destroy
+    if @cart_item.quantity > 1
+      @cart_item.minus_one
+      respond_to do |format|
+        format.js { render template: '/shared/cart_modal.js.slim' }
+      end
+    else
+      @cart_item.destroy
+      redirect_to restaurant_path(@cart_item.menu_item.restaurant) if current_cart.cart_items.empty?
     end
   end
 

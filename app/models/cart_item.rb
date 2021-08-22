@@ -3,6 +3,7 @@
 # Table name: cart_items
 #
 #  id           :bigint           not null, primary key
+#  price        :decimal(8, )     not null
 #  quantity     :integer          default(1)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
@@ -24,6 +25,12 @@ class CartItem < ApplicationRecord
   belongs_to :menu_item
 
   def total_price
-    menu_item.price * quantity
+    price * quantity
+  end
+
+  def minus_one
+    q = quantity - 1
+    update(quantity: q)
   end
 end
+
