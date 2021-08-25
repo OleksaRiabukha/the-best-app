@@ -29,8 +29,6 @@ class User < ApplicationRecord
 
   enum role: ROLES
 
-  has_one :cart
-
   before_save :make_admin!
 
   devise :database_authenticatable, :registerable,

@@ -27,10 +27,8 @@ ActiveRecord::Schema.define(version: 2021_08_19_120744) do
   end
 
   create_table "carts", force: :cascade do |t|
-    t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["user_id"], name: "index_carts_on_user_id"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -97,7 +95,6 @@ ActiveRecord::Schema.define(version: 2021_08_19_120744) do
 
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "menu_items"
-  add_foreign_key "carts", "users"
   add_foreign_key "menu_items", "restaurants"
   add_foreign_key "restaurants", "categories"
 end
