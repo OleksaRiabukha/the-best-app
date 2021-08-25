@@ -31,9 +31,11 @@ class Cart < ApplicationRecord
     current_item
   end
 
-  # def remove_menu_
-
   def total_cart_price
     cart_items.to_a.sum(&:total_price)
+  end
+
+  def is_empty?
+    cart_items.empty?
   end
 end

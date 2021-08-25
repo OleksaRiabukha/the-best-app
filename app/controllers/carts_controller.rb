@@ -10,7 +10,6 @@ class CartsController < ApplicationController
 
   def destroy
     @cart.destroy
-    # session[:cart_id] = nil
     flash[:notice] = 'Your cart is empty!'
     redirect_to restaurants_path
   end

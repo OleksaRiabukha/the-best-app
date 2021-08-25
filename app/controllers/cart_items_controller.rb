@@ -28,7 +28,14 @@ class CartItemsController < ApplicationController
       end
     else
       @cart_item.destroy
-      redirect_to restaurant_path(@cart_item.menu_item.restaurant) if current_cart.cart_items.empty?
+      respond_to do |format|
+        if @cart.is_empty?
+          @cart.destroy
+          format.html { redirect_to(@cart_item.menu_item.restaurant) }
+        else
+          format.js { render template: '/shared/cart_modal.js.slim' }
+        end
+      end
     end
   end
 

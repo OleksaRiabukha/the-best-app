@@ -21,6 +21,8 @@
 #  fk_rails_...  (menu_item_id => menu_items.id)
 #
 class CartItem < ApplicationRecord
+  default_scope { order(created_at: :desc) }
+
   belongs_to :cart
   belongs_to :menu_item
 
@@ -33,4 +35,3 @@ class CartItem < ApplicationRecord
     update(quantity: q)
   end
 end
-
