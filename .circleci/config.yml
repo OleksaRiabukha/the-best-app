@@ -14,8 +14,12 @@ workflows:
           requires:
             - setup
             - test
+          filters: 
+            branches:
+              only: 
+                - main
           post-steps:
-            - run: heroku run rake db:migrate
+            - run: heroku run rake db:migrate --app $HEROKU_APP_NAME 
 commands:
   set_variables:
     steps:
