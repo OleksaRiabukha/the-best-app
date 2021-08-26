@@ -1,5 +1,21 @@
 version: 2.1
 
+orbs:
+  heroku: circleci/heroku@1.2.6
+  
+workflows:
+  setup_and_test:
+    jobs:
+      - setup
+      - test:
+          requires:
+            - setup
+      - deploy:
+          requires:
+            - setup
+            - test
+          post-steps:
+            - run: heroku run rake db:migrate
 commands:
   set_variables:
     steps:
@@ -78,11 +94,9 @@ jobs:
             bundle exec rspec ${TESTFILES} --profile 10 --format RspecJunitFormatter --out ~/spec-timings/rspec.xml --format progress
       - store_test_results:
           path: ~/spec-timings
-workflows:
-  version: 2.1
-  setup_and_test:
-    jobs:
-      - setup
-      - test:
-          requires:
-            - setup
+  deploy:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - heroku/deploy-via-git
