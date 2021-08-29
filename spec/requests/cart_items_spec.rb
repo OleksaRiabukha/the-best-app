@@ -1,9 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'CartItems', type: :request do
+  login_user
   let(:restaurant) { create(:restaurant, active: true) }
   let(:menu_item) { create(:menu_item, restaurant_id: restaurant.id) }
-  login_user
 
   context 'when logged in user tries to' do
     describe 'POST /cart_items' do

@@ -31,9 +31,13 @@ class Admin::MenuItemsController < Admin::AdminController
   end
 
   def destroy
-    @menu_item.destroy
-    flash[:notice] = 'Successfully deleted!'
-    redirect_to admin_restaurant_path(@restaurant)
+    if @menu_item.destroy
+      flash[:notice] = 'Successfully deleted!'
+      redirect_to admin_restaurant_path(@restaurant)
+    else
+      flash[:alert] = @menu_item.errors.full_messages.join(' ')
+      redirect_to admin_restaurant_menu_item_path(@restaurant, @menu_item)
+    end
   end
 
   private

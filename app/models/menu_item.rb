@@ -36,9 +36,6 @@ class MenuItem < ApplicationRecord
   private
 
   def ensure_not_referenced_by_any_cart_item
-    unless cart_items.empty?
-      errors.add(:base, 'Cart Items present')
-      throw :abort
-    end
+    throw :abort, errors.add(:base, 'Someone has this item in a cart.') unless cart_items.empty?
   end
 end

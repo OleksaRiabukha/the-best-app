@@ -1,5 +1,6 @@
 class CartItemsController < ApplicationController
   include CurrentCart
+
   before_action :current_cart, only: %i[create destroy]
   before_action :find_cart_item, only: %i[show destroy]
 
