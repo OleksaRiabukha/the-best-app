@@ -27,6 +27,15 @@ class MenuItem < ApplicationRecord
   scope :available, -> { where(available: true) }
 
   belongs_to :restaurant
+  has_many :cart_items
+
+  before_destroy :ensure_not_referenced_by_any_cart_item
 
   validates :name, :description, :ingredients, :price, presence: true
+
+  private
+
+  def ensure_not_referenced_by_any_cart_item
+    throw :abort, errors.add(:base, 'Someone has this item in a cart.') unless cart_items.empty?
+  end
 end

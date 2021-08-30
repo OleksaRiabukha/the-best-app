@@ -42,3 +42,5 @@ yarn-debug.log*
 .env.development
 .env.docker
 .env.test
+
+*.swp

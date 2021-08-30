@@ -5,6 +5,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = collection.find(params[:id])
+    respond_to :html, :js
   end
 
   private

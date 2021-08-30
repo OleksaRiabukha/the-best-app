@@ -1,0 +1,20 @@
+.modal-header
+  h5#cartModal.modal-title
+    | Your Bucket
+  button.btn-close[type="button", data-bs-dismiss="modal" aria-lable="Close"]
+.modal-
+  table.table.table-sm.table-hover
+    = render (cart.cart_items)
+    td.table-active[colspan="4"]
+     | Total:
+    td.table-success
+      = number_to_currency(@cart.total_cart_price)
+.modal-footer
+  = link_to "Empty cart", @cart, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
+  button.btn.btn-secondary[data-bs-dismiss="modal"]
+    | Continue 
+  button.btn.btn-primary
+    | Order
+
+
+
