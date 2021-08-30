@@ -35,7 +35,7 @@ RSpec.describe 'CartItems', type: :request do
 
     describe 'DELETE /cart_items/:id' do
       context 'delete existing cart item' do
-        let(:cart_item) { create(:cart_item, menu_item_id: menu_item.id, price: menu_item.price) }
+        let(:cart_item) { create(:cart_item, quantity: 1, menu_item_id: menu_item.id, price: menu_item.price) }
 
         before do
           delete cart_item_path(cart_item)

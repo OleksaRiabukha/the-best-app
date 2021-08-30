@@ -30,8 +30,12 @@ class CartItem < ApplicationRecord
     price * quantity
   end
 
-  def minus_one
-    q = quantity - 1
-    update(quantity: q)
+  def check_quantity
+    if quantity > 1
+      q = quantity - 1
+      update(quantity: q)
+    else
+      destroy
+    end
   end
 end

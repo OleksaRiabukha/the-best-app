@@ -11,7 +11,7 @@ require 'rails_helper'
 RSpec.describe Cart, type: :model do
   let(:menu_item) { create(:menu_item, available: true) }
   let(:cart) { create(:cart) }
-  let(:cart_items) { create_list(:cart_item, 2, price: Faker::Number.decimal) }
+  let(:cart_items) { create_list(:cart_item, 2) }
 
   describe 'associations' do
     it { is_expected.to have_many(:cart_items) }
@@ -27,7 +27,7 @@ RSpec.describe Cart, type: :model do
   describe 'total price' do
     it 'sums and returns a total price of all cart items in cart' do
       cart.cart_items << cart_items
-      expect(cart.total_cart_price).to eq(cart_items.sum(&:price))
+      expect(cart.total_cart_price).to eq(cart_items.sum(&:total_price))
     end
   end
 end

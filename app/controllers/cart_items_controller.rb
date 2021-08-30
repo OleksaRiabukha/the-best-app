@@ -1,5 +1,4 @@
 class CartItemsController < ApplicationController
-  include CurrentCart
 
   before_action :current_cart, only: %i[create destroy]
   before_action :find_cart_item, only: %i[show destroy]
@@ -20,17 +19,11 @@ class CartItemsController < ApplicationController
   end
 
   def destroy
-    if @cart_item.quantity > 1
-      @cart_item.minus_one
-      render '/shared/cart_modal'
+    if @cart_item.check_quantity && @cart.is_empty?
+      @cart.destroy
+      redirect_to @cart_item.menu_item.restaurant
     else
-      @cart_item.destroy
-      if @cart.is_empty?
-        @cart.destroy
-        redirect_to @cart_item.menu_item.restaurant
-      else
-        render '/shared/cart_modal'
-      end
+      render '/shared/cart_modal'
     end
   end
 
@@ -42,5 +35,12 @@ class CartItemsController < ApplicationController
 
   def cart_item_params
     params.require(:cart_item).permit(:menu_item_id)
+  end
+
+  def current_cart
+    @cart = Cart.find(session[:cart_id])
+  rescue ActiveRecord::RecordNotFound
+    @cart = Cart.create
+    session[:cart_id] = @cart.id
   end
 end

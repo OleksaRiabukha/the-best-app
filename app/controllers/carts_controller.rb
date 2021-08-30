@@ -20,20 +20,11 @@ class CartsController < ApplicationController
 
   def find_cart
     @cart = Cart.find(params[:id])
-
-    if same_cart?(@cart)
-      @cart
-    else
-      invalid_cart
-    end
+    @cart.same?(session[:cart_id]) ? @cart : invalid_cart
   end
 
   def invalid_cart
     flash[:alert] = 'Invalid Cart, please try again'
     redirect_to root_path
-  end
-
-  def same_cart?(cart)
-    cart.id == session[:cart_id]
   end
 end

@@ -29,16 +29,17 @@ RSpec.describe CartItem, type: :model do
   end
 
   describe 'total price and quantity' do
-    let(:cart_item) { create(:cart_item, quantity: Faker::Number.decimal, price: Faker::Number.decimal) }
+    let(:cart_item) { create(:cart_item) }
 
     it 'returns a total price of the cart_items' do
       expect(cart_item.total_price).to eq(cart_item.price * cart_item.quantity)
     end
 
     it 'reduces the quantity of cat_item by one' do
-      quantity = cart_item.quantity
-      cart_item.minus_one
-      expect(cart_item.quantity).to eq(quantity - 1)
+      expect do
+        cart_item.check_quantity
+        expect(cart_item, :quantity).be(-1)
+      end
     end
   end
 end

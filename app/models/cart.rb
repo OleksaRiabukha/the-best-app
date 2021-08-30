@@ -10,7 +10,7 @@ class Cart < ApplicationRecord
   has_many :cart_items, dependent: :destroy
 
   def add_menu_item(menu_item)
-    current_item = cart_items.find_by(menu_item_id: menu_item.id)
+    current_item ||= cart_items.find_by(menu_item_id: menu_item.id)
 
     if current_item
       current_item.quantity += 1
@@ -27,5 +27,9 @@ class Cart < ApplicationRecord
 
   def is_empty?
     cart_items.empty?
+  end
+
+  def same?(session_data)
+    id == session_data
   end
 end
