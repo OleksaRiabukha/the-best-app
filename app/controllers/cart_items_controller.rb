@@ -14,7 +14,6 @@ class CartItemsController < ApplicationController
     @cart_item = @cart.add_menu_item(menu_item)
 
     if @cart_item.save
-      # @cart_items = @cart.cart_items.includes(:menu_item)
       render '/shared/cart_modal'
     else
       render :new
@@ -26,7 +25,6 @@ class CartItemsController < ApplicationController
       @cart.destroy
       redirect_to @cart_item.menu_item.restaurant
     else
-      # @cart_items = @cart.cart_items.includes(:menu_item)
       render '/shared/cart_modal'
     end
   end
