@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
   def index
-    @restaurants = collection
+    @restaurants = collection.includes(:category)
   end
 
   def show
@@ -11,6 +11,6 @@ class RestaurantsController < ApplicationController
   private
 
   def collection
-    Restaurant.active.includes([:category])
+    Restaurant.active
   end
 end

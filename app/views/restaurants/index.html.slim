@@ -1,11 +1,13 @@
 .card.mb-3
-  - @restaurants.each do |restaurant|
-    .card-body
-      h5.card-title
-        = restaurant.name
-      p.card-text
-        small.text-muted
-          = restaurant.category.name
-      p.card-text
-        = restaurant.description
-      = link_to 'Try it now!', restaurant_path(restaurant), class: "btn btn-info"
+  - cache @restaurants do
+    - @restaurants.each do |restaurant|
+      - cache restaurant do
+        .card-body
+          h5.card-title
+            = restaurant.name
+          p.card-text
+            small.text-muted
+              = restaurant.category.name
+          p.card-text
+            = restaurant.description
+          = link_to 'Try it now!', restaurant_path(restaurant), class: "btn btn-info"

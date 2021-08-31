@@ -1,19 +1,20 @@
 .card.md-3
   .card-body
     h.card-title
-     = @menu_item.name
-    p.card-text
-      small
-        = number_to_currency(@menu_item.price)
-        br
-        - if @menu_item.discount && @menu_item.discount > 0
-          = "Take it with #{number_to_percentage(@menu_item.discount, precision: 0)} discount now!"
-    p.card-text
-      = @menu_item.description
-    p.card-text
-      small.text-muted
-        = @menu_item.ingredients
-    = link_to fa_icon('shopping-basket'), cart_items_path(menu_item_id: @menu_item), remote: true, method: :post, data: { 'data-toggle': 'modal', 'data-target': '#modal-window' }, class: 'btn btn-success'
-    = link_to fa_icon('arrow-left'), restaurant_path(@restaurant), class: "btn btn-secondary"
+      - cache @menu_item do 
+        = @menu_item.name
+        p.card-text
+          small
+            = number_to_currency(@menu_item.price)
+            br
+            - if @menu_item.discount && @menu_item.discount > 0
+              = "Take it with #{number_to_percentage(@menu_item.discount, precision: 0)} discount now!"
+        p.card-text
+          = @menu_item.description
+        p.card-text
+          small.text-muted
+            = @menu_item.ingredients
+        = link_to fa_icon('shopping-basket'), cart_items_path(menu_item_id: @menu_item), remote: true, method: :post, data: { 'data-toggle': 'modal', 'data-target': '#modal-window' }, class: 'btn btn-success'
+        = link_to fa_icon('arrow-left'), restaurant_path(@restaurant), class: "btn btn-secondary"
 
 = render 'shared/cart_modal'
