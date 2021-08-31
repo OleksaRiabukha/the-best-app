@@ -1,7 +1,9 @@
 class CartItemsController < ApplicationController
-
   before_action :current_cart, only: %i[create destroy]
+  before_action :current_cart_items, only: %i[create destroy]
   before_action :find_cart_item, only: %i[show destroy]
+
+  def show; end
 
   def new
     @cart_item = CartItem.new
@@ -12,6 +14,7 @@ class CartItemsController < ApplicationController
     @cart_item = @cart.add_menu_item(menu_item)
 
     if @cart_item.save
+      # @cart_items = @cart.cart_items.includes(:menu_item)
       render '/shared/cart_modal'
     else
       render :new
@@ -23,6 +26,7 @@ class CartItemsController < ApplicationController
       @cart.destroy
       redirect_to @cart_item.menu_item.restaurant
     else
+      # @cart_items = @cart.cart_items.includes(:menu_item)
       render '/shared/cart_modal'
     end
   end
@@ -42,5 +46,9 @@ class CartItemsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     @cart = Cart.create
     session[:cart_id] = @cart.id
+  end
+
+  def current_cart_items
+    @cart_items = @cart.cart_items.includes(:menu_item) if @cart
   end
 end

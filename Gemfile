@@ -34,6 +34,7 @@ end
 
 group :development do
   gem 'any_login'
+  gem 'bullet'
   gem 'listen', '~> 3.3'
   gem 'rack-mini-profiler', '~> 2.0'
   gem 'spring'

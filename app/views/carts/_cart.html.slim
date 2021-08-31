@@ -4,10 +4,10 @@
   button.btn-close[type="button", data-bs-dismiss="modal" aria-lable="Close"]
 .modal-
   table.table.table-sm.table-hover
-    = render (cart.cart_items)
+    = render 'cart_items/cart_item'
     td.table-active[colspan="4"]
      | Total:
-    td.table-success
+    td.table-success[colspan="2"]
       = number_to_currency(@cart.total_cart_price)
 .modal-footer
   = link_to "Empty cart", @cart, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"

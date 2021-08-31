@@ -11,6 +11,6 @@ class RestaurantsController < ApplicationController
   private
 
   def collection
-    Restaurant.active
+    Restaurant.active.includes([:category])
   end
 end
