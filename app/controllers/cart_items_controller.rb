@@ -1,4 +1,6 @@
 class CartItemsController < ApplicationController
+  include CurrentCart
+
   before_action :current_cart, only: %i[create destroy]
   before_action :current_cart_items, only: %i[create destroy]
   before_action :find_cart_item, only: %i[show destroy]
@@ -37,16 +39,5 @@ class CartItemsController < ApplicationController
 
   def cart_item_params
     params.require(:cart_item).permit(:menu_item_id)
-  end
-
-  def current_cart
-    @cart = Cart.find(session[:cart_id])
-  rescue ActiveRecord::RecordNotFound
-    @cart = Cart.create
-    session[:cart_id] = @cart.id
-  end
-
-  def current_cart_items
-    @cart_items = @cart.cart_items.includes(:menu_item) if @cart
   end
 end

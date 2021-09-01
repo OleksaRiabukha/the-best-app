@@ -1,20 +1,17 @@
 .modal-header
-  h5#cartModal.modal-title
+  h5#cart-modal.modal-title
     | Your Bucket
-  button.btn-close[type="button", data-bs-dismiss="modal" aria-lable="Close"]
-.modal-
-  table.table.table-sm.table-hover
-    = render 'cart_items/cart_item'
-    td.table-active[colspan="4"]
-     | Total:
-    td.table-success[colspan="2"]
-      = number_to_currency(@cart.total_cart_price)
+  button.btn-close[type="button" data-bs-dismiss="modal" aria-lable="Close"]
+.modal-body
+  .table-responsive
+    table.table.table-borderless.table-hover
+      = render 'cart_items/cart_item'
+      tfoot
+        tr.d-flex
+          td.table-active.col-6
+           | Total:
+          td.table-success.col-6.text-end
+            = number_to_currency(@cart.total_cart_price)
 .modal-footer
   = link_to "Empty cart", @cart, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
-  button.btn.btn-secondary[data-bs-dismiss="modal"]
-    | Continue 
-  button.btn.btn-primary
-    | Order
-
-
-
+  = link_to "Buy", orders_new_url, class: "btn btn-success"

@@ -1,7 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
 
-  resources :users
+  resources :user do
+    resources :orders, except: [:new]
+  end
+
+  get '/orders/new', to: 'orders#new'
+
   resources :cart_items
   resources :carts
   resources :restaurants, only: %i[index show] do

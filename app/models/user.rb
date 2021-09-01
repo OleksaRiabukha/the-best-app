@@ -30,6 +30,7 @@ class User < ApplicationRecord
   enum role: ROLES
 
   before_save :make_admin!
+  has_many :orders
 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
