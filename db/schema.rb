@@ -61,6 +61,7 @@ ActiveRecord::Schema.define(version: 2021_08_31_124232) do
     t.string "street", null: false
     t.string "building", null: false
     t.integer "appartment_number"
+    t.decimal "total_price"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_orders_on_user_id"

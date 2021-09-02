@@ -8,6 +8,7 @@
 #  city              :string           not null
 #  pay_type          :integer          not null
 #  street            :string           not null
+#  total_price       :decimal(, )
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  user_id           :bigint           not null
@@ -21,6 +22,8 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Order < ApplicationRecord
+  default_scope { order(created_at: :desc) }
+
   CARD = :Card
   CASH = :Cash
 
@@ -39,5 +42,6 @@ class Order < ApplicationRecord
       item.cart_id = nil
       cart_items << item
     end
+    self.total_price = cart.total_cart_price
   end
 end

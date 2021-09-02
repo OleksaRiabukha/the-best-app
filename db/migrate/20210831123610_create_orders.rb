@@ -7,6 +7,7 @@ class CreateOrders < ActiveRecord::Migration[6.1]
       t.string :street, null: false
       t.string :building, null: false
       t.integer :appartment_number
+      t.decimal :total_price
 
       t.timestamps
     end

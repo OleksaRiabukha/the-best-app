@@ -8,6 +8,7 @@
 #  city              :string           not null
 #  pay_type          :integer          not null
 #  street            :string           not null
+#  total_price       :decimal(, )
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  user_id           :bigint           not null
