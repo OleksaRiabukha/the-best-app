@@ -1,2 +1,3 @@
-- text = current_user.present? ? "Do you want some food, #{current_user.email}" : "Sign Up or Log In to get food!"
-h1= text
+p.fs-2.text-center.pt-2
+  | Pick and Eat! 
+= render '/shared/restaurants'

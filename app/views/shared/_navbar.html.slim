@@ -4,14 +4,13 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
     span.navbar-toggler-icon
   #navbarSupportedContent.collapse.navbar-collapse
     ul.navbar-nav
-      - if user_signed_in?
-        li.nav-item
-          = link_to "Restaurants", restaurants_path, class: 'nav-link'
-      - else
+      - unless user_signed_in?
         li.nav-item
           = link_to 'Sign In', new_user_session_path, class: 'nav-link'
         li.nav-item
           = link_to 'Register', new_user_registration_path, class: 'nav-link'
+      li.nav-item
+        = link_to "Restaurants", restaurants_path, class: 'nav-link'
       - if user_signed_in? && is_admin?
           li.dropdown
             button#dropdownMenuButton1.btn.btn-secondary.dropdown-toggle[type="button" data-bs-toggle="dropdown" aria-expanded="false"]
