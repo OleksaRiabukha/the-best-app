@@ -24,8 +24,8 @@ class CartItemsController < ApplicationController
 
   def destroy
     if @cart_item.check_quantity && @cart.is_empty?
-      session[:cart_id] = nil
       @cart.destroy
+      session[:cart_id] = nil
       redirect_to @cart_item.menu_item.restaurant
     else
       render '/shared/cart_modal'

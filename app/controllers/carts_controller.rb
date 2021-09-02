@@ -1,5 +1,5 @@
 class CartsController < ApplicationController
-  before_action :current_cart, only: %i[show]
+  before_action :current_cart, only: %i[show destroy]
   before_action :current_cart_items, only: :show
 
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart

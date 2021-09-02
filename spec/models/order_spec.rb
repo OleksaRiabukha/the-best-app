@@ -35,4 +35,17 @@ RSpec.describe Order, type: :model do
     it { is_expected.to have_many(:cart_items) }
     it { is_expected.to belong_to(:user) }
   end
+
+  describe 'addition of cart items to order' do
+    let(:cart) { create(:cart) }
+    let(:cart_item) { create(:cart_item) }
+    let(:order) { create(:order) }
+
+    it 'adds items from the cart to order and transfers total price of cart items' do
+      cart.cart_items << cart_item
+      order.add_cart_items_from_cart(cart)
+      expect(order.cart_items.last.id).to eq(cart_item.id)
+      expect(order.total_price).to eq(cart.total_cart_price)
+    end
+  end
 end
