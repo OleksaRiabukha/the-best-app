@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   include Pundit
+  include CurrentCart
 
+  before_action :current_cart
   before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_paper_trail_whodunnit
 
@@ -9,7 +11,7 @@ class ApplicationController < ActionController::Base
   protected
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :phone_number])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[first_name last_name phone_number])
   end
 
   private

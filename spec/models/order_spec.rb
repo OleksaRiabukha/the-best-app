@@ -27,7 +27,7 @@ RSpec.describe Order, type: :model do
     it { is_expected.to validate_presence_of(:city) }
     it { is_expected.to validate_presence_of(:street) }
     it { is_expected.to validate_presence_of(:building) }
-    it { is_expected.to define_enum_for(:pay_type).with_values(%w[card cash]) }
+    it { is_expected.to define_enum_for(:pay_type).with_values(%w[Card Cash]) }
   end
 
   describe 'associations' do

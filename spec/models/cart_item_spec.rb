@@ -27,7 +27,7 @@ require 'rails_helper'
 
 RSpec.describe CartItem, type: :model do
   describe 'associations' do
-    it { is_expected.to belong_to(:cart) }
+    it { is_expected.to belong_to(:cart).optional }
     it { is_expected.to belong_to(:menu_item) }
   end
 

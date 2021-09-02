@@ -1,7 +1,5 @@
 class CartsController < ApplicationController
-  include CurrentCart
-
-  before_action :find_cart, only: %i[show destroy]
+  before_action :current_cart, only: %i[show]
   before_action :current_cart_items, only: :show
 
   rescue_from ActiveRecord::RecordNotFound, with: :invalid_cart
@@ -10,7 +8,9 @@ class CartsController < ApplicationController
     @cart = Cart.new
   end
 
-  def show; end
+  def show
+    render '/shared/cart_modal'
+  end
 
   def destroy
     @cart.destroy
@@ -20,11 +20,6 @@ class CartsController < ApplicationController
   end
 
   private
-
-  def find_cart
-    @cart = Cart.find(params[:id])
-    @cart.same?(session[:cart_id]) ? @cart : invalid_cart
-  end
 
   def invalid_cart
     flash[:alert] = 'Invalid Cart, please try again'

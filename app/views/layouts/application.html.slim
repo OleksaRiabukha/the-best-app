@@ -16,6 +16,7 @@ html
         p.alert.alert-success= notice
       - elsif alert
         p.alert.alert-danger= alert
+      = render 'shared/cart_modal'
       = yield
 
 = any_login_here if defined?(AnyLogin)

@@ -1,7 +1,7 @@
 class CartItemsController < ApplicationController
   include CurrentCart
 
-  before_action :current_cart, only: %i[create destroy]
+  before_action :create_current_cart, only: %i[create destroy]
   before_action :current_cart_items, only: %i[create destroy]
   before_action :find_cart_item, only: %i[show destroy]
 
@@ -24,6 +24,7 @@ class CartItemsController < ApplicationController
 
   def destroy
     if @cart_item.check_quantity && @cart.is_empty?
+      session[:cart_id] = nil
       @cart.destroy
       redirect_to @cart_item.menu_item.restaurant
     else

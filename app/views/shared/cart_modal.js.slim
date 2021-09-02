@@ -1,3 +1,7 @@
 | $("#cart-modal").find(".modal-content").html("
 = j (render(@cart))
 | "); $("#cart-modal").modal("show"); 
+
+| $('#shopping_cart').html("
+= j (render('shared/cart_icon'))
+| ");
