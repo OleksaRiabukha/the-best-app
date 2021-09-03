@@ -1,5 +1,7 @@
-.card.md-3
+.card.mb-3
   - cache @restaurant do
+    - if @restaurant.restaurant_image.attached?
+      img.card-img-top#restaurant-show-page-image[src="#{url_for(@restaurant.restaurant_image)}" alt="Restaurant Card"]
     .card-body
       h5.card-title
       = @restaurant.name

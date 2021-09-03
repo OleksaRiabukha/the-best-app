@@ -24,15 +24,16 @@
 class Restaurant < ApplicationRecord
   default_scope { order(created_at: :desc) }
 
-  has_many :menu_items, dependent: :destroy
-
   scope :active, -> { where(active: true) }
   scope :hidden, -> { where(active: false) }
 
   belongs_to :category
+  has_many :menu_items, dependent: :destroy
+  has_one_attached :restaurant_image
 
   validates :name, presence: true
   validates :name, uniqueness: true
+  validates :restaurant_image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg']
 
   has_paper_trail
 end

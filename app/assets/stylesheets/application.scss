@@ -1,1 +1,26 @@
 @import 'font-awesome';
+
+#restaurant-index-page-image {
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+  background-color: grey;
+  opacity: .3;
+}
+
+#restaurant-show-page-image {
+  width: 100%;
+  height: 270px;
+  object-fit: cover;
+}
+
+#home-carousel-image {
+  width: 100%;
+  height: 500px;
+  object-fit: cover;
+  background-color: grey;
+  opacity: .2;
+}
+html body {
+  background-color: white;
+}

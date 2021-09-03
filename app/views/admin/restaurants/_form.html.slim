@@ -6,6 +6,7 @@
       = f.input :website_url
       = f.input :description
       = f.input :active
+      = f.input :restaurant_image, as: :file, label: "Add image of restaurant", required: true
       = f.association :category, collection: Category.all, prompt: "Select Category"
       = f.submit "Save", class: "btn btn-primary", style: "margin-top: 5px; margin-right: 2px"
       = link_to "Cancel", return_to, class: "btn btn-danger", style: "margin-top: 5px"

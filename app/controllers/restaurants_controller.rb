@@ -1,7 +1,7 @@
 class RestaurantsController < ApplicationController
 
   def index
-    @restaurants = collection.includes(:category)
+    @restaurants = collection.includes(:category, restaurant_image_attachment: :blob)
   end
 
   def show

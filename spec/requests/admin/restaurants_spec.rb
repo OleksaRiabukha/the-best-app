@@ -38,7 +38,7 @@ RSpec.describe 'Admin::Restaurants', type: :request do
     describe 'POST /admin/restaurants' do
       context 'create new restaurant with valid attributes' do
         let(:category) { create(:category) }
-        let(:params) { { restaurant: attributes_for(:restaurant, category_id: category.id) } }
+        let(:params) { { restaurant: attributes_for(:restaurant, restaurant_image: UploadImage.restaurant_image, category_id: category.id) } }
 
         before do
           post admin_restaurants_path, params: params
