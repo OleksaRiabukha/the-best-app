@@ -9,7 +9,7 @@ class CartsController < ApplicationController
   end
 
   def show
-    render '/shared/cart_modal'
+    render 'show'
   end
 
   def destroy

@@ -1,5 +1,4 @@
 class CartItemsController < ApplicationController
-  include CurrentCart
 
   before_action :create_current_cart, only: %i[create destroy]
   before_action :current_cart_items, only: %i[create destroy]
@@ -16,7 +15,7 @@ class CartItemsController < ApplicationController
     @cart_item = @cart.add_menu_item(menu_item)
 
     if @cart_item.save
-      render '/shared/cart_modal'
+      render '/carts/show'
     else
       render :new
     end
@@ -28,7 +27,7 @@ class CartItemsController < ApplicationController
       session[:cart_id] = nil
       redirect_to @cart_item.menu_item.restaurant
     else
-      render '/shared/cart_modal'
+      render '/carts/show'
     end
   end
 

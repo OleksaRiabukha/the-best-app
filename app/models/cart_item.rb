@@ -7,7 +7,7 @@
 #  quantity     :integer          default(1)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
-#  cart_id      :integer
+#  cart_id      :bigint
 #  menu_item_id :bigint           not null
 #  order_id     :bigint
 #
