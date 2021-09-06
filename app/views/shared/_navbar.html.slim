@@ -1,40 +1,42 @@
-nav.navbar.navbar-expand-lg.navbar-light.bg-light
-  a.navbar-brand href="/"  Get your foood!
-  button.navbar-toggler aria-controls="navbarSupportedContent" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarSupportedContent" data-toggle="collapse" type="button" 
-    span.navbar-toggler-icon
-  #navbarSupportedContent.collapse.navbar-collapse
-    ul.navbar-nav
-      - unless user_signed_in?
+nav#navbar.navbar.sticky-top.navbar-expand-lg.mb-3
+  .container-fluid.justify-content-start
+    a.navbar-brand.text-warning.fs-4 href="/"  Get your foood!
+    button.navbar-toggler aria-controls="navbarSupportedContent" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarSupportedContent" data-toggle="collapse" type="button" 
+      span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+      ul.navbar-nav
+        - unless user_signed_in?
+          li.nav-item
+            = link_to 'Sign In', new_user_session_path, class: 'nav-link text-warning'
+          li.nav-item
+            = link_to 'Register', new_user_registration_path, class: 'nav-link text-warning'
         li.nav-item
-          = link_to 'Sign In', new_user_session_path, class: 'nav-link'
+          = link_to "Restaurants", restaurants_path, class: 'nav-link text-warning'
+        - if user_signed_in? && is_admin?
+            li.dropdown
+              button#dropdownMenuButton1.btn.btn-info.dropdown-toggle[type="button" data-bs-toggle="dropdown" aria-expanded="false"]
+                |  Admin Panel
+              ul.dropdown-menu[aria-labelledby="dropdownMenuButton1"]
+                li
+                  = link_to "Dashboard", admin_dashboard_path, class: 'dropdown-item'
+                li
+                  = link_to "Categories", admin_categories_path, class: 'dropdown-item'
+                li
+                  = link_to "Add New Restaurant", new_admin_restaurant_path, class: 'dropdown-item'
+      ul.navbar-nav
         li.nav-item
-          = link_to 'Register', new_user_registration_path, class: 'nav-link'
-      li.nav-item
-        = link_to "Restaurants", restaurants_path, class: 'nav-link'
-      - if user_signed_in? && is_admin?
-          li.dropdown
-            button#dropdownMenuButton1.btn.btn-secondary.dropdown-toggle[type="button" data-bs-toggle="dropdown" aria-expanded="false"]
-              |  Admin Panel
-            ul.dropdown-menu[aria-labelledby="dropdownMenuButton1"]
-              li
-                = link_to "Dashboard", admin_dashboard_path, class: 'dropdown-item'
-              li
-                = link_to "Categories", admin_categories_path, class: 'dropdown-item'
-              li
-                = link_to "Add New Restaurant", new_admin_restaurant_path, class: 'dropdown-item'
-      li.nav-item
-        - if @cart
-            = render 'shared/cart_icon'
-        - else
-            #shopping_cart
-    ul.navbar-nav.ms-auto
-     - if user_signed_in?
-      li.dropdown.pe-2
-        .btn-group.dropstart
-          button#dropdownUserMenuButton.btn.btn-primary.btn-lg.dropdown-toggle[type="button" data-bs-toggle="dropdown" aria-expanded="false"]
-            = fa_icon('user')
-          ul.dropdown-menu[aria-labelledby="dropdownUserMenuButton"]
-            li
-              = link_to "Profile", user_path(current_user), class: 'nav-link'
-            li
-              = link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'nav-link'
+          - if @cart
+              = render 'shared/cart_icon'
+          - else
+              #shopping_cart
+      ul.navbar-nav.ms-auto
+        - if user_signed_in?
+          li.dropdown.pe-2
+            .btn-group.dropstart
+              #dropdownUserMenuButton.text-warning.fa-2x.dropdown-toggle[type="button" data-bs-toggle="dropdown" aria-expanded="false"]
+                = fa_icon('user') 
+              ul.dropdown-menu[aria-labelledby="dropdownUserMenuButton"]
+                li
+                  = link_to "Profile", user_path(current_user), class: 'nav-link text-dark'
+                li
+                  = link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'nav-link text-dark'

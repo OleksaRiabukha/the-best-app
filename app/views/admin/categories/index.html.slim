@@ -1,5 +1,5 @@
 
-= link_to 'Add new category', new_admin_category_path, style: "margin-bottom: 25px; margin-top: 10px", class: "btn btn-primary mb-500"  
+= link_to 'Add new category', new_admin_category_path, class: "btn btn-warning mb-4 ms-1"
 
 .accordion.accordiong-flush#categories-accordion
   - @categories.each do |category|
@@ -9,7 +9,7 @@
           = category.name
       .accordion-collapse.collapse[id="flush-collapse-#{category.id}" aria-labelledby="flush-heading#{category.id}" data-bs-parent="#categories-accordion"]
         .accordion-body
-          strong
+          .text-start.fs-6
             = category.description
-            br
-            = link_to 'Details', admin_category_path(category), class: "btn btn-outline-primary btn-sm", style: "margin-top: 10px"
+          p  
+            = link_to 'Details', admin_category_path(category), class: "btn btn-info mt-3"

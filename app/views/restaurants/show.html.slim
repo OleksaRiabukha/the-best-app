@@ -3,36 +3,42 @@
     - if @restaurant.restaurant_image.attached?
       img.card-img-top#restaurant-show-page-image[src="#{url_for(@restaurant.restaurant_image)}" alt="Restaurant Card"]
     .card-body
-      h5.card-title
-      = @restaurant.name
-      p.card-text
-        small.text-muted
-          = @restaurant.category.name
+      .card-title.fs-4.mb-0
+        = @restaurant.name
+      .small.text-muted
+        = @restaurant.category.name
       p.card-text
       = @restaurant.description
       p.card-text
-      = @restaurant.phone_number
-      br
-      = @restaurant.website_url
-      br
+      = "Call us: #{@restaurant.phone_number}"
+      p.card-text 
+      = link_to "Visit our website!", @restaurant.website_url
+      p.card-text
       = link_to "Go Back", restaurants_path, class: "btn btn-danger"
 
     - if @restaurant.menu_items.available.present?
-p.fs-3.text-center.pt-2
-  | Menu 
-  .card.md-3 style="margin-top: 20px;"
-    - @restaurant.menu_items.available.each do |menu_item|
-      - cache menu_item do
-          .card-body
-            h5.card-title
-              = menu_item.name
-            p.card-text
-              small
-                = number_to_currency(menu_item.price)
-                br
-                - if menu_item.discount && menu_item.discount > 0
-                  = "Take it with #{number_to_percentage(menu_item.discount, precision: 0)} discount now!"
-            p.card-text
-              = menu_item.description
-            = link_to 'Details', restaurant_menu_item_path(@restaurant, menu_item), class: 'btn btn-info btn-sm'
-            = link_to fa_icon('shopping-basket'), cart_items_path(menu_item_id: menu_item), remote: true, method: :post, data: { 'data-bs-toggle': 'modal', 'data-bs-target': '#cart-modal' }, class: 'btn btn-success ms-1'
+
+- if @menu_items.present?
+  p.fs-3.text-center.pt-2
+    | Menu 
+  .container-fluid
+    .row
+      - @menu_items.each do |menu_item|
+        - cache menu_item do
+          .col-sm-6.mb-3
+            .card.mb-5.h-100.w-100
+              - if menu_item.menu_item_image.attached?
+                img.card-img-top#menu-item-restaurant-index-image[src="#{url_for(menu_item.menu_item_image)}" alt="Menu item image"]
+              .card-body
+                .card-title.fs-4
+                  = menu_item.name
+                p.card-text
+                  small
+                    = number_to_currency(menu_item.price)
+                    br
+                    - if menu_item.discount && menu_item.discount > 0
+                      = "Take it with #{number_to_percentage(menu_item.discount, precision: 0)} discount now!"
+                p.card-text
+                  = menu_item.description
+                = link_to 'Details', restaurant_menu_item_path(@restaurant, menu_item), class: 'btn btn-info btn-sm'
+                = link_to fa_icon('shopping-basket'), cart_items_path(menu_item_id: menu_item), remote: true, method: :post, data: { 'data-bs-toggle': 'modal', 'data-bs-target': '#cart-modal' }, class: 'btn btn-success ms-1'

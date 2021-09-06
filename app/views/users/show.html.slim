@@ -1,6 +1,6 @@
-p.fs-4.text-left.pt-2
+p.text-left.font-monospace.fw-bold.fs-5.pt-2
   = "Hi, #{current_user.first_name}! Edit your profile, track orders or delete account"
-  = link_to fa_icon("edit"), edit_user_path(current_user), class: "btn btn-primary mx-2"
+  = link_to fa_icon("edit"), edit_user_path(current_user), class: "btn btn-warning mx-1"
   = link_to fa_icon("trash"), user_path(current_user), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
 .accordion.accordiong-flush.pt-2#user-orders-accordion
   - @orders.each do |order|

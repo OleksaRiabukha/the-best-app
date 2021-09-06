@@ -6,6 +6,7 @@ class RestaurantsController < ApplicationController
 
   def show
     @restaurant = collection.find(params[:id])
+    @menu_items = @restaurant.menu_items.available
     respond_to :html, :js
   end
 

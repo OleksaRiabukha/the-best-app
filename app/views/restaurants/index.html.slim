@@ -1,14 +1,17 @@
-- cache @restaurants do
-  - @restaurants.each do |restaurant|
-    .card.bg-dark.text-white.mb-2.border-dark
-      img.card-img#restaurant-index-page-image[src="#{url_for(restaurant.restaurant_image)}" alt="Restaurant Card"]
-      .card-img-overlay
-        .fs-2.card-title.text-center.text-warning
-          = restaurant.name
-        p.card-text.fs-5
-          small.text-warning
-            = restaurant.category.name
-        p.card-text.fs-5
-          = truncate(restaurant.description, length: 300, separator: ".")
-        p.text-center
-          = link_to 'Try it now!', restaurant_path(restaurant), class: "btn btn-warning"
+.container-fluid
+  - cache @restaurants do
+    .row
+      - @restaurants.each do |restaurant|
+        .col-sm-6.mb-4
+          .card.h-100
+            = link_to restaurant_path(restaurant) do
+              img.card-img-top#restaurant-index-page-image[src="#{url_for(restaurant.restaurant_image)}" alt="Restaurant Card"]
+            .card-body
+              .fs-3.card-title
+                = restaurant.name
+              p.card-text.small
+                = restaurant.category.name
+              p.card-text.fs-6
+                = truncate(restaurant.description, length: 300, separator: '.')
+              p.text-center
+                = link_to 'Try it now!', restaurant_path(restaurant), class: 'btn btn-warning'

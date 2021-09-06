@@ -1,18 +1,25 @@
 .card.md-3
+  - if @menu_item.menu_item_image.attached?
+    img.card-img-top#menu-item-show-page-image[src="#{url_for(@menu_item.menu_item_image)}" alt="Menu item image"]
   .card-body
-    h.card-title
-     = @menu_item.name
+    .card-title.fs-3.mb-0
+      = @menu_item.name
+    - if @menu_item.available?
+      p.text-success.text-bold.fs-6
+        | Available
+    - else
+      p.text-danger.text-bold.fs-6
     p.card-text
-      small
-        = number_to_currency(@menu_item.price)
-        br
-        - if @menu_item.discount && @menu_item.discount > 0
-          = "Take it with #{number_to_percentage(@menu_item.discount, precision: 0)} discount now!"
+      = number_to_currency(@menu_item.price)
+    - if @menu_item.discount && @menu_item.discount > 0
+      p.card-text
+        = "A discount is: #{number_to_percentage(@menu_item.discount, precision: 0)}"
     p.card-text
       = @menu_item.description
     p.card-text
       small.text-muted
         = @menu_item.ingredients
-    = link_to fa_icon('edit'), edit_admin_restaurant_menu_item_path(@restaurant, @menu_item), class: 'btn btn-primary', style: 'margin-right: 2px;'
-    = link_to fa_icon('trash'), admin_restaurant_menu_item_path(@restaurant, @menu_item), method: :delete, data: { confirm: 'Are you sure?'}, class: 'btn btn-danger'
-    = link_to fa_icon('arrow-left'), admin_restaurant_path(@restaurant), class: "btn btn-secondary"
+    p.card-text
+      = link_to fa_icon('arrow-left'), admin_restaurant_path(@restaurant), class: "btn btn-secondary me-1"
+      = link_to fa_icon('trash'), admin_restaurant_menu_item_path(@restaurant, @menu_item), method: :delete, data: { confirm: 'Are you sure?'}, class: 'btn btn-danger me-1'
+      = link_to fa_icon('edit'), edit_admin_restaurant_menu_item_path(@restaurant, @menu_item), class: 'btn btn-warning'
