@@ -1,13 +1,15 @@
-tr
-  td
-    = cart_item.menu_item.name
-  td
-    = cart_item.quantity
-  td
-    = number_to_currency(cart_item.total_price)
-  td
-    = link_to fa_icon('plus'), cart_items_path(menu_item_id: cart_item.menu_item), remote: true, method: :post, data: { 'data-toggle': 'modal', 'data-target': '#modal-window' }, class: 'btn btn-success'
-  td
-    = link_to fa_icon('minus'), cart_item_path(cart_item), remote: true, method: :delete, data: { 'data-toggle': 'modal', 'data-target': '#modal-window' }, class: 'btn btn-danger'
-  td
-
+- @cart_items.each do |item|
+  tr.d-flex
+    th
+      td.col-4
+        = item.menu_item.name
+      td.col-2
+        | x
+        = item.quantity
+      td.col-2
+        = number_to_currency(item.total_price)
+      td.col-2
+        = link_to fa_icon('plus'), cart_items_path(menu_item_id: item.menu_item.id), remote: true, method: :post, data: { 'data-toggle': 'modal', 'data-target': '#modal-window' }, class: 'btn btn-success'
+      td.col-1
+         = link_to fa_icon('minus'), cart_item_path(item), remote: true, method: :delete, data: { 'data-toggle': 'modal', 'data-target': '#modal-window' }, class: 'btn btn-danger'
+      

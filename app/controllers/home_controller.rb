@@ -1,3 +1,5 @@
 class HomeController < ApplicationController
-  def index; end
+  def index
+    @restaurants = Restaurant.active.includes(:category)
+  end
 end

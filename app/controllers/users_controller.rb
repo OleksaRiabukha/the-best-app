@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
 
-  def show; end
+  def show
+    @orders = current_user.orders.includes(cart_items: :menu_item)
+  end
 
   def edit; end
 

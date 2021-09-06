@@ -1,13 +1,15 @@
 h2 Hello, #{current_user.email}. Here are restaurants: 
 
 .card-group
-  - @restaurants.each do |restaurant|
-    .card
-      .card-body
-        h5.card-title
-         = restaurant.name
-        p.card-text
-         = restaurant.description
-        = link_to "Details", admin_restaurant_path(restaurant), class: "btn btn-info"
-        = link_to "Edit", edit_admin_restaurant_path(restaurant), class: "btn btn-primary"
- 
+  - cache @restaurants do
+    - @restaurants.each do |restaurant|
+      - cache restaurant do
+        .card
+          .card-body
+            h5.card-title
+             = restaurant.name
+            p.card-text
+             = restaurant.description
+            = link_to "Details", admin_restaurant_path(restaurant), class: "btn btn-info"
+            = link_to "Edit", edit_admin_restaurant_path(restaurant), class: "btn btn-primary"
+     

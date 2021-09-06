@@ -1,4 +1,18 @@
-h2 Hello, #{current_user.first_name}!
-
-= link_to fa_icon("edit"), edit_user_path(current_user), class: "btn btn-primary"
-= link_to fa_icon("trash"), user_path(current_user), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
+p.fs-4.text-left.pt-2
+  = "Hi, #{current_user.first_name}! Edit your profile, track orders or delete account"
+  = link_to fa_icon("edit"), edit_user_path(current_user), class: "btn btn-primary mx-2"
+  = link_to fa_icon("trash"), user_path(current_user), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
+.accordion.accordiong-flush.pt-2#user-orders-accordion
+  - @orders.each do |order|
+    .accordion-item
+      h2.accordion-header id="flush-heading-#{order.id}"
+        button.accordion-button.collapsed[type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-#{order.id}" aria-expanded="false" aria-controls="flush-collapse-#{order.id}"]
+          = "Delivered to #{order.street}, #{order.building}, #{order.city} #{order.created_at.strftime("on %A, %B %d, %Y")}"
+      .accordion-collapse.collapse[id="flush-collapse-#{order.id}" aria-labelledby="flush-heading-#{order.id}" data-bs-parent="#user-orders-accordion"]
+        .accordion-body
+          - order.cart_items.each do |item|
+            ul
+              li
+                = "x#{item.quantity} #{item.menu_item.name} for #{number_to_currency(item.total_price)}"
+          p.text-left
+            = "Paid a total of #{number_to_currency(order.total_price)} with #{order.pay_type.downcase}."

@@ -1,6 +1,7 @@
 class RestaurantsController < ApplicationController
+
   def index
-    @restaurants = collection
+    @restaurants = collection.includes(:category)
   end
 
   def show
