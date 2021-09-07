@@ -13,5 +13,5 @@
           td.table-success.col-6.text-end
             = number_to_currency(@cart.total_cart_price)
 .modal-footer
-  = link_to "Empty cart", @cart, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
-  = link_to "Buy", orders_new_url, class: "btn btn-success"
+  = link_to "Empty cart", @cart, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-secondary"
+  = link_to "Buy", orders_new_url, class: "btn btn-warning"

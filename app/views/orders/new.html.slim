@@ -1,32 +1,35 @@
 .container-fluid
-  .table-responsive
-    table.table.table-borderless.table-hover.caption-top
-        caption
-          | Your order
-        - @cart_items.each do |item|
-          tbody
-            tr.d-flex.table-light
-              td.col-2
-                = item.menu_item.name
+  .col-lg-12.offset-lg-4
+    .row.justify-content-center
+      .table-responsive
+        table.table.table-borderless.table-hover.caption-top
+            caption
+              | Your order
+            - @cart_items.each do |item|
+              tbody
+                tr.d-flex.table-light
+                  td.col-2
+                    = item.menu_item.name
+                  td.col-1
+                    | x
+                    = item.quantity 
+                  td.col-1
+                    = number_to_currency(item.total_price) 
+            tr.d-flex.table-success
+              td.col-3
+                | Total
               td.col-1
-                | x
-                = item.quantity 
-              td.col-1
-                = number_to_currency(item.total_price) 
-        tr.d-flex.table-success
-          td.col-3
-            | Total
-          td.col-1
-            = number_to_currency(@cart.total_cart_price)
+                = number_to_currency(@cart.total_cart_price)
 
-  h5 Enter your develivery address details
-  .form-row
-    .form-group.col-md-4
-      = simple_form_for [current_user, @order] do |f|
-        = f.input :city
-        = f.input :street
-        = f.input :building
-        = f.input :appartment_number
-        = f.input :pay_type, collection: Order.pay_types.keys, prompt: "Select payment type"
-        = link_to 'Cancel', restaurants_path, class: 'btn btn-danger'
-        = f.submit 'Confirm and buy', class: 'btn btn-success'
+      .fs-5.text-warning.fw-bold.font-monospace.mb-2
+        |Enter your delivery address details
+      .form-row
+        .form-group.col-md-4
+          = simple_form_for [current_user, @order] do |f|
+            = f.input :city
+            = f.input :street
+            = f.input :building
+            = f.input :appartment_number
+            = f.input :pay_type, collection: Order.pay_types.keys, prompt: "Select payment type"
+            = link_to 'Cancel', restaurants_path, class: 'btn btn-secondary mt-2 me-1'
+            = f.submit 'Confirm and buy', class: 'btn btn-warning mt-2'
