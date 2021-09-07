@@ -1,3 +1,5 @@
+require_relative '../support/upload_image'
+
 FactoryBot.define do
   factory :restaurant do
     association :category
@@ -8,8 +10,8 @@ FactoryBot.define do
 
     before(:create) do |restaurant|
       restaurant.restaurant_image.attach(
-        io: File.open(UploadImage.image_path),
-        filename: 'res3.jpg',
+        io: File.open(UploadImage.restaurant_image_path),
+        filename: UploadImage::RESTAURANT_IMAGE_FILENAME,
         content_type: 'image/jpeg'
       )
     end

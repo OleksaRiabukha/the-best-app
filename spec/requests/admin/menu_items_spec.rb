@@ -37,7 +37,11 @@ RSpec.describe 'Admin::MenuItems', type: :request do
 
     describe 'POST /admin/restaurants/:id/menu_items' do
       context 'create menu item with valid attributes' do
-        let(:params) { { menu_item: attributes_for(:menu_item) } }
+        let(:params) do
+          { menu_item: attributes_for(:menu_item,
+                                      available: true,
+                                      menu_item_image: UploadImage.upload_image(UploadImage.menu_item_image_path)) }
+        end
 
         before do
           post admin_restaurant_menu_items_path(restaurant), params: params

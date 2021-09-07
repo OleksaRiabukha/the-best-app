@@ -116,7 +116,7 @@ RSpec.describe 'Categories', type: :request do
         end
 
         it 'renders an edit template' do
-          expect(response.body).to include('Update Details')
+          expect(response.body).to include('Edit category')
         end
 
         it 'does not change category attributes' do
