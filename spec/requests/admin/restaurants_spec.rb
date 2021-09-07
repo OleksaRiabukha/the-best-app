@@ -17,19 +17,19 @@ RSpec.describe 'Admin::Restaurants', type: :request do
         end
 
         it 'returns a name of the restaurant' do
-          expect(response.body).to include(restaurant.name)
+          expect(CGI.unescapeHTML(response.body)).to include(restaurant.name)
         end
 
         it 'returns a description of the restaurant' do
-          expect(response.body).to include(restaurant.description)
+          expect(CGI.unescapeHTML(response.body)).to include(restaurant.description)
         end
 
         it 'returns a phone number of the restaurant' do
-          expect(response.body).to include(restaurant.phone_number)
+          expect(CGI.unescapeHTML(response.body)).to include(restaurant.phone_number)
         end
 
         it 'returns a website url of the restaurant' do
-          expect(response.body).to include(restaurant.website_url)
+          expect(CGI.unescapeHTML(response.body)).to include(restaurant.website_url)
         end
       end
     end
