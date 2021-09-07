@@ -1,7 +1,7 @@
 
 = link_to 'Add new category', new_admin_category_path, class: "btn btn-warning mb-4 ms-1"
 
-.accordion.accordiong-flush#categories-accordion
+.accordion.accordiong-flush#categories-accordion.mb-2
   - @categories.each do |category|
     .accordion-item
       h2.accordion-header id="flush-heading-#{category.id}"
@@ -13,3 +13,4 @@
             = category.description
           p  
             = link_to 'Details', admin_category_path(category), class: "btn btn-info mt-3"
+= render 'shared/pagy_nav', pagy: @pagy

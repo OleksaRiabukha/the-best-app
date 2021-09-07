@@ -43,3 +43,4 @@
                     = link_to 'Details', restaurant_menu_item_path(@restaurant, menu_item), class: 'btn btn-info me-1'
                     = link_to fa_icon('shopping-basket'), cart_items_path(menu_item_id: menu_item), remote: true, method: :post, data: { 'data-bs-toggle': 'modal', 'data-bs-target': '#cart-modal' }, class: 'btn btn-warning'
 
+= render 'shared/pagy_nav', pagy: @pagy

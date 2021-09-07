@@ -20,4 +20,4 @@ p.fs-3.text-center.pt-3.fw-bold.font-monospace.text-warning
                  = truncate(restaurant.description, length: 100, separator: '.')
                 = link_to "Details", admin_restaurant_path(restaurant), class: "btn btn-info me-1"
                 = link_to "Edit", edit_admin_restaurant_path(restaurant), class: "btn btn-warning"
-       
+= render 'shared/pagy_nav', pagy: @pagy 

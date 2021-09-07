@@ -24,12 +24,12 @@
       = link_to fa_icon('edit'), edit_admin_restaurant_path(@restaurant), class: "btn btn-info me-1"
       = link_to "Add Dish", new_admin_restaurant_menu_item_path(@restaurant), class: 'btn btn-warning'
 
-- if @restaurant.menu_items.present?
+- if @menu_items.present?
   p.fs-3.text-center.pt-3.fw-bold.font-monospace.text-warning
     | Your dishes:
   .container-fluid
     .row
-      - @restaurant.menu_items.each do |menu_item|
+      - @menu_items.each do |menu_item|
         .col-sm-4.mb-2
           .card.h-100.w-100
             .card-body
@@ -48,3 +48,4 @@
               p.card-text  
                 = link_to 'Details', admin_restaurant_menu_item_path(@restaurant, menu_item), class: 'btn btn-info me-1' 
                 = link_to 'Edit', edit_admin_restaurant_menu_item_path(@restaurant, menu_item), class: 'btn btn-warning'
+= render 'shared/pagy_nav', pagy: @pagy

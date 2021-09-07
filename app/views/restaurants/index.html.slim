@@ -15,3 +15,5 @@
                 = truncate(restaurant.description, length: 300, separator: '.')
               p.text-center
                 = link_to 'Try it now!', restaurant_path(restaurant), class: 'btn btn-warning'
+= render 'shared/pagy_nav', pagy: @pagy
+

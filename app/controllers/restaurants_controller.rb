@@ -1,12 +1,12 @@
 class RestaurantsController < ApplicationController
 
   def index
-    @restaurants = collection.includes(:category, restaurant_image_attachment: :blob)
+    @pagy, @restaurants = pagy(collection.includes(:category, restaurant_image_attachment: :blob), items: 6)
   end
 
   def show
     @restaurant = collection.find(params[:id])
-    @menu_items = @restaurant.menu_items.available.includes(menu_item_image_attachment: :blob)
+    @pagy, @menu_items = pagy(@restaurant.menu_items.available.includes(menu_item_image_attachment: :blob), items: 6)
     respond_to :html, :js
   end
 

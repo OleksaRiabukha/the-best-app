@@ -1,7 +1,9 @@
 class Admin::RestaurantsController < Admin::AdminController
   before_action :find_restaurant, only: %i[show update edit destroy]
 
-  def show; end
+  def show
+   @pagy, @menu_items = pagy(@restaurant.menu_items, items: 9)
+  end
 
   def new
     @restaurant = Restaurant.new

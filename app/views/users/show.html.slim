@@ -18,3 +18,5 @@
                     = "x#{item.quantity} #{item.menu_item.name} for #{number_to_currency(item.total_price)}"
               p.text-left
                 = "Paid a total of #{number_to_currency(order.total_price)} with #{order.pay_type.downcase}."
+- if @orders.size > 10
+  = render 'shared/pagy_nav', pagy: @pagy

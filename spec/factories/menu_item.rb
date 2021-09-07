@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :menu_item do
     association :restaurant
-    name { Faker::Food.dish }
+    sequence(:name) { |n| "#{Faker::Food.dish} #{n}" }
     description { Faker::Food.description }
     ingredients { Faker::Food.ingredients }
     price { Faker::Number.decimal(l_digits: 2) }

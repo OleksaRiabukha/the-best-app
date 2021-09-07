@@ -3,7 +3,7 @@ require_relative '../support/upload_image'
 FactoryBot.define do
   factory :restaurant do
     association :category
-    name { Faker::Restaurant.unique.name }
+    sequence(:name) { |n| "#{Faker::Restaurant.unique.name}-#{n}" }
     phone_number { Faker::PhoneNumber.phone_number }
     website_url { Faker::Internet.url }
     description { Faker::Restaurant.description }
