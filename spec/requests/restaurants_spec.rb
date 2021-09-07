@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'Restaurants', type: :request do
   context 'when logged in user tries to' do
     login_user
