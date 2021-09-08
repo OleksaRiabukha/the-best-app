@@ -25,10 +25,9 @@ nav#navbar.navbar.sticky-top.navbar-expand-lg.mb-3
                   = link_to "Add New Restaurant", new_admin_restaurant_path, class: 'dropdown-item'
       ul.navbar-nav.ms-auto
         li.ps-2
-          - if @cart
-              = render 'shared/cart_icon'
-          - else
-              #shopping_cart
+          .div#shopping_cart
+            - if @cart
+                = render 'shared/cart_icon'
       ul.navbar-nav.ms-3.mt-1
         - if user_signed_in?
           li.pe-2

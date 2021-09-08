@@ -1,46 +1,48 @@
-.card.mb-3
-  - cache @restaurant do
-    - if @restaurant.restaurant_image.attached?
-      img.card-img-top#restaurant-show-page-image[src="#{url_for(@restaurant.restaurant_image)}" alt="Restaurant Card"]
-    .card-body
-      .card-title.fs-4.mb-0
-        = @restaurant.name
-      .small.text-muted
-        = @restaurant.category.name
-      p.card-text
-      = @restaurant.description
-      p.card-text
-      = "Call us: #{@restaurant.phone_number}"
-      p.card-text 
-      = link_to "Visit our website!", @restaurant.website_url
-      p.card-text
-      = link_to "Go Back", restaurants_path, class: "btn btn-warning"
+.container-fluid
+  .row
+    .col-lg-12
+      .card.bg-dark.text-white.mb-3
+        - cache @restaurant do
+          - if @restaurant.restaurant_image.attached?
+            img.card-img-top#restaurant-show-page-image[src="#{url_for(@restaurant.restaurant_image)}" alt="Restaurant Card"]
+          .card-img-overlay.d-flex.flex-column
+            .card-body.d-flex.flex-column
+              .card-title.text-warning.fs-4.mb-0
+                = @restaurant.name
+              .small.text-info.fs-6.mb-4
+                = @restaurant.category.name
+              .card-text.fs-5
+                = @restaurant.description
+              .card-text.mt-3.text-info.fw-bold.d-flex.justify-content-end.mt-auto
+                = "Call us: #{@restaurant.phone_number}"
+              .card-text.mt-3.fw-bold.d-flex.justify-content-end#restaurant-show-page-link
+                = link_to "Visit our website!", @restaurant.website_url
+              .mt-auto
+                = link_to "Go Back", restaurants_path, class: "mt-auto btn btn-warning"
 
-- if @menu_items.present?
-  - cache @menu_items do
-    p.fs-2.text-center.fw-bold.font-monospace.text-warning.pt-2
-      | Menu 
-    .container-fluid
-      .row
-        - @menu_items.each do |menu_item|
-          - cache menu_item do
-            .col-sm-6.mb-2
-              .card.mb-2#menu-item-restaurant-show-card
-                - if menu_item.menu_item_image.attached?
-                  = link_to restaurant_menu_item_path(@restaurant, menu_item) do
-                    img.card-img-top#menu-item-restaurant-index-image[src="#{url_for(menu_item.menu_item_image)}" alt="Menu item image"]
-                .card-body
-                  .card-title.fs-4
-                    = menu_item.name
-                  p.card-text.text-success
-                    = number_to_currency(menu_item.price)
-                    - if menu_item.discount && menu_item.discount > 0
-                      .card-text.text-danger.fs-5
-                        = "#{number_to_percentage(menu_item.discount, precision: 0)} Discount!"
-                  p.card-text
-                    = menu_item.description
-                  p.card-text
-                    = link_to 'Details', restaurant_menu_item_path(@restaurant, menu_item), class: 'btn btn-info me-1'
-                    = link_to fa_icon('shopping-basket'), cart_items_path(menu_item_id: menu_item), remote: true, method: :post, data: { 'data-bs-toggle': 'modal', 'data-bs-target': '#cart-modal' }, class: 'btn btn-warning'
+      - if @menu_items.present?
+        - cache @menu_items do
+          p.fs-2.text-center.fw-bold.font-monospace.text-warning.pt-2
+            | Menu 
+          .container-fluid
+            .row
+              - @menu_items.each do |menu_item|
+                - cache menu_item do
+                  .col-md-6.mb-2
+                    .card.mb-2#menu-item-restaurant-show-card
+                      - if menu_item.menu_item_image.attached?
+                        = link_to restaurant_menu_item_path(@restaurant, menu_item) do
+                          img.card-img-top#menu-item-restaurant-index-image[src="#{url_for(menu_item.menu_item_image)}" alt="Menu item image"]
+                      .card-body.d-flex.flex-column
+                        .card-title.mt-2.d-flex.flex-row
+                          .fw-bold.fs-5 = menu_item.name
+                          .text-success.ms-3.fs-5.d-flex.me-auto = number_to_currency(menu_item.price)
+                          - if menu_item.discount && menu_item.discount > 0
+                            .text-danger.fs-5.d-flex.justify-content-end = "#{number_to_percentage(menu_item.discount, precision: 0)} Off!"
+                        .card-text
+                          = truncate(menu_item.description, length: 180, separator: ".")
+                        .card-text.mt-auto
+                          = link_to 'Details', restaurant_menu_item_path(@restaurant, menu_item), class: 'btn btn-info me-1'
+                          = link_to fa_icon('shopping-basket'), cart_items_path(menu_item_id: menu_item), remote: true, method: :post, data: { 'data-bs-toggle': 'modal', 'data-bs-target': '#cart-modal' }, class: 'btn btn-warning'
 
 = render 'shared/pagy_nav', pagy: @pagy

@@ -13,8 +13,11 @@
 
 #restaurant-show-page-image {
   width: 100%;
-  height: 300px;
+  height: 410px;
   object-fit: cover;
+  background-color: grey;
+  opacity: 0.3;
+  max-height: 100%;
 }
 
 #home-carousel-image {
@@ -42,7 +45,7 @@ html body {
 }
 
 #menu-item-restaurant-show-card {
-  height: 550px;
+  height: 450px;
   object-fit: cover;
 }
 
@@ -62,4 +65,19 @@ html body {
 
 #link_to_sign_out a:hover{
  color: #fff7e3;
+}
+
+#restaurant-index-image-card {
+ height: 470px;
+}
+#menu-card-description {
+ height: 40px;
+}
+
+#restaurant-show-page-link a {
+ text-decoration: none;
+ color: #0dcaf0;
+}
+#restaurant-show-page-link a:hover {
+ color: #7ce3f8;
 }
