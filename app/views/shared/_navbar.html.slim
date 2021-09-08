@@ -4,7 +4,7 @@ nav#navbar.navbar.sticky-top.navbar-expand-lg.mb-3
     button.navbar-toggler aria-controls="navbarSupportedContent" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarSupportedContent" data-toggle="collapse" type="button" 
       span.navbar-toggler-icon
     #navbarSupportedContent.collapse.navbar-collapse
-      ul.navbar-nav
+      ul.navbar-nav.mt-1
         - unless user_signed_in?
           li.nav-item
             = link_to 'Sign In', new_user_session_path, class: 'nav-link text-warning'
@@ -23,20 +23,17 @@ nav#navbar.navbar.sticky-top.navbar-expand-lg.mb-3
                   = link_to "Categories", admin_categories_path, class: 'dropdown-item'
                 li
                   = link_to "Add New Restaurant", new_admin_restaurant_path, class: 'dropdown-item'
-      ul.navbar-nav
-        li.nav-item
+      ul.navbar-nav.ms-auto
+        li.ps-2
           - if @cart
               = render 'shared/cart_icon'
           - else
               #shopping_cart
-      ul.navbar-nav.ms-auto
+      ul.navbar-nav.ms-3.mt-1
         - if user_signed_in?
-          li.dropdown.pe-2
-            .btn-group.dropstart
-              #dropdownUserMenuButton.text-warning.fa-2x.dropdown-toggle[type="button" data-bs-toggle="dropdown" aria-expanded="false"]
-                = fa_icon('user') 
-              ul.dropdown-menu[aria-labelledby="dropdownUserMenuButton"]
-                li
-                  = link_to "Profile", user_path(current_user), class: 'nav-link text-dark'
-                li
-                  = link_to "Sign Out", destroy_user_session_path, method: :delete, class: 'nav-link text-dark'
+          li.pe-2
+            .text-warning#link_to_user_profile
+              = link_to current_user.full_name, user_path(current_user)
+          li.ps-2
+            .text-warning#link_to_sign_out
+              = link_to "Sign Out", destroy_user_session_path, method: :delete 

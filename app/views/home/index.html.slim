@@ -1,6 +1,3 @@
-p.fs-2.text-center.pt-2.pe-2
-  = link_to "Pick and Eat!", restaurants_path, class: "btn btn-warning btn-lg"
-
 #homePageCarousel.carousel.slide[data-bs-ride="carousel"]
   .carousel-inner
     - @restaurants.each_with_index do |restaurant, n|

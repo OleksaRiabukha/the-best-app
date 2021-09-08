@@ -45,3 +45,21 @@ html body {
   height: 550px;
   object-fit: cover;
 }
+
+#link_to_user_profile a {
+ text-decoration: none;
+ color: #ffc107;
+}
+
+#link_to_user_profile a:hover {
+  color: #fff7e3;
+}
+
+#link_to_sign_out a {
+ text-decoration: none;
+ color: #ffe59f;
+}
+
+#link_to_sign_out a:hover{
+ color: #fff7e3;
+}
