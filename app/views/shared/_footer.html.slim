@@ -1,0 +1,32 @@
+.footer
+  .container-fluid#footer-container
+    .row
+      .col-8
+        .card.bg-dark
+          .card-body
+            .card-title.fw-bold.text-warning.mb-2
+              | About Us
+            .card-text.text-light  
+              | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Magna fringilla urna porttitor rhoncus. In iaculis nunc sed augue lacus viverra vitae congue eu. Et egestas quis ipsum suspendisse ultrices gravida dictum fusce ut. Proin sagittis nisl rhoncus mattis rhoncus. Et tortor consequat id porta nibh venenatis. Amet luctus venenatis lectus magna fringilla urna porttitor rhoncus. Est ultricies integer quis auctor. Phasellus vestibulum lorem sed risus ultricies tristique nulla aliquet enim. At varius vel pharetra vel turpis nunc.
+      .col-2
+        .card.bg-dark.d-flex.flex-column.align-items-center
+          .card-body
+            .card-title.fw-bold.text-warning.mb-2
+              | Quick Links 
+            .card-text.text-light
+              ul.list-unstyled#footer-links
+                li = link_to 'About Us', "#"
+                li = link_to 'Contact Us', "#"
+                li = link_to 'Home', "#"
+                li = link_to 'Legal', "#"
+                li = link_to 'Privacy Policy', "#"
+      .col-2
+        .card.bg-dark
+          .card-body
+            .card-title.fw-bold.text-warning.d-flex.justify-content-center.mb-0
+              | We Are Social!
+            .card-text.text-warning.d-flex.justify-content-center
+              ul.list-unstyled
+                li.fas.fa-2x.pb-0 = fa_icon('facebook-square')
+                li.fa-2x.pt-0 = fa_icon('twitter-square')
+                li.fa-2x = fa_icon('instagram')

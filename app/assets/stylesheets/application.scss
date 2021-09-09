@@ -1,8 +1,14 @@
 @import 'font-awesome';
 
-.header {
- padding-right: 0;
- padding-left: 0;
+.footer {
+  height: 40px;
+  bottom: 0;
+  position: absolute;
+  width: 100%;
+}
+
+#footer-container {
+ background-color: #212529;
 }
 
 #restaurant-index-page-image {
@@ -27,13 +33,24 @@
   background-color: grey;
   opacity: .4;
 }
+
 html body {
   background-color: #eee;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  padding-bottom: 100px;
 }
 
 #navbar {
  background: #292d32;
 }
+
 #menu-item-show-page-image {
  height: 500px;
  object-fit: cover;
@@ -70,6 +87,7 @@ html body {
 #restaurant-index-image-card {
  height: 470px;
 }
+
 #menu-card-description {
  height: 40px;
 }
@@ -78,6 +96,16 @@ html body {
  text-decoration: none;
  color: #0dcaf0;
 }
+
 #restaurant-show-page-link a:hover {
  color: #7ce3f8;
+}
+
+#footer-links a {
+ text-decoration: none; 
+ color: white;
+}
+
+#footer-links a:hover {
+  color: #ffd05b;
 }
