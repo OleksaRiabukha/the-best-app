@@ -33,6 +33,8 @@ RSpec.describe CartItem, type: :model do
   end
 
   describe 'total price and quantity' do
+    let(:cart_item) { create(:cart_item, discount: 10) }
+
     it 'returns a total price of the cart_items' do
       expect(cart_item.total_price).to eq(cart_item.price * cart_item.quantity)
     end
