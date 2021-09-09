@@ -18,11 +18,12 @@ class Cart < ApplicationRecord
       current_item = cart_items.build(menu_item_id: menu_item.id)
     end
     current_item.price = menu_item.price
+    current_item.discount = menu_item.discount
     current_item
   end
 
   def total_cart_price
-    cart_items.to_a.sum(&:total_price)
+    cart_items.to_a.sum(&:discounted_total)
   end
 
   def is_empty?

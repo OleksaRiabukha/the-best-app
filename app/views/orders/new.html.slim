@@ -1,29 +1,42 @@
 .container-fluid
-  .col-lg-12.offset-lg-4
-    .row.justify-content-center
-      .table-responsive
-        table.table.table-borderless.table-hover.caption-top
-            caption
-              | Your order
-            - @cart_items.each do |item|
-              tbody
-                tr.d-flex.table-light
-                  td.col-2
-                    = item.menu_item.name
-                  td.col-1
-                    | x
-                    = item.quantity 
-                  td.col-1
-                    = number_to_currency(item.total_price) 
-            tr.d-flex.table-success
-              td.col-3
-                | Total
-              td.col-1
-                = number_to_currency(@cart.total_cart_price)
-
+  .row.justify-content-center
+    .col-auto
+      table.table.table-borderless.table-hover.caption-top
+        caption Your order
+        thead
+          tr#table-column-names
+            th Item
+            th Price per unit
+            th Quantity
+            th Total price
+        tbody
+          - @cart_items.each do |item|
+            tr.text-center
+              td.text-start
+                = item.menu_item.name
+              td
+                - if item.discount&. > 0
+                  .text-decoration-line-through = number_to_currency(item.price)
+                  .small.text-danger = "#{number_to_percentage(item.discount, precision: 0)} Off!"
+                  .text-success = number_to_currency(item.discounted_price)
+                - else
+                  .text-success = number_to_currency(item.price)
+              td
+                | x
+                = item.quantity
+              td
+                .text-success = number_to_currency(item.discounted_total) 
+        tfoot
+          tr.table-success[colspan="8"]
+            td[colspan="3"]
+              | Total
+            td[colspan="2"]
+             .text-center = number_to_currency(@cart.total_cart_price)
+  .row.justify-content-center.mt-5
+    .col-12.offset-8
       .fs-5.text-warning.fw-bold.font-monospace.mb-2
-        |Enter your delivery address details
-      .form-row
+        | Enter your delivery address details
+      .form-row.col-12
         .form-group.col-md-4
           = simple_form_for [current_user, @order] do |f|
             = f.input :city

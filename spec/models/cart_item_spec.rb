@@ -3,6 +3,7 @@
 # Table name: cart_items
 #
 #  id           :bigint           not null, primary key
+#  discount     :decimal(8, 2)
 #  price        :decimal(8, )     not null
 #  quantity     :integer          default(1)
 #  created_at   :datetime         not null
@@ -32,8 +33,6 @@ RSpec.describe CartItem, type: :model do
   end
 
   describe 'total price and quantity' do
-    let(:cart_item) { create(:cart_item) }
-
     it 'returns a total price of the cart_items' do
       expect(cart_item.total_price).to eq(cart_item.price * cart_item.quantity)
     end

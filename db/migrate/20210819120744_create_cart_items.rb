@@ -4,6 +4,7 @@ class CreateCartItems < ActiveRecord::Migration[6.1]
       t.references :menu_item, null: false, foreign_key: true
       t.belongs_to :cart, null: false, foreign_key: true
       t.decimal :price, precision: 8, scal: 2, null: false
+      t.decimal :discount, precision: 8, scale: 2
       t.integer :quantity, default: 1
 
       t.timestamps

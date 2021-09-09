@@ -17,7 +17,7 @@ RSpec.describe 'Restaurants', type: :request do
 
         it 'returns a list with active restaurants' do
           expect(CGI.unescapeHTML(response.body)).to include(Restaurant.first.name)
-          expect(CGI.unescapeHTML(response.body)).to include(Restaurant.first.description.truncate(300, separator: '.'))
+          expect(CGI.unescapeHTML(response.body)).to include(Restaurant.first.description.truncate(180, separator: '.'))
         end
       end
     end
