@@ -2,7 +2,7 @@ class Admin::RestaurantsController < Admin::AdminController
   before_action :find_restaurant, only: %i[show update edit destroy]
 
   def show
-   @pagy, @menu_items = pagy(@restaurant.menu_items, items: 9)
+    @pagy, @menu_items = pagy(@restaurant.menu_items, items: 9)
   end
 
   def new
@@ -44,6 +44,12 @@ class Admin::RestaurantsController < Admin::AdminController
   end
 
   def restaurant_params
-    params.require(:restaurant).permit(:name, :phone_number, :restaurant_image, :description, :website_url, :active, :category_id)
+    params.require(:restaurant).permit(:name,
+                                       :phone_number,
+                                       :restaurant_image,
+                                       :description,
+                                       :website_url,
+                                       :active,
+                                       :category_id)
   end
 end

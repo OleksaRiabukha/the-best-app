@@ -15,5 +15,5 @@ nav#navbar.navbar.sticky-top.navbar-expand-lg
       ul.navbar-nav.ms-auto.mt-1
         - if user_signed_in?
           li.ps-2
-            .text-warning#link_to_sign_out
+            .text-warning#link-to-sign-out
               = link_to "Sign Out", destroy_user_session_path, method: :delete 

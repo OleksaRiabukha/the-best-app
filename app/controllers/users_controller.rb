@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user!
 
   def show
-   @pagy, @orders = pagy(current_user.orders.includes(cart_items: :menu_item), items: 10)
+    @pagy, @orders = pagy(current_user.orders.includes(cart_items: :menu_item), items: 10)
   end
 
   def edit; end

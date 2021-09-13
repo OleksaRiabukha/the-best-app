@@ -2,7 +2,7 @@ class Admin::CategoriesController < Admin::AdminController
   before_action :set_category, only: %i[show edit update destroy]
 
   def index
-   @pagy, @categories = pagy(Category.all, items: 10)
+    @pagy, @categories = pagy(Category.all, items: 10)
   end
 
   def show; end
