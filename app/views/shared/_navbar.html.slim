@@ -23,8 +23,8 @@ nav#navbar.navbar.sticky-top.navbar-expand-lg
       ul.navbar-nav.ms-3.mt-1
         - if user_signed_in?
           li.pe-2
-            .text-warning#link_to_user_profile
+            .text-warning#link-to-user-profile
               = link_to current_user.full_name, user_path(current_user)
           li.ps-2
-            .text-warning#link_to_sign_out
+            .text-warning#link-to-sign-out
               = link_to "Sign Out", destroy_user_session_path, method: :delete 

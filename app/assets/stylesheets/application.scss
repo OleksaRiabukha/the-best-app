@@ -1,4 +1,5 @@
 @import 'font-awesome';
+@import 'variables';
 
 .footer {
   height: 40px;
@@ -8,7 +9,7 @@
 }
 
 #footer-container {
- background-color: #212529;
+ background-color: $footer-container-color;
 }
 
 #restaurant-index-page-image {
@@ -21,7 +22,7 @@
   width: 100%;
   height: 450px;
   object-fit: cover;
-  background-color: grey;
+  background-color: $restaurant-covered-image-color;
   opacity: 0.3;
   max-height: 100%;
 }
@@ -30,12 +31,12 @@
   width: 100%;
   height: 500px;
   object-fit: cover;
-  background-color: grey;
+  background-color: $restaurant-covered-image-color;
   opacity: .4;
 }
 
 html body {
-  background-color: #eee;
+  background-color: $body-background-color;
 }
 
 html {
@@ -48,7 +49,7 @@ body {
 }
 
 #navbar {
- background: #292d32;
+ background: $navbar-background-color;
 }
 
 #menu-item-show-page-image {
@@ -66,22 +67,22 @@ body {
   object-fit: cover;
 }
 
-#link_to_user_profile a {
+#link-to-user-profile a {
  text-decoration: none;
- color: #ffc107;
+ color: $link-to-user-profile-color;
 }
 
-#link_to_user_profile a:hover {
-  color: #fff7e3;
+#link-to-user-profile a:hover {
+  color: $link-to-user-profile-and-sign-out-hover-color;
 }
 
-#link_to_sign_out a {
+#link-to-sign-out a {
  text-decoration: none;
- color: #ffe59f;
+ color: $link-to-sign-out-color;
 }
 
-#link_to_sign_out a:hover{
- color: #fff7e3;
+#link-to-sign-out a:hover{
+ color: $link-to-user-profile-and-sign-out-hover-color;
 }
 
 #restaurant-index-image-card {
@@ -94,26 +95,26 @@ body {
 
 #restaurant-show-page-link a {
  text-decoration: none;
- color: #0dcaf0;
+ color: $restaurant-show-page-link-color;
 }
 
 #restaurant-show-page-link a:hover {
- color: #7ce3f8;
+ color: $restaurant-show-page-link-on-hover-color;
 }
 
 #footer-links a {
  text-decoration: none; 
- color: white;
+ color: $footer-links-color;
 }
 
 #footer-links a:hover {
-  color: #ffd05b;
+  color: $footer-links-color-on-hover;
 }
 
 #modal-content {
- background-color: #e6e6e6;
+ background-color: $modal-background-color;
 }
 
 #table-column-names {
- color: #c29200;
+ color: $table-column-names-color;
 }
