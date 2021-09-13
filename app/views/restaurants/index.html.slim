@@ -1,20 +1,21 @@
 .container-fluid
   - cache @restaurants do
-    .row
+    .row.no-gutters
       - @restaurants.each do |restaurant|
-        .col-sm-6.mb-3
-          .card#restaurant-index-image-card
-            = link_to restaurant_path(restaurant) do
-              - if restaurant.restaurant_image.attached? 
-                img.card-img-top#restaurant-index-page-image[src="#{url_for(restaurant.restaurant_image)}" alt="Restaurant Card"]
-            .card-body
-              .fs-3.card-title
-                = restaurant.name
-              p.card-text.small
-                = restaurant.category.name
-              p.card-text.fs-6#restaurant-index-page-description
-                = truncate(restaurant.description, length: 180, separator: ".") 
-              p.text-end.me-3.mt-4
-                = link_to 'Try it now!', restaurant_path(restaurant), class: 'btn btn-warning'
+        - cache restaurant do
+          .col-sm-6.mb-3
+            .card#restaurant-index-image-card
+              = link_to restaurant_path(restaurant) do
+                - if restaurant.restaurant_image.attached? 
+                  img.card-img-top#restaurant-index-page-image[src="#{url_for(restaurant.restaurant_image)}" alt="Restaurant Card"]
+              .card-body
+                .fs-3.card-title
+                  = restaurant.name
+                p.card-text.small
+                  = restaurant.category.name
+                p.card-text.fs-6#restaurant-index-page-description
+                  = truncate(restaurant.description, length: 180, separator: ".") 
+                p.text-end.me-3.mt-4
+                  = link_to 'Try it now!', restaurant_path(restaurant), class: 'btn btn-warning'
 = render 'shared/pagy_nav', pagy: @pagy
 
