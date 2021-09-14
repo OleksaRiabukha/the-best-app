@@ -38,7 +38,7 @@
         | Enter your delivery address details
       .form-row.col-12
         .form-group.col-md-4
-          = simple_form_for [current_user, @order] do |f|
+          = simple_form_for [current_user, @order], remote: true do |f|
             = f.input :city
             = f.input :street
             = f.input :building

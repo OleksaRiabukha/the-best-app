@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  include StripeCheckout
 
   before_action :authenticate_user!
   before_action :current_cart, only: %i[new create]
@@ -12,15 +13,20 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_user.orders.build(order_params)
-    @order.add_cart_items_from_cart(@cart)
+    render :new and return unless @order.valid?
 
-    if @order.save
-      Cart.destroy(session[:cart_id])
-      session[:cart_id] = nil
-      flash[:notice] = 'Thank you! We have already started proccessing your order'
-      redirect_to restaurants_path
+    if @order.pay_type == 'Card'
+      @session = StripeCheckout.create_stripe_checkout(@cart.total_cart_price,
+                                                       @cart_items,
+                                                       restaurants_url,
+                                                       orders_new_url)
+      render 'create'
     else
-      render :new
+      @order.add_cart_items_from_cart(@cart)
+      @order.save
+      destroy_cart
+      flash[:notice] = 'Thank you! We have already started processing your order'
+      redirect_to restaurants_path
     end
   end
 
@@ -32,6 +38,11 @@ class OrdersController < ApplicationController
 
   def find_order
     @order = Order.find(params[:id])
+  end
+
+  def destroy_cart
+    Cart.destroy(session[:cart_id])
+    session[:cart_id] = nil
   end
 
   def order_params
