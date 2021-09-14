@@ -7,7 +7,6 @@ RSpec.describe 'Admin::Restaurants', type: :request do
     describe 'GET /admin/restaurants/:id' do
       context 'access restaurant page' do
         let(:restaurant) { create(:restaurant) }
-        let(:menu_item) { create(:menu_item, restaurant: restaurant) }
 
         before do
           get admin_restaurant_path(restaurant)
@@ -18,19 +17,19 @@ RSpec.describe 'Admin::Restaurants', type: :request do
         end
 
         it 'returns a name of the restaurant' do
-          expect(response.body).to include(restaurant.name)
+          expect(CGI.unescapeHTML(response.body)).to include(restaurant.name)
         end
 
         it 'returns a description of the restaurant' do
-          expect(response.body).to include(restaurant.description)
+          expect(CGI.unescapeHTML(response.body)).to include(restaurant.description)
         end
 
         it 'returns a phone number of the restaurant' do
-          expect(response.body).to include(restaurant.phone_number)
+          expect(CGI.unescapeHTML(response.body)).to include(restaurant.phone_number)
         end
 
         it 'returns a website url of the restaurant' do
-          expect(response.body).to include(restaurant.website_url)
+          expect(CGI.unescapeHTML(response.body)).to include(restaurant.website_url)
         end
       end
     end
@@ -38,7 +37,11 @@ RSpec.describe 'Admin::Restaurants', type: :request do
     describe 'POST /admin/restaurants' do
       context 'create new restaurant with valid attributes' do
         let(:category) { create(:category) }
-        let(:params) { { restaurant: attributes_for(:restaurant, category_id: category.id) } }
+        let(:params) do
+          { restaurant: attributes_for(:restaurant,
+                                       restaurant_image: UploadImage.upload_image(UploadImage.restaurant_image_path),
+                                       category_id: category.id) }
+        end
 
         before do
           post admin_restaurants_path, params: params

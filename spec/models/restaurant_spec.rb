@@ -32,9 +32,11 @@ RSpec.describe Restaurant, type: :model do
     subject { create(:restaurant) }
     it { is_expected.to validate_presence_of(:name) }
     it { is_expected.to validate_uniqueness_of(:name) }
+    it { is_expected.to validate_presence_of(:restaurant_image) }
   end
 
   describe 'associations' do
     it { is_expected.to have_many(:menu_items) }
+    it { is_expected.to have_one_attached(:restaurant_image) }
   end
 end

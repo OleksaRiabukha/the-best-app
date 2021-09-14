@@ -1,10 +1,16 @@
-h2 Edit your profile details
-= simple_form_for current_user do |f|
-  = f.input :first_name
-  = f.input :last_name
-  = f.input :phone_number
-  = f.input :email
-  = f.input :password
-  = f.input :password_confirmation
-  = f.submit "Save", class: "btn btn-primary"
-  = link_to "Cancel", user_path(current_user), class: "btn btn-secondary"
+p.fs-2.text-center.text-warning.fw-bold.font-monospace
+  | Edit your profile details
+.container
+  .col-lg-12.offset-lg-3
+    .row.justify-content-center
+      .form-row
+        .form-group.col-md-6
+          = simple_form_for current_user do |f|
+            = f.input :first_name
+            = f.input :last_name
+            = f.input :phone_number
+            = f.input :email
+            = f.input :password
+            = f.input :password_confirmation
+            = link_to "Cancel", user_path(current_user), class: "btn btn-info me-1 mt-2"
+            = f.submit "Save", class: "btn btn-warning mt-2"

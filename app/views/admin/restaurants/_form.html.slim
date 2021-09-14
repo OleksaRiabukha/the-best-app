@@ -1,11 +1,15 @@
-.form-row
-  .form-group.col-md-6
-    = simple_form_for [:admin, restaurant] do |f|
-      = f.input :name
-      = f.input :phone_number
-      = f.input :website_url
-      = f.input :description
-      = f.input :active
-      = f.association :category, collection: Category.all, prompt: "Select Category"
-      = f.submit "Save", class: "btn btn-primary", style: "margin-top: 5px; margin-right: 2px"
-      = link_to "Cancel", return_to, class: "btn btn-danger", style: "margin-top: 5px"
+.container
+  .col-lg-12.offset-lg-3
+    .row.justify-content-center
+      .form-row
+        .form-group.col-md-6
+          = simple_form_for [:admin, restaurant] do |f|
+            = f.input :name
+            = f.input :phone_number
+            = f.input :website_url
+            = f.input :description
+            = f.input :active
+            = f.input :restaurant_image, as: :file, label: "Add image of restaurant", required: true
+            = f.association :category, collection: Category.all, prompt: "Select Category"
+            = link_to "Cancel", return_to, class: "btn btn-info me-1 mt-2"
+            = f.submit "Save", class: "btn btn-warning mt-2"

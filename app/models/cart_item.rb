@@ -42,4 +42,12 @@ class CartItem < ApplicationRecord
       destroy
     end
   end
+
+  def discounted_price
+    discount&.positive? ? price - (price * (discount / 100)) : price
+  end
+
+  def discounted_total
+    discounted_price * quantity
+  end
 end

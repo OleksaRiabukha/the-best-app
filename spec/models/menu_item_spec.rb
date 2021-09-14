@@ -33,5 +33,6 @@ RSpec.describe MenuItem, type: :model do
 
   describe 'associations' do
     it { is_expected.to belong_to(:restaurant) }
+    it { is_expected.to have_one_attached(:menu_item_image) }
   end
 end

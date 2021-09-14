@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Pagy::Backend
   include Pundit
   include CurrentCart
 
@@ -7,6 +8,14 @@ class ApplicationController < ActionController::Base
   before_action :set_paper_trail_whodunnit
 
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
+
+  def after_sign_in_path_for(resource)
+    if current_user.admin?
+      admin_dashboard_path
+    else
+      root_path
+    end
+  end
 
   protected
 

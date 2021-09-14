@@ -28,10 +28,12 @@ class MenuItem < ApplicationRecord
 
   belongs_to :restaurant
   has_many :cart_items
+  has_one_attached :menu_item_image
 
   before_destroy :ensure_not_referenced_by_any_cart_item
 
   validates :name, :description, :ingredients, :price, presence: true
+  validates :menu_item_image, attached: true, content_type: ['image/png', 'image/jpg', 'image/jpeg']
 
   private
 

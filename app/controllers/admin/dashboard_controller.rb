@@ -1,5 +1,5 @@
 class Admin::DashboardController < Admin::AdminController
   def index
-    @restaurants = Restaurant.all
+    @pagy, @restaurants = pagy(Restaurant.all, items: 9)
   end
 end

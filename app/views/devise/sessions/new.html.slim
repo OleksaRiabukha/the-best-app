@@ -1,0 +1,13 @@
+p.fs-2.text-center.text-warning.fw-bolder.font-monospace
+  | Sign In
+.container
+  .col-lg-12.offset-lg-3
+    .row.justify-content-center
+      .form-row
+        .form-group.col-md-6
+          = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| 
+            = f.input :email
+            = f.input :password
+            = f.input :remember_me, as: :boolean if devise_mapping.rememberable?
+            = f.submit "Log in", class: "btn btn-warning mb-2 mt-2" 
+          = render "devise/shared/links" 

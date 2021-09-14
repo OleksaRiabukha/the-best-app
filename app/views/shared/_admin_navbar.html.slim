@@ -1,0 +1,19 @@
+nav#navbar.navbar.sticky-top.navbar-expand-lg
+  .container-fluid.justify-content-start
+    a.navbar-brand.text-warning.fs-4 href="/"  Get your foood!
+    button.navbar-toggler aria-controls="navbarSupportedContent" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarSupportedContent" data-toggle="collapse" type="button" 
+      span.navbar-toggler-icon
+    #navbarSupportedContent.collapse.navbar-collapse
+      ul.navbar-nav.mt-1
+        - if user_signed_in? && is_admin?
+          li.nav_item
+            = link_to 'Dashboard', admin_dashboard_path, class: 'nav-link text-warning'
+          li.nav_item
+            = link_to 'Categories', admin_categories_path, class: 'nav-link text-warning'  
+          li.nav_item
+            = link_to 'Add New Restaurant', new_admin_restaurant_path, class: 'nav-link text-warning'
+      ul.navbar-nav.ms-auto.mt-1
+        - if user_signed_in?
+          li.ps-2
+            .text-warning#link-to-sign-out
+              = link_to "Sign Out", destroy_user_session_path, method: :delete 

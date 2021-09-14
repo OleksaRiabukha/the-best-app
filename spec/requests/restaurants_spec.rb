@@ -1,3 +1,5 @@
+require 'rails_helper'
+
 RSpec.describe 'Restaurants', type: :request do
   context 'when logged in user tries to' do
     login_user
@@ -14,8 +16,8 @@ RSpec.describe 'Restaurants', type: :request do
         end
 
         it 'returns a list with active restaurants' do
-          expect(response.body).to include(Restaurant.first.name)
-          expect(response.body).to include(Restaurant.first.description)
+          expect(CGI.unescapeHTML(response.body)).to include(Restaurant.first.name)
+          expect(CGI.unescapeHTML(response.body)).to include(Restaurant.first.description.truncate(180, separator: '.'))
         end
       end
     end
@@ -33,8 +35,7 @@ RSpec.describe 'Restaurants', type: :request do
         end
 
         it 'returns valid restaurant details' do
-          expect(response.body).to include(restaurant.name)
-          expect(response.body).to include(restaurant.description)
+          expect(CGI.unescapeHTML(response.body)).to include(restaurant.name)
         end
 
         it 'returns menu items of the restaurant' do

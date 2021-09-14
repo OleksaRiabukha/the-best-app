@@ -1,15 +1,23 @@
-h2 Hello, #{current_user.email}. Here are restaurants: 
-
-.card-group
-  - cache @restaurants do
-    - @restaurants.each do |restaurant|
-      - cache restaurant do
-        .card
-          .card-body
-            h5.card-title
-             = restaurant.name
-            p.card-text
-             = restaurant.description
-            = link_to "Details", admin_restaurant_path(restaurant), class: "btn btn-info"
-            = link_to "Edit", edit_admin_restaurant_path(restaurant), class: "btn btn-primary"
-     
+p.fs-3.text-center.pt-3.fw-bold.font-monospace.text-warning
+  | Here are all restaurants:
+.container-fluid
+  .row
+    - cache @restaurants do
+      - @restaurants.each do |restaurant|
+        - cache restaurant do
+          .col-sm-4.mb-3
+            .card.h-100
+              .card-body
+                .card-title.fs-4
+                  = restaurant.name
+                - if restaurant.active? 
+                  p.text-success.text-bold.fs-6
+                    | Active
+                - else
+                  p.text-danger.text-bold.fs-6
+                    | Hidden 
+                p.card-text.fs-6
+                 = truncate(restaurant.description, length: 100, separator: '.')
+                = link_to "Details", admin_restaurant_path(restaurant), class: "btn btn-info me-1"
+                = link_to "Edit", edit_admin_restaurant_path(restaurant), class: "btn btn-warning"
+= render 'shared/pagy_nav', pagy: @pagy 

@@ -1,3 +1,25 @@
-p.fs-2.text-center.pt-2
-  | Pick and Eat! 
-= render '/shared/restaurants'
+#homePageCarousel.carousel.slide[data-bs-ride="carousel"]
+  .carousel-inner
+    - @restaurants.each_with_index do |restaurant, n|
+      .carousel-item.bg-dark[class="#{ n == 0 ? 'active' : '' }"]
+        = link_to restaurant_path(restaurant) do
+          - if restaurant.restaurant_image.attached? 
+            img.d-block[src="#{url_for(restaurant.restaurant_image)}" alt="Restaurant Image" id="home-carousel-image"]
+        .carousel-caption.d-none.d-md-block
+          p.fs-3
+            = restaurant.name
+          p.fs-6
+            = truncate(restaurant.description, length: 200, separator: "." ) 
+          p.fs-6
+            = link_to 'Try it now!', restaurant_path(restaurant), class: "btn btn-warning"
+    button.carousel-control-prev[type="button" data-bs-target="#homePageCarousel" data-bs-slide="prev"]
+      span.carousel-control-prev-icon[aria-hidden="true"]
+      span.visually-hidden
+        | Previous
+    button.carousel-control-next[type="button" data-bs-target="#homePageCarousel" data-bs-slide="next"]
+      span.carousel-control-next-icon[aria-hidden="true"]
+      span.visually-hidden
+        | Next
+
+p.fs-2.text-center.mt-5.pe-2
+ = link_to "Or Check All Offers", restaurants_path, class: "btn btn-warning btn-lg"

@@ -39,6 +39,8 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_storage_validations (0.9.5)
+      rails (>= 5.2.0)
     activejob (6.1.4)
       activesupport (= 6.1.4)
       globalid (>= 0.3.6)
@@ -65,6 +67,22 @@ GEM
       rake (>= 10.4, < 14.0)
     any_login (1.4.4)
       rails (>= 4.2.7)
+    aws-eventstream (1.2.0)
+    aws-partitions (1.496.0)
+    aws-sdk-core (3.121.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.239.0)
+      aws-sigv4 (~> 1.1)
+      jmespath (~> 1.0)
+    aws-sdk-kms (1.48.0)
+      aws-sdk-core (~> 3, >= 3.120.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.102.0)
+      aws-sdk-core (~> 3, >= 3.120.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.4)
+    aws-sigv4 (1.4.0)
+      aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.16)
     bindex (0.8.1)
     bootsnap (1.7.6)
@@ -104,6 +122,7 @@ GEM
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.2)
       activesupport (>= 5.0.0)
+    jmespath (1.4.0)
     listen (3.6.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -121,6 +140,7 @@ GEM
     nokogiri (1.12.1-x86_64-linux)
       racc (~> 1.4)
     orm_adapter (0.5.0)
+    pagy (4.11.0)
     paper_trail (12.0.0)
       activerecord (>= 5.2)
       request_store (~> 1.1)
@@ -252,8 +272,10 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  active_storage_validations
   annotate
   any_login
+  aws-sdk-s3
   bootsnap (>= 1.4.4)
   bullet
   byebug
@@ -264,6 +286,7 @@ DEPENDENCIES
   font-awesome-rails
   jbuilder (~> 2.7)
   listen (~> 3.3)
+  pagy
   paper_trail
   pg (~> 1.1)
   puma (~> 5.0)

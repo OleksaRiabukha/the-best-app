@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :category do
-    name { Faker::Restaurant.type }
+    sequence(:name) { |n| "#{Faker::Restaurant.type}-#{n}" }
     description { Faker::Restaurant.description }
   end
 end

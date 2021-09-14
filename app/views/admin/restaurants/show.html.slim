@@ -1,31 +1,53 @@
+.container-fluid
+  .row
+    .col-lg-12
+      .card.bg-dark.text-white.mb-2
+        - if @restaurant.restaurant_image.attached?
+          img.card-img-top#restaurant-show-page-image[src="#{url_for(@restaurant.restaurant_image)}" alt="Restaurant Image"]
+        .card-img-overlay.d-flex.flex-column
+          .card-body.d-flex.flex-column
+            .card-title.text-warning.fs-4.mb-0.d-flex.flex-row
+              = @restaurant.name
+              - if @restaurant.active? 
+                .text-success.d-flex.ms-2 Active
+              - else
+                .text-danger.d-flex.ms-2 Hidden
+            .small.text-info.fs-6.mb-4
+              = @restaurant.category.name
+            .card-text.fs-5
+              = @restaurant.description
+            .card-text.mt-3.text-info.fw-bold.d-flex.justify-content-end.mt-auto
+              | Phone Number: #{@restaurant.phone_number}
+            .card-text.mt-3.fw-bold.d-flex.justify-content-end#restaurant-show-page-link
+              = link_to "Link to website", @restaurant.website_url
+            .mt-auto
+              = link_to fa_icon('arrow-left'), admin_dashboard_path, class: 'btn btn-secondary me-1'
+              = link_to fa_icon('trash'), admin_restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger me-1"
+              = link_to fa_icon('edit'), edit_admin_restaurant_path(@restaurant), class: "btn btn-info me-1"
+              = link_to "Add Dish", new_admin_restaurant_menu_item_path(@restaurant), class: 'btn btn-warning'
 
-.card.md-3
-  .card-body
-    h5.card-title
-    = @restaurant.name
-    p.card-text
-    = @restaurant.description
-    p.card-text
-    | Phone Number: #{@restaurant.phone_number}
-    br
-    | Link to website: #{@restaurant.website_url}
-    p
-    = link_to fa_icon('edit'), edit_admin_restaurant_path(@restaurant), class: "btn btn-primary"
-    = link_to fa_icon('trash'), admin_restaurant_path(@restaurant), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
-    = link_to "Add Dish", new_admin_restaurant_menu_item_path(@restaurant), class: 'btn btn-success'
-
-  - if @restaurant.menu_items.present?
-    h3 Your Dishes: 
-    .card.md-3 style="margin-top: 10px;"
-      - @restaurant.menu_items.each do |menu_item|
-        .card-body
-          h5.card-title
-            = menu_item.name
-          p.card-text
-            small
-              = number_to_currency(menu_item.price)
-              br
-          p.card-text
-            = menu_item.description
-          = link_to 'Details', admin_restaurant_menu_item_path(@restaurant, menu_item), class: 'btn btn-info btn-sm'
-          = link_to 'Edit', edit_admin_restaurant_menu_item_path(@restaurant, menu_item), class: 'btn btn-primary btn-sm'
+      - if @menu_items.present?
+        p.fs-3.text-center.pt-3.fw-bold.font-monospace.text-warning
+          | Your dishes:
+        .container-fluid
+          .row
+            - @menu_items.each do |menu_item|
+              .col-sm-4.mb-2
+                .card.h-100.w-100
+                  .card-body
+                    .card-title.fs-4
+                      = menu_item.name
+                      - if menu_item.available?
+                        p.text-success.text-bold.fs-6
+                          | Available
+                      - else
+                        p.text-danger.text-bold.fs-6
+                          | Not available
+                    p.card-text
+                      = number_to_currency(menu_item.price)
+                    p.card-text
+                      = truncate(menu_item.description, length: 50, separator: ".")
+                    p.card-text  
+                      = link_to 'Details', admin_restaurant_menu_item_path(@restaurant, menu_item), class: 'btn btn-info me-1' 
+                      = link_to 'Edit', edit_admin_restaurant_menu_item_path(@restaurant, menu_item), class: 'btn btn-warning'
+      = render 'shared/pagy_nav', pagy: @pagy

@@ -1,11 +1,15 @@
-.form-row
-  .form-group.col-md-6
-    = simple_form_for([:admin, restaurant, menu_item]) do |f|
-      = f.input :name
-      = f.input :description
-      = f.input :ingredients
-      = f.input :price
-      = f.input :discount
-      = f.input :available, default: false, required: false
-      = f.submit 'Save', class: 'btn btn-primary', style: 'margin-right: 2px'
-      = link_to 'Cancel', return_to, class: 'btn btn-danger'
+.container
+  .col-lg-12.offset-lg-3
+    .row.justify-content-center
+      .form-row
+        .form-group.col-md-6
+          = simple_form_for([:admin, restaurant, menu_item]) do |f|
+            = f.input :name
+            = f.input :description
+            = f.input :ingredients
+            = f.input :price
+            = f.input :discount
+            = f.input :available, default: false, required: false
+            = f.input :menu_item_image, as: :file, label: "Upload image for your dish!", required: true
+            = link_to 'Cancel', return_to, class: 'btn btn-info me-1'
+            = f.submit 'Save', class: 'btn btn-warning'

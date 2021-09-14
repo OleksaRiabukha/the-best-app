@@ -1,15 +1,16 @@
+.container
+  = link_to 'Add new category', new_admin_category_path, class: "btn btn-warning mb-4 ms-1 mt-1"
 
-= link_to 'Add new category', new_admin_category_path, style: "margin-bottom: 25px; margin-top: 10px", class: "btn btn-primary mb-500"  
-
-.accordion.accordiong-flush#categories-accordion
-  - @categories.each do |category|
-    .accordion-item
-      h2.accordion-header id="flush-heading-#{category.id}"
-        button.accordion-button.collapsed[type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-#{category.id}" aria-expanded="false" aria-controls="flush-collapse-#{category.id}"]
-          = category.name
-      .accordion-collapse.collapse[id="flush-collapse-#{category.id}" aria-labelledby="flush-heading#{category.id}" data-bs-parent="#categories-accordion"]
-        .accordion-body
-          strong
-            = category.description
-            br
-            = link_to 'Details', admin_category_path(category), class: "btn btn-outline-primary btn-sm", style: "margin-top: 10px"
+  .accordion.accordiong-flush#categories-accordion.mb-2
+    - @categories.each do |category|
+      .accordion-item
+        h2.accordion-header id="flush-heading-#{category.id}"
+          button.accordion-button.collapsed[type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-#{category.id}" aria-expanded="false" aria-controls="flush-collapse-#{category.id}"]
+            = category.name
+        .accordion-collapse.collapse[id="flush-collapse-#{category.id}" aria-labelledby="flush-heading#{category.id}" data-bs-parent="#categories-accordion"]
+          .accordion-body
+            .text-start.fs-6
+              = category.description
+            p  
+              = link_to 'Details', admin_category_path(category), class: "btn btn-info mt-3"
+= render 'shared/pagy_nav', pagy: @pagy

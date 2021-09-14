@@ -5,13 +5,21 @@
 .modal-body
   .table-responsive
     table.table.table-borderless.table-hover
-      = render 'cart_items/cart_item'
+      thead
+        tr#table-column-names
+          th[scope="col"] Item
+          th[scope="col"] Price per unit
+          th[scope="col"] Quantity
+          th[scope="col"] Total price
+          th.text-center[scope="col" colspan="2"] Add or Delete
+      tbody
+        = render 'cart_items/cart_item'
       tfoot
-        tr.d-flex
-          td.table-active.col-6
+        tr[colspan="12"]
+          td.table-active[colspan="4"]
            | Total:
-          td.table-success.col-6.text-end
+          td.table-success.text-center[colspan="4"]
             = number_to_currency(@cart.total_cart_price)
 .modal-footer
-  = link_to "Empty cart", @cart, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger"
-  = link_to "Buy", orders_new_url, class: "btn btn-success"
+  = link_to "Empty cart", @cart, method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-secondary"
+  = link_to "Buy", orders_new_url, class: "btn btn-warning"
