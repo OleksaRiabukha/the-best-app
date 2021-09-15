@@ -11,7 +11,7 @@ module StripeCheckout
         quantity: 1
       }],
       metadata: {
-        order: order,
+        order_id: order.id,
         cart_id: cart.id
       },
       mode: 'payment',

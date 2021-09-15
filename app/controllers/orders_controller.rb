@@ -13,18 +13,22 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_user.orders.build(order_params)
+
+    @order.add_cart_items_from_cart(@cart)
+
     render :new and return unless @order.valid?
 
+    @order.save
+
     if @order.pay_type == 'Card'
-      @order.save
       @session = StripeCheckout.create_stripe_checkout(@cart,
                                                        @order,
                                                        restaurants_url,
                                                        orders_new_url)
       flash[:notice] = 'Thank you! We have already started processing you order'
+      destroy_cart
       render 'create'
     else
-      @order.add_cart_items_from_cart(@cart)
       @order.save
       destroy_cart
       flash[:notice] = 'Thank you! We have already started processing your order'
