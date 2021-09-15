@@ -14,6 +14,7 @@
 #  role                   :integer          default("simple")
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
+#  stripe_customer_id     :string
 #
 # Indexes
 #
@@ -30,6 +31,8 @@ class User < ApplicationRecord
   enum role: ROLES
 
   before_save :make_admin!
+  after_create :assign_stripe_id
+
   has_many :orders
 
   devise :database_authenticatable, :registerable,
@@ -39,9 +42,15 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+
   private
 
   def make_admin!
     self.role = ADMIN unless User.any?
+  end
+
+  def assign_stripe_id
+    customer = Stripe::Customer.create(email: email)
+    update(stripe_customer_id: customer.id)
   end
 end
