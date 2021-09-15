@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  resources :webhooks, only: [:create]
+
   resources :users do
     resources :orders, except: [:new]
   end
