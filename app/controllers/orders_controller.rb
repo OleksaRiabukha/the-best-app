@@ -16,10 +16,11 @@ class OrdersController < ApplicationController
     render :new and return unless @order.valid?
 
     if @order.pay_type == 'Card'
-      @session = StripeCheckout.create_stripe_checkout(@cart.total_cart_price,
-                                                       @cart_items,
+      @session = StripeCheckout.create_stripe_checkout(@cart,
+                                                       @order,
                                                        restaurants_url,
                                                        orders_new_url)
+      flash[:notice] = 'Thank you! We have already started processing you order'
       render 'create'
     else
       @order.add_cart_items_from_cart(@cart)

@@ -21,7 +21,8 @@ class WebhooksController < ApplicationController
     case event.type
     when 'checkout.session.completed'
       session = event.data.object
-      p session.amount_total
+      @cart = session.metadata.cart_id
+      Cart.destroy(@cart.id)
     end
 
     render json: { message: 'success' }
