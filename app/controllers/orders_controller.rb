@@ -16,6 +16,7 @@ class OrdersController < ApplicationController
     render :new and return unless @order.valid?
 
     if @order.pay_type == 'Card'
+      @order.save
       @session = StripeCheckout.create_stripe_checkout(@cart,
                                                        @order,
                                                        restaurants_url,

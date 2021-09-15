@@ -1,5 +1,7 @@
 class WebhooksController < ApplicationController
   skip_before_action :verify_authenticity_token
+  before_action :current_cart, only: :create
+
 
   def create
     payload = request.body.read
@@ -20,9 +22,11 @@ class WebhooksController < ApplicationController
 
     case event.type
     when 'checkout.session.completed'
-      session = event.data.object
-      @cart = session.metadata.cart_id
-      Cart.destroy(@cart.id)
+      @order = current_user.orders.last
+      @order.add_cart_items_from_cart(@cart)
+      @order.save
+      Cart.destroy(session[:cart_id])
+      session[:cart_id] = nil
     end
 
     render json: { message: 'success' }
