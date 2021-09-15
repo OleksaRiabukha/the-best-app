@@ -3,6 +3,7 @@
 # Table name: cart_items
 #
 #  id           :bigint           not null, primary key
+#  discount     :decimal(8, 2)
 #  price        :decimal(8, )     not null
 #  quantity     :integer          default(1)
 #  created_at   :datetime         not null
