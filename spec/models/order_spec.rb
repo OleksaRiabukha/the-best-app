@@ -26,6 +26,10 @@
 require 'rails_helper'
 
 RSpec.describe Order, type: :model do
+  let(:cart) { create(:cart) }
+  let(:cart_item) { create(:cart_item) }
+  let(:order) { create(:order) }
+
   describe 'validations' do
     it { is_expected.to validate_presence_of(:city) }
     it { is_expected.to validate_presence_of(:street) }
@@ -39,15 +43,40 @@ RSpec.describe Order, type: :model do
   end
 
   describe 'addition of cart items to order' do
-    let(:cart) { create(:cart) }
-    let(:cart_item) { create(:cart_item) }
-    let(:order) { create(:order) }
-
     it 'adds items from the cart to order and transfers total price of cart items' do
       cart.cart_items << cart_item
       order.add_cart_items_from_cart(cart)
       expect(order.cart_items.last.id).to eq(cart_item.id)
       expect(order.total_price).to eq(cart.total_cart_price)
+    end
+  end
+
+  describe 'payment status' do
+    let(:user) { create(:user) }
+    let(:card_order) { create(:order, user: user, pay_type: 'Card') }
+    let(:cash_order) { create(:order, user: user, pay_type: 'Cash') }
+
+    it 'sets status to "pending_card_payment" if user opts for paying with card' do
+      expect(card_order.payment_status).to eq('pending_card_payment')
+    end
+
+    it 'sets status to "pending_cash_payment" if user opts for paying with cash' do
+      expect(cash_order.payment_status).to eq('pending_cash_payment')
+    end
+  end
+
+  describe 'interaction with stripe webhook' do
+    let(:event) { StripeMock.mock_webhook_event('charge.succeeded') }
+    let(:payment_object) { event.data.object }
+
+    it 'adds stripe payment id to order upon successful charging' do
+      order.add_stripe_payment_id(payment_object.id)
+      expect(order.stripe_payment_id).to eq(payment_object.id)
+    end
+
+    it 'changes payment status of order to paid' do
+      order.paid
+      expect(order.payment_status).to eq('paid')
     end
   end
 end
