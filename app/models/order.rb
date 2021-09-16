@@ -11,6 +11,7 @@
 #  total_price       :decimal(, )
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  stripe_payment_id :string
 #  user_id           :bigint           not null
 #
 # Indexes
@@ -42,6 +43,11 @@ class Order < ApplicationRecord
       item.cart_id = nil
       cart_items << item
     end
-    self.total_price = cart.total_cart_price
+    update(total_price: cart.total_cart_price) unless id.nil?
+    self.total_price = cart.total_cart_price if id.nil?
+  end
+
+  def add_stripe_payment_id(stripe_payment_id)
+    update(stripe_payment_id: stripe_payment_id)
   end
 end

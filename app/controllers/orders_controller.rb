@@ -2,8 +2,9 @@ class OrdersController < ApplicationController
   include StripeCheckout
 
   before_action :authenticate_user!
-  before_action :current_cart, only: %i[new create]
-  before_action :current_cart_items, only: %i[new create]
+  before_action :current_cart, only: %i[new create successful_checkout cancel_checkout]
+
+  before_action :current_cart_items, only: %i[new create cancel_checkout]
   before_action :ensure_cart_is_not_empty, only: :new
   before_action :find_order, only: %i[show edit update destroy]
 
@@ -14,26 +15,37 @@ class OrdersController < ApplicationController
   def create
     @order = current_user.orders.build(order_params)
 
-    @order.add_cart_items_from_cart(@cart)
-
     render :new and return unless @order.valid?
 
     @order.save
 
     if @order.pay_type == 'Card'
       @session = StripeCheckout.create_stripe_checkout(@cart,
-                                                       @order,
-                                                       restaurants_url,
-                                                       orders_new_url)
-      flash[:notice] = 'Thank you! We have already started processing you order'
-      destroy_cart
+                                                       successful_checkout_url,
+                                                       cancel_checkout_url,
+                                                       current_user)
       render 'create'
     else
-      @order.save
+      @order.add_cart_items_from_cart(@cart)
       destroy_cart
       flash[:notice] = 'Thank you! We have already started processing your order'
       redirect_to restaurants_path
     end
+  end
+
+  def successful_checkout
+    @order = current_user.orders.first
+    @order.add_cart_items_from_cart(@cart)
+    destroy_cart
+    flash[:notice] = 'Thank you! We have already started processing your order'
+    redirect_to restaurants_path
+  end
+
+  def cancel_checkout
+    @order = current_user.orders.first
+    @order.destroy
+    StripeCheckout.cancel_payment_intent(params[:stripe_session_id])
+    render :new
   end
 
   private

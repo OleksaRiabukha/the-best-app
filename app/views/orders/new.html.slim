@@ -45,4 +45,4 @@
             = f.input :appartment_number
             = f.input :pay_type, collection: Order.pay_types.keys, prompt: "Select payment type"
             = link_to 'Cancel', restaurants_path, class: 'btn btn-secondary mt-2 me-1'
-            = f.submit 'Confirm and buy', class: 'btn btn-warning mt-2'
+            = f.submit 'Confirm and buy', class: 'btn btn-warning mt-2', data: { disable_with: "Processing..." }

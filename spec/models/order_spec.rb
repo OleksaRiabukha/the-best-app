@@ -11,6 +11,7 @@
 #  total_price       :decimal(, )
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
+#  stripe_payment_id :string
 #  user_id           :bigint           not null
 #
 # Indexes
