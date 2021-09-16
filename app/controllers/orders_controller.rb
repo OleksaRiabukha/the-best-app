@@ -35,6 +35,7 @@ class OrdersController < ApplicationController
 
   def successful_checkout
     @order = current_user.orders.first
+
     @order.add_cart_items_from_cart(@cart)
     destroy_cart
     flash[:notice] = 'Thank you! We have already started processing your order'
@@ -43,6 +44,7 @@ class OrdersController < ApplicationController
 
   def cancel_checkout
     @order = current_user.orders.first
+
     @order.destroy
     StripeCheckout.cancel_payment_intent(params[:stripe_session_id])
     render :new

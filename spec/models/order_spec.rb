@@ -7,6 +7,7 @@
 #  building          :string           not null
 #  city              :string           not null
 #  pay_type          :integer          not null
+#  payment_status    :integer
 #  street            :string           not null
 #  total_price       :decimal(, )
 #  created_at        :datetime         not null

@@ -21,6 +21,7 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #  index_users_on_role                  (role)
+#  index_users_on_stripe_customer_id    (stripe_customer_id)
 #
 class User < ApplicationRecord
   ADMIN = :admin
@@ -51,6 +52,6 @@ class User < ApplicationRecord
 
   def assign_stripe_id
     customer = Stripe::Customer.create(email: email)
-    update(stripe_customer_id: customer.id)
+    update(stripe_customer_id: customer.id) unless admin?
   end
 end

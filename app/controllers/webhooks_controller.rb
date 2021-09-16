@@ -21,7 +21,9 @@ class WebhooksController < ApplicationController
     case event.type
     when 'charge.succeeded'
       session = event.data.object
+
       find_order(session)
+      @order.paid
       @order.add_stripe_payment_id(session.id)
     end
 
