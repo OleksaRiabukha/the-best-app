@@ -2,10 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Restaurants', type: :request do
   context 'when logged in user tries to' do
-    # let(:stripe_helper) { StripeMock.create_test_helper }
-    # before { StripeMock.start }
-    # after { StripeMock.stop }
-    # let(:customer) { Stripe::Customer.create() }
     login_user
     let!(:restaurant) { create(:restaurant, active: true) }
 
