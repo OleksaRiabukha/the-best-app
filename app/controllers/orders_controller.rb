@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
   def create
     @order = current_user.orders.build(order_params)
 
-    render 'order_form' and return unless @order.valid?
+    render '/orders/order_form' and return unless @order.valid?
 
     @order.save
 
