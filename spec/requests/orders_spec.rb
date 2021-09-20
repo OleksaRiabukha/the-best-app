@@ -73,7 +73,7 @@ RSpec.describe 'Orders', type: :request do
 
         before do
           post cart_items_path, params: cart_item_params, xhr: true
-          post user_orders_path(user_id: User.last.id), params: params
+          post user_orders_path(user_id: User.last.id), params: params, xhr: true
         end
 
         it 'does not add order to database' do
@@ -84,8 +84,8 @@ RSpec.describe 'Orders', type: :request do
           expect(Cart.count).to eq(1)
         end
 
-        it 'renders new template' do
-          expect(response.body).to include('Your order')
+        it 'renders errors' do
+          expect(CGI.unescapeHTML(response.body)).to include("City can't be blank")
         end
       end
     end
