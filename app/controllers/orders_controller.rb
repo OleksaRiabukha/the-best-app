@@ -24,7 +24,7 @@ class OrdersController < ApplicationController
                                                        successful_checkout_url,
                                                        cancel_checkout_url,
                                                        current_user)
-      render 'create'
+      render '/orders/create'
     else
       @order.add_cart_items_from_cart(@cart)
       destroy_cart
