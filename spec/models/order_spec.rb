@@ -40,6 +40,7 @@ RSpec.describe Order, type: :model do
   describe 'associations' do
     it { is_expected.to have_many(:cart_items) }
     it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_one(:geocoded_address) }
   end
 
   describe 'addition of cart items to order' do
@@ -77,6 +78,17 @@ RSpec.describe Order, type: :model do
     it 'changes payment status of order to paid' do
       order.paid
       expect(order.payment_status).to eq('paid')
+    end
+  end
+
+  describe 'adding geocoded addresses' do
+    it 'adds a geocoded address of the orders address with longitude and latitude' do
+      GeocoderStub.stub(order.city, order.street, order.building)
+      order.geocode_address
+
+      expect(order.geocoded_address).not_to be_nil
+      expect(order.geocoded_address.longitude).not_to be_nil
+      expect(order.geocoded_address.latitude).not_to be_nil
     end
   end
 end

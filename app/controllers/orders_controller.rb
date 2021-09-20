@@ -18,6 +18,7 @@ class OrdersController < ApplicationController
     render '/orders/order_form' and return unless @order.valid?
 
     @order.save
+    @order.geocode_address
 
     if @order.pay_type == 'Card'
       @session = StripeCheckout.create_stripe_checkout(@cart,
