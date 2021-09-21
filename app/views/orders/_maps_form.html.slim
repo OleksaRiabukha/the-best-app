@@ -1,0 +1,10 @@
+= form_with(model: [current_user, @order], local: false, data: { controller: "maps", action: "google-maps-callback@window->maps#initMap" }) do |form|
+ div
+   .form-group
+     = form.search_field :address, placeholder: "Your address", class: 'form-control', data: { "maps-target": "address", action: "keydown->places#keydown" }
+   .form-group.mt-2
+     = form.text_field :appartment, class: 'form-control', placeholder: "Your appartment"
+   = form.submit "Confirm and Buy", data: { disable_with: "Processing..." }, class: 'btn btn-warning mt-2 d-flex me-auto' 
+ .row.mt-4
+   .col-12
+     div.map[data-maps-target="map" ]

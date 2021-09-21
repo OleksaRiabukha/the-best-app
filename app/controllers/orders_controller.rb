@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
   def create
     @order = current_user.orders.build(order_params)
 
-    render '/orders/order_form' and return unless @order.valid?
+    render '/orders/maps_form' and return unless @order.valid?
 
     @order.save
     @order.geocode_address
