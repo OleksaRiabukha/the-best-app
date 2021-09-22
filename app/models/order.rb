@@ -42,6 +42,7 @@ class Order < ApplicationRecord
 
   has_many :cart_items, dependent: :destroy
   belongs_to :user
+  has_one :geocoded_address
 
   validates :city, :street, :building, presence: true
   validates :pay_type, inclusion: pay_types.keys

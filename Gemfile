@@ -8,6 +8,7 @@ gem 'aws-sdk-s3'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
 gem 'font-awesome-rails'
+gem 'geocoder'
 gem 'jbuilder', '~> 2.7'
 gem 'pagy'
 gem 'paper_trail'

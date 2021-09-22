@@ -13,6 +13,7 @@ RSpec.describe 'Orders', type: :request do
       context 'create new order with valid attributes and card payment' do
 
         before do
+          GeocoderStub.stub(card_params[:order][:city], card_params[:order][:street], card_params[:order][:building])
           post cart_items_path, params: cart_item_params, xhr: true
           post user_orders_path(user_id: User.last.id), params: card_params, xhr: true
         end
@@ -33,6 +34,17 @@ RSpec.describe 'Orders', type: :request do
 
         it 'sets orders payment status to "pending_card_payment"' do
           expect(Order.last.payment_status).to eq('pending_card_payment')
+        end
+
+        it 'creates a geocoded address of the order with longitude and latitude' do
+          expect(Order.last.geocoded_address.city).not_to be_nil
+          expect(Order.last.geocoded_address.city).to eq([card_params[:order][:city]].join(''))
+          expect(Order.last.geocoded_address.longitude).not_to be_nil
+          expect(Order.last.geocoded_address.latitude).not_to be_nil
+        end
+
+        it 'adds geocoded address to database' do
+          expect(GeocodedAddress.count).to eq(1)
         end
       end
 

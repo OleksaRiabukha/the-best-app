@@ -40,6 +40,7 @@ RSpec.describe Order, type: :model do
   describe 'associations' do
     it { is_expected.to have_many(:cart_items) }
     it { is_expected.to belong_to(:user) }
+    it { is_expected.to have_one(:geocoded_address) }
   end
 
   describe 'addition of cart items to order' do
