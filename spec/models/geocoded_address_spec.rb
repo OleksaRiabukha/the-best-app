@@ -23,7 +23,15 @@
 require 'rails_helper'
 
 RSpec.describe GeocodedAddress, type: :model do
+  let(:geocoded_address) { create(:geocoded_address) }
+
   describe 'associations' do
     it { is_expected.to belong_to(:order) }
+  end
+
+  describe 'creation of a full address' do
+    it 'creates a full address with orders city, street and building details' do
+      expect(geocoded_address.address).to eq("#{geocoded_address.city}, #{geocoded_address.street}, #{geocoded_address.building}")
+    end
   end
 end
