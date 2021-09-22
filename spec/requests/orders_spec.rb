@@ -6,7 +6,6 @@ RSpec.describe 'Orders', type: :request do
   let(:card_params) { { order: attributes_for(:order, pay_type: 'Card') } }
   let(:cash_params) { { order: attributes_for(:order, pay_type: 'Cash') } }
 
-
   context 'when authenticated user tries to' do
     login_user
 
