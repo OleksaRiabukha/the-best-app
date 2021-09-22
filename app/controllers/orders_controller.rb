@@ -19,14 +19,14 @@ class OrdersController < ApplicationController
     render '/orders/maps_form' and return unless @order.valid?
 
     @order.save
-    @order.geocode_address
+    GeocodedAddress.create(order_id: @order.id, city: @order.city, street: @order.street, building: @order.building)
 
     if @order.pay_type == 'Card'
       @session = StripeCheckout.create_stripe_checkout(@cart,
                                                        successful_checkout_url,
                                                        cancel_checkout_url,
                                                        current_user)
-      render 'create'
+      render '/orders/create'
     else
       @order.add_cart_items_from_cart(@cart)
       destroy_cart

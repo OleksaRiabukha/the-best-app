@@ -81,17 +81,6 @@ RSpec.describe Order, type: :model do
     end
   end
 
-  describe 'adding geocoded addresses' do
-    it 'adds a geocoded address of the orders address with longitude and latitude' do
-      GeocoderStub.stub(order.city, order.street, order.building)
-      order.geocode_address
-
-      expect(order.geocoded_address).not_to be_nil
-      expect(order.geocoded_address.longitude).not_to be_nil
-      expect(order.geocoded_address.latitude).not_to be_nil
-    end
-  end
-
   describe 'decomposition of address' do
     let(:address) { [Faker::Address.street_name, Faker::Address.building_number, Faker::Address.city] }
     let(:order) { build(:order, city: nil, street: nil, building: nil) }

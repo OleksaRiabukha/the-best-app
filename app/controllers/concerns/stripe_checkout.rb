@@ -1,5 +1,4 @@
 module StripeCheckout
-
   def self.create_stripe_checkout(cart, success_url, cancel_url, current_user)
     amount = (cart.total_cart_price * 100).round
 

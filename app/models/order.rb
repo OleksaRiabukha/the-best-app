@@ -70,15 +70,6 @@ class Order < ApplicationRecord
     update(payment_status: PAID)
   end
 
-  def address
-    [city, street, building].compact.join(', ')
-  end
-
-  def geocode_address
-    geocoded_address = GeocodedAddress.new(order_id: id, city: city, street: street, building: building)
-    geocoded_address.save
-  end
-
   def decompose_address(address)
     self.street, self.building, self.city = address.split(', ')
   end
