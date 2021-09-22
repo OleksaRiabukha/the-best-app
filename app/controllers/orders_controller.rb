@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
   def create
     @order = current_user.orders.build(order_params)
 
-    render :new and return unless @order.valid?
+    render '/orders/order_form' and return unless @order.valid?
 
     @order.save
 
@@ -47,8 +47,8 @@ class OrdersController < ApplicationController
 
     @order.destroy
     StripeCheckout.cancel_payment_intent(params[:stripe_session_id])
-    render :new
-  end
+    redirect_to orders_new_path
+ end
 
   private
 
