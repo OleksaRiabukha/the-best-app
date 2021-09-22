@@ -42,7 +42,7 @@ class Order < ApplicationRecord
 
   has_many :cart_items, dependent: :destroy
   belongs_to :user
-  has_one :geocoded_address
+  has_one :geocoded_address, dependent: :destroy
 
   validates :city, :street, :building, presence: true
   validates :pay_type, inclusion: pay_types.keys
@@ -77,5 +77,9 @@ class Order < ApplicationRecord
   def geocode_address
     geocoded_address = GeocodedAddress.new(order_id: id, city: city, street: street, building: building)
     geocoded_address.save
+  end
+
+  def decompose_address(address)
+    self.street, self.building, self.city = address.split(', ')
   end
 end

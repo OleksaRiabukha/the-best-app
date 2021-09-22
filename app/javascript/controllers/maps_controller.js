@@ -1,7 +1,7 @@
 import { Controller } from "stimulus"
 
 export default class extends Controller {
-  static targets = ["address", "map", "latitude", "longitude"]
+  static targets = ["address", "map"]
 
   connect() {
     if (typeof(google) != "undefined") {
@@ -12,7 +12,7 @@ export default class extends Controller {
   initMap() {
     this.map = new google.maps.Map(this.mapTarget, {
       center: new google.maps.LatLng(48.9, 14.27),
-      zoom: (this.data.get("latitude") == null ? 4: 20)
+      zoom: 4
     })
     this.autocomplete = new google.maps.places.Autocomplete(this.addressTarget)
     this.autocomplete.bindTo('bounds', this.map)
@@ -42,9 +42,6 @@ export default class extends Controller {
 
     this.marker.setPosition(place.geometry.location)
     this.marker.setVisible(true)
-
-    this.latitudeTarget.value = place.geometry.location.lat()
-    this.longitudeTarget.value = place.geometry.location.lng()
 
   }
 

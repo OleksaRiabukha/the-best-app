@@ -13,7 +13,8 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = current_user.orders.build(order_params)
+    @order = current_user.orders.build(appartment_number: order_params[:appartment], pay_type: order_params[:pay_type])
+    @order.decompose_address(order_params[:address])
 
     render '/orders/maps_form' and return unless @order.valid?
 
@@ -67,6 +68,6 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:city, :street, :building, :appartment_number, :pay_type)
+    params.require(:order).permit(:address, :appartment, :pay_type)
   end
 end

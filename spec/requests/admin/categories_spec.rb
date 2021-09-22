@@ -26,8 +26,8 @@ RSpec.describe 'Categories', type: :request do
 
         it 'returns valid category details' do
           follow_redirect!
-          expect(response.body).to include(Category.first.name)
-          expect(response.body).to include(Category.first.description)
+          expect(CGI.unescapeHTML(response.body)).to include(Category.first.name)
+          expect(CGI.unescapeHTML(response.body)).to include(Category.first.description)
         end
       end
 
