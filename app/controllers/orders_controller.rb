@@ -1,8 +1,10 @@
 class OrdersController < ApplicationController
+  include StripeCheckout
 
   before_action :authenticate_user!
-  before_action :current_cart, only: %i[new create]
-  before_action :current_cart_items, only: %i[new create]
+  before_action :current_cart, only: %i[new create successful_checkout cancel_checkout]
+
+  before_action :current_cart_items, only: %i[new create cancel_checkout]
   before_action :ensure_cart_is_not_empty, only: :new
   before_action :find_order, only: %i[show edit update destroy]
 
@@ -12,16 +14,40 @@ class OrdersController < ApplicationController
 
   def create
     @order = current_user.orders.build(order_params)
-    @order.add_cart_items_from_cart(@cart)
 
-    if @order.save
-      Cart.destroy(session[:cart_id])
-      session[:cart_id] = nil
-      flash[:notice] = 'Thank you! We have already started proccessing your order'
-      redirect_to restaurants_path
+    render :new and return unless @order.valid?
+
+    @order.save
+
+    if @order.pay_type == 'Card'
+      @session = StripeCheckout.create_stripe_checkout(@cart,
+                                                       successful_checkout_url,
+                                                       cancel_checkout_url,
+                                                       current_user)
+      render '/orders/create'
     else
-      render :new
+      @order.add_cart_items_from_cart(@cart)
+      destroy_cart
+      flash[:notice] = 'Thank you! We have already started processing your order'
+      redirect_to restaurants_path
     end
+  end
+
+  def successful_checkout
+    @order = current_user.orders.first
+
+    @order.add_cart_items_from_cart(@cart)
+    destroy_cart
+    flash[:notice] = 'Thank you! We have already started processing your order'
+    redirect_to restaurants_path
+  end
+
+  def cancel_checkout
+    @order = current_user.orders.first
+
+    @order.destroy
+    StripeCheckout.cancel_payment_intent(params[:stripe_session_id])
+    render :new
   end
 
   private
@@ -32,6 +58,11 @@ class OrdersController < ApplicationController
 
   def find_order
     @order = Order.find(params[:id])
+  end
+
+  def destroy_cart
+    Cart.destroy(session[:cart_id])
+    session[:cart_id] = nil
   end
 
   def order_params

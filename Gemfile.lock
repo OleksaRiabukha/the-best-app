@@ -94,6 +94,7 @@ GEM
     byebug (11.1.3)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
+    dante (0.2.0)
     devise (4.8.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -155,6 +156,7 @@ GEM
     mini_mime (1.1.0)
     minitest (5.14.4)
     msgpack (1.4.2)
+    multi_json (1.15.0)
     multipart-post (2.1.1)
     nio4r (2.5.7)
     nokogiri (1.12.1-x86_64-linux)
@@ -273,6 +275,11 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
+    stripe (5.38.0)
+    stripe-ruby-mock (3.1.0.rc3)
+      dante (>= 0.2.0)
+      multi_json (~> 1.0)
+      stripe (> 5, < 6)
     temple (0.8.2)
     thor (1.1.0)
     tilt (2.0.10)
@@ -333,6 +340,8 @@ DEPENDENCIES
   simple_form
   slim-rails
   spring
+  stripe
+  stripe-ruby-mock (~> 3.1.0.rc2)
   turbolinks (~> 5)
   tzinfo-data
   web-console (>= 4.1.0)

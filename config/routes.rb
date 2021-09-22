@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  resources :webhooks, only: [:create]
+
+  get 'successful_checkout', to: 'orders#successful_checkout'
+
+  get 'cancel_checkout', to: 'orders#cancel_checkout'
+    
   resources :users do
     resources :orders, except: [:new]
   end

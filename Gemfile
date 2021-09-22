@@ -20,10 +20,12 @@ gem 'sentry-rails'
 gem 'sentry-ruby'
 gem 'simple_form'
 gem 'slim-rails'
+gem 'stripe'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
 
 group :test do
+  gem 'stripe-ruby-mock', '~> 3.1.0.rc2', require: 'stripe_mock'
   gem 'shoulda-matchers', '~> 5.0'
 end
 
