@@ -7,7 +7,7 @@ export default class extends Controller {
     if (typeof(google) != "undefined") {
       this.initMap()
     }
-  }
+  };
 
   initMap() {
     this.map = new google.maps.Map(this.mapTarget, {
@@ -24,7 +24,7 @@ export default class extends Controller {
       anchorPoint: new google.maps.Point(0, 29),
       draggable: true
     })
-  }
+  };
   placeChanged() {
     let place = this.autocomplete.getPlace()
     
@@ -43,11 +43,11 @@ export default class extends Controller {
     this.marker.setPosition(place.geometry.location)
     this.marker.setVisible(true)
 
-  }
+  };
 
   keydown(event) {
     if (event.key == "Enter") {
-      event.preventDefault()
+      event.preventDefault();
     }
-  }
+  };
 }
