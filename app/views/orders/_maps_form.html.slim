@@ -1,0 +1,15 @@
+= form_with(model: [current_user, @order], local: false, data: { controller: "maps", action: "google-maps-callback@window->maps#initMap" }) do |form|
+ div
+   .form-group.has-validation
+     = form.search_field :address, placeholder: "Your address", class: "form-control address-search #{@order.errors.any? ? 'is-invalid' : ''}", data: { "maps-target": "address", action: "keydown->maps#keydown", "aria-describedby": "validation-feedback"}
+     .invalid-feedback#validation-feedback Please, enter your address 
+   .form-group.mt-2
+     = form.text_field :appartment, class: 'form-control', placeholder: "Your appartment"
+   .form-group.mt-2
+     = form.select(:pay_type, Order::PAYMENT_TYPES, {}, { class: "form-select" })
+   .d-flex.flex-row.mt-2
+     = form.submit "Confirm and Buy", data: { disable_with: "Processing..." }, class: 'btn btn-warning mt-2 d-flex me-auto' 
+     = link_to "Cancel", restaurants_path, class: 'btn btn-secondary mt-2 me-1 d-flex justify-content-end'
+ .row.mt-4
+   .col-12
+     div.map[data-maps-target="map" ]

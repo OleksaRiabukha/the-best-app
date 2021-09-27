@@ -1,11 +1,11 @@
 .container-fluid
   .row.justify-content-center
-    .col-auto
+    .col-6
       table.table.table-borderless.table-hover.caption-top
         caption Your order
         thead
-          tr#table-column-names
-            th Item
+          tr.text-center#table-column-names
+            th.text-start Item
             th Price per unit
             th Quantity
             th Total price
@@ -33,8 +33,8 @@
             td[colspan="2"]
              .text-center = number_to_currency(@cart.total_cart_price)
   .row.justify-content-center.mt-5.mb-5
-    .col-4.me-4
+    .col-6
       .fs-5.text-warning.fw-bold.font-monospace.mb-2
         | Enter your delivery address details
       .form-row#order-form
-        = render 'form'
+        = render 'maps_form'

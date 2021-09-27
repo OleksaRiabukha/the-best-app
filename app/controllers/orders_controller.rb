@@ -1,5 +1,5 @@
 class OrdersController < ApplicationController
-  include StripeCheckout
+  
 
   before_action :authenticate_user!
   before_action :current_cart, only: %i[new create successful_checkout cancel_checkout]
@@ -13,9 +13,10 @@ class OrdersController < ApplicationController
   end
 
   def create
-    @order = current_user.orders.build(order_params)
+    @order = current_user.orders.build(appartment_number: order_params[:appartment], pay_type: order_params[:pay_type])
+    @order.decompose_address(order_params[:address])
 
-    render '/orders/order_form' and return unless @order.valid?
+    render '/orders/maps_form' and return if !@order.valid?
 
     @order.save
     GeocodedAddress.create(order_id: @order.id, city: @order.city, street: @order.street, building: @order.building)
@@ -67,6 +68,6 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:city, :street, :building, :appartment_number, :pay_type)
+    params.require(:order).permit(:address, :appartment, :pay_type)
   end
 end

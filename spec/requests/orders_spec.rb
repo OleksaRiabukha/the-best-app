@@ -3,8 +3,9 @@ require 'rails_helper'
 RSpec.describe 'Orders', type: :request do
   let(:menu_item) { create(:menu_item) }
   let(:cart_item_params) { attributes_for(:cart_item, menu_item_id: menu_item.id) }
-  let(:card_params) { { order: attributes_for(:order, pay_type: 'Card') } }
-  let(:cash_params) { { order: attributes_for(:order, pay_type: 'Cash') } }
+  let(:address) { [Faker::Address.street_name, Faker::Address.building_number, Faker::Address.city] }
+  let(:card_params) { { order: { address: address.join(', '), pay_type: 'Card' } } }
+  let(:cash_params) { { order: { address: address.join(', '), pay_type: 'Cash' } } }
 
   context 'when authenticated user tries to' do
     login_user
@@ -38,7 +39,7 @@ RSpec.describe 'Orders', type: :request do
 
         it 'creates a geocoded address of the order with longitude and latitude' do
           expect(Order.last.geocoded_address.city).not_to be_nil
-          expect(Order.last.geocoded_address.city).to eq([card_params[:order][:city]].join(''))
+          expect(Order.last.geocoded_address.city).to eq(address.last)
           expect(Order.last.geocoded_address.longitude).not_to be_nil
           expect(Order.last.geocoded_address.latitude).not_to be_nil
         end
@@ -80,8 +81,8 @@ RSpec.describe 'Orders', type: :request do
         end
       end
 
-      context 'create new oreder with invalid attributes' do
-        let(:params) { { order: { city: '' } } }
+      context 'create new order with invalid attributes' do
+        let(:params) { { order: { address: '' } } }
 
         before do
           post cart_items_path, params: cart_item_params, xhr: true
@@ -97,7 +98,7 @@ RSpec.describe 'Orders', type: :request do
         end
 
         it 'renders errors' do
-          expect(CGI.unescapeHTML(response.body)).to include("City can't be blank")
+          expect(CGI.unescapeHTML(response.body)).to include('Please, enter your address')
         end
       end
     end

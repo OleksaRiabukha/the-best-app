@@ -80,4 +80,14 @@ RSpec.describe Order, type: :model do
       expect(order.payment_status).to eq('paid')
     end
   end
+
+  describe 'decomposition of address' do
+    let(:address) { [Faker::Address.street_name, Faker::Address.building_number, Faker::Address.city] }
+    let(:order) { build(:order, city: nil, street: nil, building: nil) }
+
+    it 'splits address from a request into street, building, city and assigns values as order attributes' do
+      order.decompose_address(address.join(', '))
+      expect([order.street, order.building, order.city]).to eq(address)
+    end
+  end
 end
