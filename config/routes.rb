@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
 
+  # get '/coupons/new', to: 'coupons#new'
+
+  resources :coupons, only: [:new]
+
   resources :webhooks, only: [:create]
 
   get 'successful_checkout', to: 'orders#successful_checkout'

@@ -12,6 +12,8 @@ nav#navbar.navbar.sticky-top.navbar-expand-lg
             = link_to 'Register', new_user_registration_path, class: 'nav-link text-warning'
         li.nav-item
           = link_to "Restaurants", restaurants_path, class: 'nav-link text-warning'
+        li.nav-item
+          = link_to "Buy Coupon", new_coupon_path, class: 'nav-link text-warning'
         - if user_signed_in? && is_admin?
           li.nav-item
             = link_to "Admin Dashboard", admin_dashboard_path, class: 'nav-link text-warning'
