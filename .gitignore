@@ -42,6 +42,8 @@ yarn-debug.log*
 .env.development
 .env.docker
 .env.test
+.env
+/k8s-manifests/secret.yaml
 
 *.swp
 /config/credentials/production.key
