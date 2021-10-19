@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   resources :webhooks, only: [:create]
 
+  resources :coupons, only: [:new]
+
   get 'successful_checkout', to: 'orders#successful_checkout'
 
   get 'cancel_checkout', to: 'orders#cancel_checkout'
