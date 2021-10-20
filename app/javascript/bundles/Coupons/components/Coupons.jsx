@@ -1,9 +1,18 @@
 import React, { useState } from 'react';
+import ReactOnRails from 'react-on-rails';
+import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import _ from 'lodash/fp';
-import { useForm } from 'react-hook-form';
+import axios from "axios";
+import ErrorModal from './ErrorModal';
 
-const Coupons = () => {
+require('dotenv').config()
+
+const Coupons = (props) => {
+	const [show, setShow] = useState(false);
+	const closeErrorModal = () => setShow(false);
+	const showErrorModal = () => setShow(true);
+
 	const { 
 		register, 
 		handleSubmit, 
@@ -13,7 +22,63 @@ const Coupons = () => {
 		criteriaMode: "all" 
 	});
 
-	const onSubmit = data => console.log(data);
+	const authorizationHeader = {
+		'Authorization': process.env.REACT_APP_API_KEY
+	};
+
+	const csfrHeader = {
+		headers: {
+			'X-CSRF-Token': ReactOnRails.authenticityToken()
+		}
+	};
+
+
+	const addCoupontoUser = (coupon) => {
+		const requestBody = {
+			coupon: {
+				coupon_number: coupon.data.attributes.coupon_number,
+				amount: coupon.data.attributes.amount
+			}
+		}
+
+		axios
+			.post(props.path, requestBody, csfrHeader)
+			.then(function (response){
+				if (response.status === 200) {
+				  window.location.href= response.data.redirect_link;
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+				showErrorModal();
+			});
+	};
+
+	const onSubmit = (data) => {
+		const requestBody = {
+			coupon: {
+				amount: data.amount,
+				for_present: data.forPresent
+			}
+		}
+
+		const couponUrl = process.env.REACT_APP_COUPON_URL
+
+		axios
+			.post(couponUrl, requestBody, {
+				headers: authorizationHeader
+			})
+			.then(function (response){
+				if (response.status === 200) {
+					addCoupontoUser(response.data);
+				}
+			})
+			.catch(function (error) {
+				console.log(error);
+				showErrorModal();
+			});
+	};
+
 
   return (
 		<div className="form-group col-md-6 d-flex justify-content-center "> 
@@ -46,10 +111,10 @@ const Coupons = () => {
 					<input
 						className="form-check-input"
 						id="coupon-check"
-						name="for_present"
+						name="forPresent"
 						type="checkbox"
 						value="true"
-						{...register("for_present")}
+						{...register("forPresent")}
 					/>
 					<label
 						className="form-check-label"
@@ -60,6 +125,11 @@ const Coupons = () => {
 				</div>
 				<button type="submit" className="btn btn-warning">Buy</button>
 			</form>
+			<ErrorModal 
+				show={show} 
+				closeErrorModal={closeErrorModal} 
+				showErrorModal={showErrorModal}
+			/>
 		</div>
   );
 };
