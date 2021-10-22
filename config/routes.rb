@@ -5,9 +5,13 @@ Rails.application.routes.draw do
 
   resources :coupons, only: %i[new create]
 
-  get 'successful_checkout', to: 'orders#successful_checkout'
+  get 'successful_coupon_checkout', to: 'coupons#successful_coupon_checkout'
 
-  get 'cancel_checkout', to: 'orders#cancel_checkout'
+  get 'cancel_coupon_checkout', to: 'coupons#cancel_coupon_checkout'
+
+  get 'successful_order_checkout', to: 'orders#successful_order_checkout'
+
+  get 'cancel_order_checkout', to: 'orders#cancel_order_checkout'
 
   resources :users do
     resources :orders, except: [:new]

@@ -2,9 +2,9 @@ class OrdersController < ApplicationController
   
 
   before_action :authenticate_user!
-  before_action :current_cart, only: %i[new create successful_checkout cancel_checkout]
+  before_action :current_cart, only: %i[new create successful_order_checkout cancel_order_checkout]
 
-  before_action :current_cart_items, only: %i[new create cancel_checkout]
+  before_action :current_cart_items, only: %i[new create cancel_order_checkout]
   before_action :ensure_cart_is_not_empty, only: :new
   before_action :find_order, only: %i[show edit update destroy]
 
@@ -22,9 +22,9 @@ class OrdersController < ApplicationController
     GeocodedAddress.create(order_id: @order.id, city: @order.city, street: @order.street, building: @order.building)
 
     if @order.pay_type == 'Card'
-      @session = StripeCheckout.create_stripe_checkout(@cart,
-                                                       successful_checkout_url,
-                                                       cancel_checkout_url,
+      @session = StripeCheckout.create_stripe_checkout(@cart.total_cart_price,
+                                                       successful_order_checkout_url,
+                                                       cancel_order_checkout_url,
                                                        current_user)
       render '/orders/create'
     else
@@ -35,7 +35,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  def successful_checkout
+  def successful_order_checkout
     @order = current_user.orders.first
 
     @order.add_cart_items_from_cart(@cart)
@@ -44,7 +44,7 @@ class OrdersController < ApplicationController
     redirect_to restaurants_path
   end
 
-  def cancel_checkout
+  def cancel_order_checkout
     @order = current_user.orders.first
 
     @order.destroy

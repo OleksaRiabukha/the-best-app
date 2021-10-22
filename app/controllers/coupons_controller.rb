@@ -4,8 +4,21 @@ class CouponsController < ApplicationController
   def new; end
 
   def create
-    render json: {status: 200, redirect_link: restaurants_path}.to_json
-    flash[:notice] = "You have successfully bought a coupon!"
+    @session = StripeCheckout.create_stripe_checkout(coupon_params[:amount],
+                                                     successful_coupon_checkout_url,
+                                                     cancel_coupon_checkout_url,
+                                                     current_user)
+    render json: { status: 200, session: @session }.to_json
+  end
+
+  def successful_coupon_checkout
+    flash[:notice] = 'Thank you! We have added coupon to our wallet'
+    redirect_to restaurants_path
+  end
+
+  def cancel_coupon_checkout
+    StripeCheckout.cancel_payment_intent(params[:stripe_session_id])
+    redirect_to new_coupon_path
   end
 
   private
