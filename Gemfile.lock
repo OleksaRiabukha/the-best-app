@@ -342,6 +342,7 @@ DEPENDENCIES
   dotenv-rails (~> 2.1, >= 2.1.1)
   factory_bot_rails
   faker
+  faraday
   font-awesome-rails
   geocoder
   jbuilder (~> 2.7)

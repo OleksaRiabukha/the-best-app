@@ -23,9 +23,11 @@ class OrdersController < ApplicationController
 
     if @order.pay_type == 'Card'
       @session = StripeCheckout.create_stripe_checkout(@cart.total_cart_price,
+                                                       'order',
                                                        successful_order_checkout_url,
                                                        cancel_order_checkout_url,
-                                                       current_user)
+                                                       current_user,
+                                                       nil)
       render '/orders/create'
     else
       @order.add_cart_items_from_cart(@cart)

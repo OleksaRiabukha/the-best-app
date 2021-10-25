@@ -7,6 +7,7 @@ gem 'active_storage_validations'
 gem 'aws-sdk-s3'
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
+gem 'faraday'
 gem 'font-awesome-rails'
 gem 'geocoder'
 gem 'jbuilder', '~> 2.7'
@@ -16,6 +17,7 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'pundit'
 gem 'rails', '~> 6.1.4'
+gem 'react_on_rails'
 gem 'sass-rails', '>= 6'
 gem 'sentry-rails'
 gem 'sentry-ruby'
@@ -24,18 +26,15 @@ gem 'slim-rails'
 gem 'stripe'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
-gem 'react_on_rails'
-gem 'mini_racer'
 
 group :test do
-  gem 'stripe-ruby-mock', '~> 3.1.0.rc2', require: 'stripe_mock'
   gem 'shoulda-matchers', '~> 5.0'
+  gem 'stripe-ruby-mock', '~> 3.1.0.rc2', require: 'stripe_mock'
 end
 
 group :development, :test do
   gem 'annotate'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-  gem 'pry'
   gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
   gem 'factory_bot_rails'
   gem 'faker'
@@ -52,5 +51,5 @@ group :development do
   gem 'web-console', '>= 4.1.0'
 end
 
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'mini_racer', platforms: :ruby
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

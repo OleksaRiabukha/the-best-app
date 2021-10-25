@@ -4,10 +4,13 @@ class CouponsController < ApplicationController
   def new; end
 
   def create
+    coupon = coupon_params
     @session = StripeCheckout.create_stripe_checkout(coupon_params[:amount],
+                                                     'coupon',
                                                      successful_coupon_checkout_url,
                                                      cancel_coupon_checkout_url,
-                                                     current_user)
+                                                     current_user,
+                                                     coupon)
     render json: { status: 200, session: @session }.to_json
   end
 
@@ -24,6 +27,6 @@ class CouponsController < ApplicationController
   private
 
   def coupon_params
-    params.require(:coupon).permit(:coupon_number, :amount)
+    params.require(:coupon).permit(:amount, :for_present)
   end
 end

@@ -1,5 +1,5 @@
 module StripeCheckout
-  def self.create_stripe_checkout(amount, success_url, cancel_url, current_user)
+  def self.create_stripe_checkout(amount, payment_for, success_url, cancel_url, current_user, model)
     amount = (amount.to_f.round(2) * 100).to_i
 
     Stripe::Checkout::Session.create({ customer: current_user.stripe_customer_id,
@@ -10,9 +10,12 @@ module StripeCheckout
                                          currency: 'usd',
                                          quantity: 1
                                        }],
+                                       payment_intent_data: {
+                                         metadata: { payment_for: payment_for, model: model.to_json }
+                                       },
                                        mode: 'payment',
                                        success_url: success_url,
-                                       cancel_url: cancel_url + '?stripe_session_id={CHECKOUT_SESSION_ID}'})
+                                       cancel_url: cancel_url + '?stripe_session_id={CHECKOUT_SESSION_ID}' })
   end
 
   def self.cancel_payment_intent(session_id)
