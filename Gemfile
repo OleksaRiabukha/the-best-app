@@ -24,6 +24,8 @@ gem 'slim-rails'
 gem 'stripe'
 gem 'turbolinks', '~> 5'
 gem 'webpacker', '~> 5.0'
+gem 'react_on_rails'
+gem 'mini_racer'
 
 group :test do
   gem 'stripe-ruby-mock', '~> 3.1.0.rc2', require: 'stripe_mock'
@@ -50,3 +52,4 @@ group :development do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'mini_racer', platforms: :ruby
