@@ -47,7 +47,6 @@ class Order < ApplicationRecord
   validates :city, :street, :building, presence: true
   validates :pay_type, inclusion: pay_types.keys
 
-
   def add_cart_items_from_cart(cart)
     cart.cart_items.each do |item|
       item.cart_id = nil

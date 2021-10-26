@@ -3,4 +3,4 @@ p.fs-2.text-center.text-warning.fw-bolder.font-monospace.mt-5 Buy coupon!
   .col-lg-12.offset-lg-3
     .row.justify-content-center
       .form-row
-        = react_component("Coupons", prerender: false)
+        = react_component("Coupons", props: { user: current_user, path: coupons_url  }, prerender: false)

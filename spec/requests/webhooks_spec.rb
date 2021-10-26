@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Webhooks', type: :request do
-  describe 'when stripe sends charge.succedeed event' do
+  describe 'when stripe sends payment_intent.succedeed event' do
     let(:user) { create(:user) }
     let(:order) { create(:order, pay_type: 'Card') }
-    let(:event) { StripeMock.mock_webhook_event('charge.succeeded', customer: user.stripe_customer_id) }
+    let(:event) { StripeMock.mock_webhook_event('payment_intent.succeeded', customer: user.stripe_customer_id, metadata: { payment_for: 'order' } ) }
     let(:header) { StripeWebhookHeader.generate_request_header(event) }
 
     before do

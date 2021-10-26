@@ -18,13 +18,20 @@ class WebhooksController < ApplicationController
       p e
     end
 
-    case event.type
-    when 'charge.succeeded'
-      session = event.data.object
+    session = stripe_session(event)
+    payment_succeeded = 'payment_intent.succeeded'
+    payment_for = payment(session) if event.type == payment_succeeded
 
-      find_order(session)
+    case [event.type, payment_for]
+    when [payment_succeeded, 'order']
+      order(session)
+
       @order.paid
       @order.add_stripe_payment_id(session.id)
+    when [payment_succeeded, 'coupon']
+      params = coupon_params(session)
+
+      coupon = CouponCreator.create(params['amount'], params['for_present'])
     end
 
     render json: { message: 'success' }
@@ -32,8 +39,20 @@ class WebhooksController < ApplicationController
 
   private
 
-  def find_order(session)
+  def stripe_session(event)
+    event.data.object
+  end
+
+  def order(session)
     @user = User.find_by(stripe_customer_id: session.customer)
     @order = @user.orders.first
+  end
+
+  def payment(session)
+    session.metadata.payment_for
+  end
+
+  def coupon_params(session)
+    JSON.parse(session.metadata.model)
   end
 end
