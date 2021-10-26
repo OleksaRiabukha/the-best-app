@@ -1,6 +1,6 @@
 module StripeCheckout
   def self.create_stripe_checkout(amount, payment_for, success_url, cancel_url, current_user, model)
-    amount = (amount.to_f.round(2) * 100).to_i
+    amount = (amount.to_d.round(2) * 100).to_i
 
     Stripe::Checkout::Session.create({ customer: current_user.stripe_customer_id,
                                        payment_method_types: [:card],

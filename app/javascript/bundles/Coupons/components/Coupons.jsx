@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import ReactOnRails from 'react-on-rails';
-import {useForm} from 'react-hook-form';
-import {ErrorMessage} from '@hookform/error-message';
+import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 import _ from 'lodash/fp';
 import axios from 'axios';
 import ErrorModal from './ErrorModal';
@@ -28,8 +28,7 @@ const Coupons = (props) => {
     },
   };
 
-
-  const addCoupontoUser = async (data) => {
+  const addCouponToUser = async (data) => {
     const requestBody = {
       coupon: {
         amount: data.amount,
@@ -52,7 +51,7 @@ const Coupons = (props) => {
 
   return (
     <div className="form-group col-md-6 d-flex justify-content-center ">
-      <form onSubmit={handleSubmit(addCoupontoUser)}>
+      <form onSubmit={handleSubmit(addCouponToUser)}>
         <div className="mb-3">
           <input
             className="form-control"

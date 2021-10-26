@@ -34,7 +34,10 @@ class CouponCreator
     def connect
       Faraday.new(
         url: URL,
-        headers: { 'Content-Type' => 'application/json', 'Authorization' => API_KEY }
+        headers: {
+          'Content-Type' => 'application/json',
+          'Authorization' => API_KEY
+        }
       )
     end
   end
