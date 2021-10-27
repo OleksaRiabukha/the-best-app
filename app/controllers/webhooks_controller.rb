@@ -29,9 +29,10 @@ class WebhooksController < ApplicationController
       @order.paid
       @order.add_stripe_payment_id(session.id)
     when [payment_succeeded, 'coupon']
-      params = coupon_params(session)
+      user = user(session)
+      coupon_attributes = create_coupon(session)
 
-      coupon = CouponCreator.create(params['amount'], params['for_present'])
+      Coupon.save_coupon(coupon_attributes, user)
     end
 
     render json: { message: 'success' }
@@ -39,20 +40,31 @@ class WebhooksController < ApplicationController
 
   private
 
+  def create_coupon(session)
+    params = coupon_params(session)
+    coupon = CouponCreator.create(params['amount'], params['for_present'])
+
+    coupon.deep_symbolize_keys.dig(:data, :attributes)
+  end
+
   def stripe_session(event)
     event.data.object
   end
 
   def order(session)
-    @user = User.find_by(stripe_customer_id: session.customer)
-    @order = @user.orders.first
+    user = user(session)
+    @order = user.orders.first
   end
 
   def payment(session)
     session.metadata.payment_for
   end
 
+  def user(session)
+    User.find_by(stripe_customer_id: session.customer)
+  end
+
   def coupon_params(session)
-    JSON.parse(session.metadata.model)
+    session.metadata.model
   end
 end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_20_075106) do
+ActiveRecord::Schema.define(version: 2021_10_27_072904) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,6 +68,18 @@ ActiveRecord::Schema.define(version: 2021_09_20_075106) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["name"], name: "index_categories_on_name", unique: true
+  end
+
+  create_table "coupons", force: :cascade do |t|
+    t.string "coupon_number", null: false
+    t.decimal "initial_amount", precision: 8, scale: 2, null: false
+    t.decimal "amount_left", precision: 8, scale: 2
+    t.boolean "for_present"
+    t.bigint "user_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["coupon_number"], name: "index_coupons_on_coupon_number", unique: true
+    t.index ["user_id"], name: "index_coupons_on_user_id"
   end
 
   create_table "geocoded_addresses", force: :cascade do |t|
@@ -158,6 +170,7 @@ ActiveRecord::Schema.define(version: 2021_09_20_075106) do
   add_foreign_key "cart_items", "carts"
   add_foreign_key "cart_items", "menu_items"
   add_foreign_key "cart_items", "orders"
+  add_foreign_key "coupons", "users"
   add_foreign_key "geocoded_addresses", "orders"
   add_foreign_key "menu_items", "restaurants"
   add_foreign_key "orders", "users"

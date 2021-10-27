@@ -19,19 +19,23 @@
 # Foreign Keys
 #
 #  fk_rails_...  (order_id => orders.id)
-#
+
 require 'rails_helper'
 
 RSpec.describe GeocodedAddress, type: :model do
-  let(:geocoded_address) { create(:geocoded_address) }
-
   describe 'associations' do
     it { is_expected.to belong_to(:order) }
   end
 
   describe 'creation of a full address' do
+    let(:params) { attributes_for(:geocoded_address) }
+    let(:geocoded_address) do
+      create(:geocoded_address, city: params[:city], street: params[:street], building: params[:building])
+    end
+
     it 'creates a full address with orders city, street and building details' do
-      expect(geocoded_address.address).to eq("#{geocoded_address.city}, #{geocoded_address.street}, #{geocoded_address.building}")
+      GeocoderStub.stub(params[:city], params[:street], params[:building])
+      expect(geocoded_address.address).to eq("#{params[:city]}, #{params[:street]}, #{params[:building]}")
     end
   end
 end

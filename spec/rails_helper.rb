@@ -37,9 +37,8 @@ RSpec.configure do |config|
   ReactOnRails::TestHelper.configure_rspec_to_compile_assets(config)
 
   config.include Devise::Test::IntegrationHelpers, type: :request
-  config.extend ControllerMacros, type:  :request
+  config.extend ControllerMacros, type: :request
   config.include FactoryBot::Syntax::Methods
-
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
@@ -65,7 +64,6 @@ RSpec.configure do |config|
   #
   # The different available types are documented in the features, such as in
   # https://relishapp.com/rspec/rspec-rails/docs
-
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!

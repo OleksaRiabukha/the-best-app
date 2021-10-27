@@ -1,5 +1,4 @@
 class OrdersController < ApplicationController
-  
 
   before_action :authenticate_user!
   before_action :current_cart, only: %i[new create successful_order_checkout cancel_order_checkout]
@@ -52,7 +51,7 @@ class OrdersController < ApplicationController
     @order.destroy
     StripeCheckout.cancel_payment_intent(params[:stripe_session_id])
     redirect_to orders_new_path
- end
+  end
 
   private
 
