@@ -28,17 +28,19 @@ class Coupon < ApplicationRecord
 
   def self.save_coupon(coupon_params, user)
     coupon_number, initial_amount, for_present = coupon_params.values_at(:coupon_number, :amount, :for_present)
-    coupon = Coupon.new(coupon_number: coupon_number,
-                        initial_amount: initial_amount,
-                        amount_left: initial_amount,
-                        for_present: for_present,
-                        user_id: user.id)
+    coupon = Coupon.new(
+      coupon_number: coupon_number,
+      initial_amount: initial_amount,
+      amount_left: initial_amount,
+      for_present: for_present,
+      user_id: user.id
+    )
 
-    if coupon.valid?
-      coupon.save
-    else
+    if !coupon.valid?
       logger.error "Encountered errors: #{coupon.errors.full_messages}"
       throw :abort
     end
+
+    coupon.save
   end
 end

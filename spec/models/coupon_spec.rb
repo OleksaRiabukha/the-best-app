@@ -25,6 +25,7 @@ require 'rails_helper'
 RSpec.describe Coupon, type: :model do
   describe 'validations' do
     subject { create(:coupon) }
+
     it { is_expected.to validate_presence_of(:coupon_number) }
     it { is_expected.to validate_presence_of(:initial_amount) }
     it { is_expected.to validate_uniqueness_of(:coupon_number) }
