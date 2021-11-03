@@ -34,6 +34,7 @@ class User < ApplicationRecord
   before_save :make_admin!
   after_create :assign_stripe_id
 
+  has_many :coupons
   has_many :orders
 
   devise :database_authenticatable, :registerable,

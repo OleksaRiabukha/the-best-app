@@ -30,6 +30,7 @@ gem 'webpacker', '~> 5.0'
 group :test do
   gem 'shoulda-matchers', '~> 5.0'
   gem 'stripe-ruby-mock', '~> 3.1.0.rc2', require: 'stripe_mock'
+  gem 'webmock'
 end
 
 group :development, :test do
