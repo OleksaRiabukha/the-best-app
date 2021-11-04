@@ -21,6 +21,11 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Coupon < ApplicationRecord
+  default_scope { order(created_at: :desc) }
+
+  scope :available, -> { where('amount_left > 0') }
+  scope :used, -> { where('amount_left = 0.0') }
+
   belongs_to :user, optional: true
 
   validates :coupon_number, :initial_amount, presence: true
@@ -42,5 +47,15 @@ class Coupon < ApplicationRecord
     end
 
     coupon.save
+  end
+
+  def self.retreive_coupons(user_id, active)
+    current_user = User.find(user_id)
+    coupons = current_user.coupons
+    active = ActiveModel::Type::Boolean.new.cast(active)
+
+    return coupons.available if active
+
+    coupons.used
   end
 end

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :orders, except: [:new]
+    resources :coupons, only: [:index]
   end
 
   get '/orders/new', to: 'orders#new'
