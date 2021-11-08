@@ -21,7 +21,6 @@ const Coupons = (props) => {
   } = useForm({
     mode: 'onBlur',
     criteriaMode: 'all',
-    amount: 0,
   });
 
   const csfrHeader = {

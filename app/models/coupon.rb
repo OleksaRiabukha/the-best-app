@@ -24,7 +24,7 @@ class Coupon < ApplicationRecord
   default_scope { order(created_at: :desc) }
 
   scope :available, -> { where('amount_left > 0') }
-  scope :used, -> { where('amount_left = 0.0') }
+  scope :used, -> { where('amount_left = 0') }
 
   belongs_to :user, optional: true
 
