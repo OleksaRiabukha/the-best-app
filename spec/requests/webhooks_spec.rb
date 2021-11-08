@@ -29,7 +29,7 @@ RSpec.describe 'Webhooks', type: :request do
   describe 'when stripe sends payment_intent.succedded event for couponl purchase' do
     let(:coupon_params) { attributes_for(:coupon, :coupon_params_for_request) }
     let(:model) { { amount: coupon_params[:amount], for_present: coupon_params[:for_present] } }
-    let(:metadata) { { payment_for: 'coupon', model: model } }
+    let(:metadata) { { payment_for: 'coupon', model: model.to_json } }
     let(:event) { StripeMock.mock_webhook_event(payment_succeeded, customer: customer, metadata: metadata) }
 
     before do
