@@ -65,6 +65,6 @@ class WebhooksController < ApplicationController
   end
 
   def coupon_params(session)
-    session.metadata.model
+    JSON.parse(session.metadata.model)
   end
 end

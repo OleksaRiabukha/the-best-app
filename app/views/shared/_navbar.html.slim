@@ -28,7 +28,7 @@ nav#navbar.navbar.sticky-top.navbar-expand-lg
             .text-warning#link-to-user-profile
               = link_to current_user.full_name, user_path(current_user)
           li.pe-2
-            .text-warning
+            .text-warning#link-to-user-profile
               = link_to "Your Coupons", user_coupons_path(current_user)
           li.ps-2
             .text-warning#link-to-sign-out

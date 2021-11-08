@@ -6,17 +6,14 @@ import CouponsList from './CouponsList';
 const CouponsIndexPage = (props) => {
   const [coupons, setCoupons] = useState([]);
   const [availability, setAvailability] = useState(true);
+  const available = () => setAvailability(true);
+  const used = () => setAvailability(false);
 
   useEffect(() => {
-    getCouponsFromAPI();
+    getCouponsFromApi();
   }, [availability]);
 
-
-  const changeAvailability = (e) => {
-    setAvailability(e.target.value);
-  }
-
-  const getCouponsFromAPI = async () => {
+  const getCouponsFromApi = async () => {
     const params = {scope: availability};
 
     await axios
@@ -32,28 +29,60 @@ const CouponsIndexPage = (props) => {
         });
   };
 
+  const redirectToBuyCoupon = (e) => {
+    window.location.href = '/coupons/new';
+  };
+
+  const emptyList = () => {
+    return (
+      <div className="row">
+        <p className="text-center font-monospace fw-bold fs-4 mt-5">
+          You do not have coupons yet!
+        </p>
+        <p className="d-flex justify-content-center">
+          <button
+            className="btn btn-warning"
+            type="button"
+            onClick={(e) => {
+              redirectToBuyCoupon(e);
+            }}
+          >
+            Buy Coupons Here!
+          </button>
+        </p>
+      </div>
+    );
+  };
+
+  const couponsList = () => {
+    return (
+      <div>
+        <div>
+          <button
+            type="button"
+            className="btn btn-warning me-1"
+            onClick={() => available()}
+          >
+            Show Available
+          </button>
+          <button
+            type="button"
+            className="btn btn-warning"
+            onClick={() => used()}
+          >
+            Show Used
+          </button>
+        </div>
+        <div className="row mt-2">
+          <CouponsList coupons={coupons} availability={availability} />
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div>
-      <div>
-        <button type="button"
-          onClick={(e) => changeAvailability(e)}
-          value={true}
-          className="btn btn-warning"
-        >
-          Active
-        </button>
-        <button
-          type="button"
-          onClick={(e) => changeAvailability(e)}
-          value={false}
-          className="btn btn-warning"
-        >
-          Used
-        </button>
-      </div>
-      <div>
-        <CouponsList coupons={coupons}/>
-      </div>
+    <div className="container mt-4">
+      {coupons.length > 0 ? couponsList() : emptyList()}
     </div>
   );
 };

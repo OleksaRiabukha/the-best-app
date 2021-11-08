@@ -1,20 +1,28 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Table } from 'react-bootstrap';
+
+import UsedCouponsList from './UsedCouponsList.jsx';
+import ActiveCouponsList from './ActiveCouponsList.jsx';
 
 const CouponsList = (props) => {
-  const {coupons} = props;
+  const {coupons, availability } = props;
 
-  if (coupons !== undefined ) {
-    return (
-      <div>
-        <ul>
-          {coupons.map((coupon) => (
-            <li key={coupon.id}>
-              {coupon.coupon_number}
-            </li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
+  const renderCouponsList = () => {
+    switch (availability) {
+      case true:
+        return <ActiveCouponsList coupons={coupons} />;
+      case false:
+        return <UsedCouponsList coupons={coupons} />;
+      default:
+        return null;
+    }
+  };
+
+
+  return (
+    <div>
+      {renderCouponsList()}
+    </div>
+  );
 };
 export default CouponsList;

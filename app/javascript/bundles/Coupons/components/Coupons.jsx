@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { ErrorMessage } from '@hookform/error-message';
 import _ from 'lodash/fp';
 import axios from 'axios';
+
 import ErrorModal from './ErrorModal';
 
 require('dotenv').config();
@@ -20,6 +21,7 @@ const Coupons = (props) => {
   } = useForm({
     mode: 'onBlur',
     criteriaMode: 'all',
+    amount: 0,
   });
 
   const csfrHeader = {
