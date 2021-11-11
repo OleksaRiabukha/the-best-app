@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Spinner from 'react-bootstrap/Spinner'
+
 import CouponsList from './CouponsList';
 
 const CouponsIndexPage = (props) => {
@@ -95,7 +96,7 @@ const CouponsIndexPage = (props) => {
   };
 
   const renderList = () => {
-    if (coupons.length == 0) {
+    if (coupons.length === 0) {
       return emptyList();
     } else {
       return couponsList();
@@ -104,7 +105,6 @@ const CouponsIndexPage = (props) => {
 
   return (
     <div className="container mt-4">
-      {/* {coupons.length > 0 ? couponsList() : emptyList()} */}
       {loaded ? renderList() : spinner()}
     </div>
   );
