@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
+import Spinner from 'react-bootstrap/Spinner'
 import CouponsList from './CouponsList';
 
 const CouponsIndexPage = (props) => {
   const [coupons, setCoupons] = useState([]);
   const [availability, setAvailability] = useState(true);
+  const [loaded, setLoaded] = useState(false);
+
   const available = () => setAvailability(true);
   const used = () => setAvailability(false);
 
   useEffect(() => {
     getCouponsFromApi();
+    setLoaded(false);
   }, [availability]);
 
   const getCouponsFromApi = async () => {
@@ -22,6 +25,7 @@ const CouponsIndexPage = (props) => {
         .then(function(response) {
           if (response.status === 200) {
             setCoupons(response.data.coupons);
+            setLoaded(true);
           }
         })
         .catch(function(error) {
@@ -54,6 +58,16 @@ const CouponsIndexPage = (props) => {
     );
   };
 
+  const spinner = () => {
+    return (
+      <div className="d-flex flex-lg-column justify-content-center align-items-center mt-5" id="spinner">
+        <Spinner animation="border" role="status" variant="warning">
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+      </div>
+    );
+  };
+
   const couponsList = () => {
     return (
       <div>
@@ -80,9 +94,18 @@ const CouponsIndexPage = (props) => {
     );
   };
 
+  const renderList = () => {
+    if (coupons.length == 0) {
+      return emptyList();
+    } else {
+      return couponsList();
+    }
+  };
+
   return (
     <div className="container mt-4">
-      {coupons.length > 0 ? couponsList() : emptyList()}
+      {/* {coupons.length > 0 ? couponsList() : emptyList()} */}
+      {loaded ? renderList() : spinner()}
     </div>
   );
 };
