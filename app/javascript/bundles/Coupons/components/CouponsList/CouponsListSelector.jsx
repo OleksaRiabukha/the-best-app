@@ -4,9 +4,8 @@ import { Table } from 'react-bootstrap';
 import UsedCouponsList from './UsedCouponsList.jsx';
 import ActiveCouponsList from './ActiveCouponsList.jsx';
 
-const CouponsList = (props) => {
-  const {coupons, availability } = props;
-
+const CouponsListSelector = (props) => {
+  const {coupons, availability} = props;
   const renderCouponsList = () => {
     switch (availability) {
       case true:
@@ -18,11 +17,11 @@ const CouponsList = (props) => {
     }
   };
 
-
   return (
     <div>
       {renderCouponsList()}
     </div>
   );
 };
-export default CouponsList;
+
+export default CouponsListSelector;

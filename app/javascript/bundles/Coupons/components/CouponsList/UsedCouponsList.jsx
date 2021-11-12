@@ -3,7 +3,6 @@ import { Table } from 'react-bootstrap';
 import NumberFormat from 'react-number-format';
 import Moment from 'react-moment';
 
-
 const UsedCouponsList = (props) => {
   const {coupons} = props;
 

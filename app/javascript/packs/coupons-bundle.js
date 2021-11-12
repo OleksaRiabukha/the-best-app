@@ -1,9 +1,9 @@
 import ReactOnRails from 'react-on-rails';
 
 import Coupons from '../bundles/Coupons/components/Coupons';
-import CouponsIndexPage from '../bundles/Coupons/components/CouponsIndexPage.jsx';
+import CouponsPage from '../bundles/Coupons/components/CouponsPage.jsx';
 
 ReactOnRails.register({
   Coupons,
-  CouponsIndexPage,
+  CouponsPage,
 });

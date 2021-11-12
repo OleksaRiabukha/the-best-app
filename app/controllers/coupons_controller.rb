@@ -1,8 +1,6 @@
 class CouponsController < ApplicationController
   before_action :authenticate_user!
 
-  def new; end
-
   def index
     coupons = Coupon.retreive_coupons(params[:user_id], params[:scope])
 
@@ -11,6 +9,8 @@ class CouponsController < ApplicationController
       format.json { render json: { status: 200, coupons: coupons }.to_json }
     end
   end
+
+  def new; end
 
   def create
     coupon = coupon_params
