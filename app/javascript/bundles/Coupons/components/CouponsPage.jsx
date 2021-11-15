@@ -15,11 +15,10 @@ const CouponsPage = (props) => {
     setLoaded(false);
   }, [availability]);
 
-  const getCouponsFromApi = async () => {
+  const getCouponsFromApi = () => {
     const params = {scope: availability};
-    await axios
-        .get(props.path.concat('.json'), {params: params},
-        )
+    axios
+        .get(props.path.concat('.json'), {params: params})
         .then((response) => {
           setCoupons(response.data.coupons);
           setLoaded(true);
