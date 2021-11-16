@@ -6,6 +6,7 @@ import ActiveCouponsList from './ActiveCouponsList.jsx';
 
 const CouponsListSelector = (props) => {
   const {coupons, availability} = props;
+
   return (
     <div>
       {availability ? <ActiveCouponsList coupons={coupons} /> : <UsedCouponsList coupons={coupons} />}

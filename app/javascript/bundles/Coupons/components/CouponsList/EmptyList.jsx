@@ -14,9 +14,7 @@ const EmptyList = () => {
         <button
           className="btn btn-warning"
           type="button"
-          onClick={() => {
-            redirectToBuyCoupon();
-          }}
+          onClick={() => {redirectToBuyCoupon();}}
         >
           Buy Coupons Here!
         </button>
