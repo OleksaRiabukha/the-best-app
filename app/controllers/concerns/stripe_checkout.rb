@@ -17,7 +17,7 @@ module StripeCheckout
         },
         mode: 'payment',
         success_url: success_url,
-        cancel_url: cancel_url + '?stripe_session_id={CHECKOUT_SESSION_ID}' 
+        cancel_url: cancel_url + '?stripe_session_id={CHECKOUT_SESSION_ID}'
       }
     )
   end
